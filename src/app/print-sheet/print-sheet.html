@@ -1,0 +1,120 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     TOOLBAR — screen only, hidden when printing
+     ═══════════════════════════════════════════════════════════════════ -->
+<aside class="toolbar no-print" aria-label="Muster Roll toolbar">
+
+  <div class="toolbar__brand">
+    <h1 class="toolbar__app-name">The Muster Roll</h1>
+    <p class="toolbar__tagline">Know your soldiers. Know the rules.</p>
+  </div>
+
+  <div class="toolbar__import">
+    <label class="toolbar__label" for="json-paste">
+      Paste warband export JSON
+    </label>
+    <textarea
+      id="json-paste"
+      class="toolbar__textarea"
+      rows="8"
+      spellcheck="false"
+      autocomplete="off"
+      placeholder='{"warband-name": "…", "models": […]}'
+      (input)="onInput($event)"
+    ></textarea>
+
+    @if (parseError(); as err) {
+      <p class="toolbar__error" role="alert">
+        <strong>Error:</strong> {{ err }}
+      </p>
+    }
+
+    <div class="toolbar__actions">
+      <button class="toolbar__btn toolbar__btn--primary" (click)="render()">
+        Render
+      </button>
+      <button
+        class="toolbar__btn"
+        (click)="print()"
+        [disabled]="!warband()"
+        title="Render a warband first"
+      >
+        Print
+      </button>
+    </div>
+  </div>
+
+  @if (warband(); as wb) {
+    <p class="toolbar__status">
+      {{ wb.name }} &mdash; {{ wb.models.length }}
+      {{ wb.models.length === 1 ? 'model' : 'models' }}
+    </p>
+  }
+
+  <!-- ── Keyword toggle panel ─────────────────────────────────────────── -->
+  @if (allWarbandKeywords().length) {
+    <section class="kw-panel">
+      <h2 class="kw-panel__title">I Know These Rules</h2>
+      <p class="kw-panel__hint">
+        Uncheck a rule to hide its definition text on the cards.
+        The rule name still appears — only the explanation is hidden.
+      </p>
+      <div class="kw-panel__bulk">
+        <button class="toolbar__btn" (click)="showAllDefs()">Show All</button>
+        <button class="toolbar__btn" (click)="hideAllDefs()">Hide All</button>
+      </div>
+      <ul class="kw-panel__list">
+        @for (kw of allWarbandKeywords(); track kw.exportId) {
+          <li class="kw-panel__item">
+            <label class="kw-panel__label">
+              <input
+                class="kw-panel__checkbox"
+                type="checkbox"
+                [checked]="kwToggle.isVisible(kw.exportId)"
+                (change)="kwToggle.toggle(kw.exportId)"
+              >
+              {{ kw.exportName }}
+            </label>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PRINT CONTENT — visible on screen as preview, printed as cards
+     ═══════════════════════════════════════════════════════════════════ -->
+@if (warband(); as wb) {
+  <main class="print-content">
+    @for (pair of modelPairs(); track $index) {
+      <div class="card-page">
+
+        <!-- Left card -->
+        <div class="card">
+          <tc-model-card [model]="pair[0]" [warbandName]="wb.name" />
+        </div>
+
+        <!-- Vertical cut line -->
+        <div class="cut-line" aria-hidden="true">
+          <span class="cut-line__scissors">✂</span>
+        </div>
+
+        <!-- Right card (placeholder when model count is odd) -->
+        @if (pair[1]) {
+          <div class="card">
+            <tc-model-card [model]="pair[1]" [warbandName]="wb.name" />
+          </div>
+        } @else {
+          <div class="card card--empty"></div>
+        }
+
+      </div>
+    }
+  </main>
+
+} @else {
+  <div class="empty-state no-print">
+    <p>Paste your warband export JSON in the panel on the left, then click <strong>Render</strong>.</p>
+  </div>
+}
