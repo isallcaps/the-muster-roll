@@ -1,0 +1,20 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: black;
+}
+
+@page {
+  size: landscape;
+  margin: 8mm;
+}
+
+@media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+}

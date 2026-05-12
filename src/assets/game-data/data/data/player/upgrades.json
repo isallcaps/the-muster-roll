@@ -1,0 +1,1269 @@
+[
+    {
+        "id": "up_heretictroopertolegionnareranged",
+        "type": "Upgrade",
+        "name": "Heretic Legionnare Ranged",
+        "eventtags": {"trait": true, "ranged": 1},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Add +1 DICE to the ranged characteristic of the model. ",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_heretictroopertolegionnaremelee",
+        "type": "Upgrade",
+        "name": "Heretic Legionnare Melee",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Add +1 DICE to the melee characteristic of the model. ",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_heretictroopersarcopaghusmine",
+        "type": "Upgrade",
+        "name": "Sarcopaghus Mine",
+        "eventtags": {"action": true, "armour": -3},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Whenever an enemy comes within 3” of the Mine, you can trigger a detonation as described below: ",
+                "glossary": []
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "When detonated, the mine explosion is treated as a BLAST 3” weapon targeting the Sargophagus model with Keyword SHRAPNEL. Models within 1” of the Prisoner hit by the explosion roll their injuries with +1 DICE. The Mine itself is taken Out of Action.",
+                "glossary": [{"val": "BLAST", "id": "gl_blastx"},{"val": "SHRAPNEL", "id": "gl_shrapnel"},{"val": "+1 DICE", "id": "gl_plusdice"}]
+            },
+            { "tags": [{"tag_name": "desc_type", "val": "gap"}], "content": "" },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Alternatively, you can forgo this and explode the mine during your own Activation of the model with a successful RISKY ACTION with +1 DICE. These models can carry no other equipment from the Armoury.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "RISKY ACTION", "id": "gl_riskyaction"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_tankpalanquin",
+        "type": "Upgrade",
+        "name": "Tank Palanquin",
+        "eventtags": {"trait": true, "armour": -3, "sizeset":50},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This counts as Machine Armour, and the Priest riding it has a 50mm base, and counts as being on a 2” high platform. While on Tank Palanquin, the Priest gains the Keyword STRONG.",
+                "glossary": [{"val": "STRONG", "id": "gl_strong"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_kavassmelee",
+        "type": "Upgrade",
+        "name": "Kavass Strength",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Add +1 DICE to the melee characteristic of the model.",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_martyrdomdevice",
+        "type": "Upgrade",
+        "name": "Martyrdom Device",
+        "eventtags": {"action": true, "include": ["category_ranged"]},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "A Prisoner strapped with a Martyrdom Device can trigger it at any point during their Activation. This does not require an ACTION. When detonated, the explosion is treated as a BLAST 3” weapon targeting the prisoner model. Models within 1” of the prisoner hit by the explosion roll their injuries with +1 DICE. The prisoner rolls 4d6 and adds them together to determine the results of their injury roll. If the explosive goes off and the prisoner somehow survives the battle, you can buy them a new explosive for 35 ducats as normal, or simply field them without.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+        ]
+    },
+    {
+        "id": "up_supremeblessing",
+        "type": "Upgrade",
+        "name": "Supreme Blessing",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model can take further ACTIONS if it fails in an attempted RISKY ACTION. Note that the action fails, but you are allowed to try any other Actions on your profile without losing the Activation.",
+                "glossary":  [{"val": "ACTION", "id": "gl_action"},{"val": "ACTIONS", "id": "gl_action"},{"val": "RISKY ACTION", "id": "gl_riskyaction"}]
+            }
+        ]
+    },
+    {
+        "id": "up_trenchpilgrimressurection",
+        "type": "Upgrade",
+        "name": "Resurrection",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Add +1 DICE to the melee characteristic of the model. When hit, any attacks against a Martyr-Penitent add -1 DICE when rolling on the Injury Table",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "-1 DICE", "id": "gl_minusdice"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_fiercelion",
+        "type": "Upgrade",
+        "name": "Fierce Lion of Jabir",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Fierce Lions are not affected by the Keyword FEAR.",
+                            "glossary": [{"val": "FEAR", "id": "gl_fear"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_azebskirmisher",
+        "type": "Upgrade",
+        "name": "Skirmisher",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Unless engaged in melee, before an enemy makes a charge against a SKIRMISHER, you can immediately move D3” in any direction you wish (except within 1” of any enemy). After this manoeuvre, the charging model is moved as normal. This may lead to the charger being unable to enter Melee.",
+                "glossary": [{"val": "SKIRMISHER", "id": "gl_skirmisher"}]
+            }
+        ]
+    },
+    {
+        "id": "up_machinearmour",
+        "type": "Upgrade",
+        "name": "Machine Armour",
+        "eventtags": {"trait": true, "armour":-1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Replace your existing armour with Reinforced Armour.Grants a -3 modifier to all injury rolls against the model wearing this armour. Due to its bulk the wearer rolls D3 for a charge extra distance instead of D6. Any Down results on the Injury Chart are converted to Minor Hit. Machine armour cannot be combined with any shield. Models wearing Machine Armour may have a Base Size of 40mm if you wish.",
+                "glossary": [{"val": "ACTIONS", "id": "gl_action"}]
+            }
+        ]
+    },
+    {
+        "id": "up_trenchmole",
+        "type": "Upgrade",
+        "name": "Infiltrator",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "The model gains the INFILTRATOR keyword. A maximum of two Yeomen can be upgraded into Trench Moles. An infiltrator can be deployed anywhere on the table that is not in line of sight of any enemy model and is at least 8” away from the nearest enemy model. Deployed after all other models without the Keyword INFILTRATOR.",
+                            "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_vanguards",
+        "type": "Upgrade",
+        "name": "Vanguards",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Unless the scenario prohibits use of the special deployment of INFILTRATORS, you may deploy the Vanguard on any table edge as long as they are at least 8” away from any enemy model after INFILTRATORS are deployed. Vanguard can also be deployed in your own deployment zone as standard.",
+                            "glossary": [{"val": "INFILTRATORS", "id": "gl_infiltrator"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_shortrangemarksmanship",
+        "type": "Upgrade",
+        "name": "Short-Range Marksmanship",
+        "eventtags": {"trait": true, "category_ranged": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Gain +1 DICE to all hit rolls if they are using their ranged weapons at short range (i.e. half or less of their maximum range). This bonus does not apply to GRENADES or weapons with the Keyword HEAVY.",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "HEAVY", "id": "gl_heavy"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_chewa",
+        "type": "Upgrade",
+        "name": "Chewa",
+        "eventtags": {"trait": true, "category_melee" : true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "+1 DICE to Melee against enemies that are in Melee Combat with a model other than the Chewa. If this enemy is in Melee Combat with 2+ other models, this bonus is increased to +2 DICE.",
+                            "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "+2 DICE", "id": "gl_plusdice"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_gunslinger",
+        "type": "Upgrade",
+        "name": "Gunslinger",
+        "eventtags": {"trait" : true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "If armed with 2 pistols, this model may shoot both of them during each Activation without a Penalty as Ranged Attack or in Melee. In addition, the model suffers no penalties in melee using a pistol as an off-hand weapon.",
+                "glossary": []
+            }
+                        ]
+    },
+    {
+        "id": "up_brigadedog_fireteam",
+        "type": "Upgrade",
+        "name": "Fireteam",
+        "eventtags": {"trait" : true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This dog is part of a FIRETEAM",
+                "glossary": [{"val": "FIRETEAM", "id": "gl_fireteam"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_brigadedog_grenade",
+        "type": "Upgrade",
+        "name": "Grenades",
+        "eventtags": {"trait" : true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "While the dogs themselves cannot use these grenades, any other model in the Warband (though not Allies & Mercenaries, or a Combat Medic or other dogs) may use the grenades if they are within 1” of the dog at any point during their Activation.",
+                "glossary": []
+            }
+                        ]
+    },
+    {
+        "id": "up_brigadedog_guarddog",
+        "type": "Upgrade",
+        "name": "Guard Dog",
+        "eventtags": {"trait" : true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "These dogs both warn their masters of impending danger and fight fiercely for their company. No infiltrator can be placed within 12” of a Guard Dog, and you can charge any enemy within 4” of this dog even if it is out of sight.",
+                "glossary": [{"val": "infiltrator", "id": "gl_infiltrator"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_brigadedog_mercydog",
+        "type": "Upgrade",
+        "name": "Mercy Dog",
+        "eventtags": {"trait" : true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Mercy dogs carry a Medi-Kit which can be used by any friendly model on themselves within 1” of the dog. Mercy dogs can also drag any model (unless it has a base size of 40mm or greater) within 1” that is Down at ½ speed with them, both with normal movement or when dashing -if this takes the model out of melee combat, this does not trigger a free melee attack ACTION.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_brigadedog_attackdog",
+        "type": "Upgrade",
+        "name": "Attack Dog",
+        "eventtags": {"trait": true, "melee" : 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "These ferocious hounds are trained by the brigade to accompany their masters into the fray. They gain +1 DICE bonus to their melee attack ACTIONs.",
+                "glossary": [{"val": "ACTIONs", "id": "gl_action"},{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_infiltratornaval",
+        "type": "Upgrade",
+        "name": "Infiltrator",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "The model gains the INFILTRATOR keyword. A maximum of three models can be upgraded into Trench Moles. An infiltrator can be deployed anywhere on the table that is not in line of sight of any enemy model and is at least 8” away from the nearest enemy model. Deployed after all other models without the Keyword INFILTRATOR.",
+                            "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_artofassassinationhallucinogendisguise",
+        "type": "Upgrade",
+        "name": "Hallucinogen Disguise",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "An INFILTRATOR with this ability can be deployed anywhere on the battlefield including the enemy deployment Zone as long as the model is at least 8” away from any enemy models. The model does not have to be out of Line of Sight. Binoculars or Guard Dogs have no effect on this ability. ",
+                "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+            }
+            ]
+    },
+    {
+        "id": "up_artofassassinationsecretpaths",
+        "type": "Upgrade",
+        "name": "Secret Paths",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "At the start of the battle, right before the first model is set up, declare whether or not this model will be set up by using Secret Paths. A model using the Secret Paths is not set up on the battlefield at the start of the battle and it may not be activated normally during the first turn. Starting in the second turn, you may activate these models. When you do, set up the model on the battlefield within contact with an edge of the battlefield and more than 8\" away from all enemy models at the start of its activation. If both players have such models, the starting player declares whether one of their models is deployed or not first, followed by the other player. Alternate as normal until all such models have been declared as using Secret Paths or not.",
+                "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+            }
+            ]
+    },
+    {
+        "id": "up_artofassassinationthunderboltofalumat",
+        "type": "Upgrade",
+        "name": "Thunderbolt of Alamut",
+        "eventtags": {"trait": true, "movement": 2},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The model has +2” movement and +1 DICE on its Dash ACTIONs. ",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "ACTIONs", "id": "gl_action"}]
+            }
+            ]
+    },
+    {
+        "id": "up_artofassassinationmirageoftime",
+        "type": "Upgrade",
+        "name": "Mirage of Time",
+        "eventtags": {"trait": true},
+        "description":  [
+                {
+                    "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                    "content": "Both Ranged and Melee attacks against the Assassin suffer -1 DICE penalty when determining if they hit. ",
+                    "glossary": [{"val": "-1 DICE", "id": "gl_minusdice"}]
+                }
+            ]
+    },
+    {
+        "id": "up_swissguard",
+        "type": "Upgrade",
+        "name": "Swiss Guard",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model is immune to the effects of FEAR.",
+                "glossary": [{"val": "FEAR", "id": "gl_fear"}]
+            }
+            ]
+    },
+    {
+        "id": "up_fianna",
+        "type": "Upgrade",
+        "name": "Fianna",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model gains the keywords SKIRMISHER and INFILTRATOR.",
+                "glossary": [{"val": "SKIRMISHER", "id": "gl_skirmisher"},{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+            }
+            ]
+    },
+    {
+        "id": "up_berserker",
+        "type": "Upgrade",
+        "name": "Berserker",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model is immune to FEAR and disregards any BLOOD MARKERS from any source. Berserkers never wear armour, though they can carry a Trench Shield.",
+                "glossary": [{"val": "FEAR", "id": "gl_fear"},{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"}]
+            }
+            ]
+    },
+    {
+        "id": "up_forwardposition",
+        "type": "Upgrade",
+        "name": "Forward Position",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The model gains the INFILTRATOR keyword. Up to two shocktroopers can have this upgrade.",
+                "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+            }
+            ]
+    },
+    {
+        "id": "up_rapidassault",
+        "type": "Upgrade",
+        "name": "Rapid Assault",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The model adds +1 DICE to any of their DASH ACTIONs.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "ACTIONs", "id": "gl_action"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculuswings",
+        "type": "Upgrade",
+        "name": "Wings",
+        "eventtags": {"trait": true, "movementset": 8, "flying": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus gains a new movement mode: 8”/Flying.",
+                "glossary": []
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusregenerativetissue",
+        "type": "Upgrade",
+        "name": "Regenerative Tissue",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus has an astonishing healing factor, and can remove 1 BLOOD MARKER every time it is Activated if it has any.",
+                "glossary": [{"val": "1 BLOOD MARKER", "id": "gl_bloodmarker"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculuselementalresistance",
+        "type": "Upgrade",
+        "name": "Elemental Resistance",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Attacks made against the Homunculus that have the Keywords FIRE and/or GAS suffer a -1 DICE penalty to injure it. Also the Homunculus does not suffer additional BLOOD MARKERS from attacks with Keywords FIRE and/or GAS.",
+                "glossary": [{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"},{"val": "GAS", "id": "gl_gas"},{"val": "FIRE", "id": "gl_fire"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusmassivesize",
+        "type": "Upgrade",
+        "name": "Massive Size",
+        "eventtags": {"trait": true, "sizeset": 50},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus’ size is increased to huge proportions. It now has a base size of 50mm and it gains the Keyword TOUGH. This formula cannot be combined with the Wings formula.",
+                "glossary": [{"val": "TOUGH", "id": "gl_tough"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusenslavedmind",
+        "type": "Upgrade",
+        "name": "Enslaved Mind",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus gains the Keyword FIRETEAM along with one model of your choice in the Warband. The other model can only form a Fireteam with this Homunculi, not with any other models.",
+                "glossary": [{"val": "FIRETEAM", "id": "gl_fireteam"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculushumanhands",
+        "type": "Upgrade",
+        "name": "Human Hands",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus can buy and wield any weapon allowed in the Iron Sultanate warband or House of Wisdom list, though they cannot select ELITE only items, grenades or items limited to specific units (such as Assassins). They can also carry a Trench Shield or a Fire Shield. This will apply to the Additional Arms formula as well. Cannot be combined with the Wings formula.",
+                "glossary": [{"val": "ELITE", "id": "gl_elite"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusinhumanstrength",
+        "type": "Upgrade",
+        "name": "Inuman Strength",
+        "eventtags": {"trait": true, "sizeset": 32, "melee" : 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The musculature of the Homunculus is reinforced, replaced and strengthened. It now has a base size of 32mm (or 50mm if it also has Massive size). The Homunculus gains +1 DICE to its Melee characteristic and the Keyword STRONG",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "STRONG", "id": "gl_strong"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusterrifyingappearance",
+        "type": "Upgrade",
+        "name": "Terrifying Appearance",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Be it through alluringly beauty or horrifying visage of terror, this Homunculus gains the Keyword FEAR.",
+                "glossary": [{"val": "FEAR", "id": "gl_fear"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusadditionalarm",
+        "type": "Upgrade",
+        "name": "Additional Arm",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Homunculus can perform an additional attack ACTION in Melee or Ranged combat without any penalty. Therefore, if making attacks with three melee weapons, only a single weapon would need to be declared as an Off-Hand weapon (suffering the appropriate penalties). It has three hands to carry weapons if combined with Human Hands and may equip weapons and a shield in any combination, as long as it has hands free to do so. In this case the Homunculi can make up to two Ranged Attack ACTIONS (if it has sufficient weapons and number of hands to carry them) and up to three Melee Attack ACTIONS (if armed with three one-handed weapons), or one Melee Attack ACTION with a two-handed weapon and one Melee Attack ACTION with a one-handed weapon.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "ACTIONS", "id": "gl_action"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculustwoheads",
+        "type": "Upgrade",
+        "name": "Two Heads",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This Homunculi has two heads, and therefore can have two sets of eyes via Alchemical Formula.",
+                "glossary": []
+            }
+            ]
+    },
+    {
+        "id": "up_homunculushypnoticeyes",
+        "type": "Upgrade",
+        "name": "Hypnotic Eyes",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Enemies suffer -1 DICE to hit the Homunculus in Melee. Does not affect Sniper Priests or enemies with the keyword BLACK GRAIL. Cannot be combined with Hawk Eyes without Two Heads.",
+                "glossary": [{"val": "-1 DICE", "id": "gl_minusdice"},{"val": "BLACK GRAIL", "id": "gl_blackgrail"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculushawkeyes",
+        "type": "Upgrade",
+        "name": "Hawk Eyes",
+        "eventtags": {"trait": true, "ranged": 1, "category_ranged": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The eyesight of the Homunculus is based on that of a predatory bird. It can add +1 DICE to its Ranged Attack characteristic. Cannot be combined with Hypnotic Eyes without Two Heads.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusstartlingspeed",
+        "type": "Upgrade",
+        "name": "Startling Speed",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Homunculus adds +1 DICE to its Dash ACTIONs.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "ACTIONs", "id": "gl_action"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculussealofsolomon",
+        "type": "Upgrade",
+        "name": "Seal Of Solomon",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This Formula greatly enhances the intelligence of the Homunculus and makes it painfully aware of its artificial existence. It can now buy and use Equipment from the Sultanate Warband Armoury as long as it is not limited to ELITE models. Note that one helmet protects a Homunculus with two heads normally and the Two Heads Formula does not allow the purchase of two different kinds of headgear.",
+                "glossary": [{"val": "ELITE", "id": "gl_elite"}]
+            }
+            ]
+    },
+    {
+        "id": "up_homunculusgargantuansize",
+        "type": "Upgrade",
+        "name": "Gargantuan Size",
+        "eventtags": {"trait": true, "sizeset": 60},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Can only be bought if the Homunculus already has Human Hands, Inhuman Strength and Massive Size Formulas. The Homunculus now has a Base Size of 60mm and it can now use 1 Brazen Bull Only weapon.",
+                "glossary": []
+            }
+            ]
+    },
+    {
+        "id": "up_alchemistsecretsmedicine",
+        "type": "Upgrade",
+        "name": "Medicine",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This Alchemist is a student of Ibn Sina’s School of Medicine. The model is equipped with tools for healing from the House of Wisdom. The Alchemist can take an ACTION with +1 DICE to remove up to two BLOOD MARKERS or a single INFECTION MARKER from any one friendly model (including themselves) within 1” range or allow one friendly model (including themselves) who is Down to regain their footing. This training and these tools are an improvement upon the standard Medi-Kit and therefore a model with this Secret cannot carry a Medi-Kit.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"},{"val": "INFECTION MARKER", "id": "gl_infectionmarker"}]
+            }
+            ]
+    },
+    {
+        "id": "up_alchemistsecretscartographyandgeometry",
+        "type": "Upgrade",
+        "name": "Cartography and Geometry",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Alchemist has studied long and hard the sciences of cartography and Geometry. At the beginning of each battle, immediately before any models are deployed, up to two models in your Warband gain the Keyword INFILTRATOR. This ability cannot affect an Alchemist or a model with a base larger than 32mm. In addition, the Warband may re-roll one Exploration dice in the Exploration phase if you wish. The second result stands.",
+                "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"}]
+            }
+            ]
+    },
+    {
+        "id": "up_alchemistsecretssecretsoftawkin",
+        "type": "Upgrade",
+        "name": "Secrets Of Takwin",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Alchemist has bound their Takwin creature to themselves with unbreakable bonds. If the Alchemist is hit while within 1” of their own Homunculi, you can choose to redirect the hit against the Homunculi instead. Determine the injuries exactly as if the weapon just hit the Homunculi",
+                "glossary": []
+            }
+            ]
+    },
+    {
+        "id": "up_alchemistsecretschemistryandalchemy",
+        "type": "Upgrade",
+        "name": "Chemistry and Alchemy",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Before the battle starts but after all models (including INFILTRATORs) are deployed, you may place a rectangular elemental obstacle 2” wide and 6” long. It counts both as Difficult Terrain and Dangerous Terrain, and damage it causes has the Keyword FIRE, GAS or SHRAPNEL (chosen by the player at the start of the Battle). It cannot be placed within 6” of any model or on top of any other terrain.",
+                "glossary": [{"val": "INFILTRATOR", "id": "gl_infiltrator"},{"val": "GAS", "id": "gl_gas"},{"val": "FIRE", "id": "gl_fire"},{"val": "SHRAPNEL", "id": "gl_shrapnel"}]
+            }
+            ]
+    },
+    {
+        "id": "up_alchemistsecretsphilosiphypoetryandtheology",
+        "type": "Upgrade",
+        "name": "Philosophy Poetry and Theology",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "The Alchemist is well-versed in the hidden truths of the universe and of the Divine, and has a calm and clear mind. The warband gains +1 DICE to all Morale Rolls, cannot become Shaken and the Alchemist plus another model of your choice is immune to the effects of the Keyword FEAR.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "FEAR", "id": "gl_fear"}]
+            }
+            ]
+    },
+    {
+        "id": "up_zealotstrength",
+        "type": "Upgrade",
+        "name": "Zealot Strength",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Gain the keyword STRONG.",
+                            "glossary": [{"val": "STRONG", "id": "gl_strong"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_zealotstrengthpilgrim",
+        "type": "Upgrade",
+        "name": "Zealot Strength",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "One pilgrim may take this upgrade to gain the keyword STRONG.",
+                            "glossary": [{"val": "STRONG", "id": "gl_strong"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_furyofthelord",
+        "type": "Upgrade",
+        "name": "Wrath of God",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "This model is immune to FEAR and disregards any BLOOD MARKERS from any source. This model may never wear armour, though they can carry a Trench Shield or Holy Icon Shield. This model may not carry any Ranged Weapons.",
+                            "glossary": [{"val": "FEAR", "id": "gl_fear"},{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_houndinfection",
+        "type": "Upgrade",
+        "name": "Hound Infection",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "This model causes INFECTION MARKERS with their unarmed attacks instead of BLOOD MARKERS.",
+                            "glossary": [{"val": "INFECTION MARKERS", "id": "gl_infectionmarker"},{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_maddeningbuzz",
+        "type": "Upgrade",
+        "name": "Maddening Buzz",
+        "eventtags": {"trait": true},
+        "description":  [
+                        {
+                            "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                            "content": "Every ACTION taken by non-BLACK GRAIL models within 8” of a Herald is considered a RISKY ACTION. Note: This does not affect non-ACTION rolls such as Charge distance rolls nor does it affect ACTIONS that do not require a roll on the Action Success Chart.",
+                            "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "ACTIONS", "id": "gl_action"},{"val": "BLACK GRAIL", "id": "gl_blackgrail"},{"val": "RISKY ACTION", "id": "gl_riskyaction"}]
+                        }
+                        ]
+    },
+    {
+        "id": "up_goetic_burninginferno",
+        "type": "Upgrade",
+        "name": "Burning Inferno",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a Make a Ranged Attack ACTION with GOETIC (1-3), the Sorcerer opens a portal to the Lake of Fire, drawing forth a great screaming ball of infernal lava mixed with damned souls. Select a 1x1mm point within 36” that the Sorcerer can see. Next, make a Ranged Attack ACTION: this attack suffers penalties for Long Range but not for Cover. If the roll fails (i.e. you roll 6 or less), the fireball lands 1” away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the fireball lands 2” away, as 7-5=2). The direction is decided by your opponent. The Burning Inferno has the Keyword BLAST X”, where X is the amount of BLOOD MARKERS spent. Additionally, if the Burning Inferno lands directly on top of a model, it ignores that model’s armour. This attack has the Keyword FIRE.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "BLAST", "id": "gl_blastx"},{"val": "FIRE", "id": "gl_fire"},{"val": "GOETIC", "id": "gl_goetic"}]
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "effect"}],
+                "content": "Any Warband"
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_slavemaster",
+        "type": "Upgrade",
+        "name": "Slavemaster",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (1) spell, this model can command any friendly Yoke Fiend within 12” to do one of the following:",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"}]
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "list"}],
+                "content": "",
+                "subcontent": [
+                    {
+                        "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                        "content": "Move:",
+                        "subcontent": [
+                            {
+                                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                                "content": "The Yoke Fiend takes a Standard Move ACTION of up to 6”.",
+                                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+                            }
+                        ]
+                    },
+                    {
+                        "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                        "content": "Ranged Attack:",
+                        "subcontent": [
+                            {
+                                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                                "content": "The Yoke Fiend takes a Ranged Attack ACTION with any Ranged weapon it has.",
+                                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+                            }
+                        ]
+                    },
+                    {
+                        "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                        "content": "Sacrifice:",
+                        "subcontent": [
+                            {
+                                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                                "content": "The Yoke Fiend kills itself (it is removed from the board immediately as a casualty).",
+                                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+                            }
+                        ]
+                    },
+                    {
+                        "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                        "content": "Melee Attack:",
+                        "subcontent": [
+                            {
+                                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                                "content": "The Yoke Fiend takes a Melee Attack ACTION.",
+                                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+                            }
+                        ]
+                    }
+
+                ]
+            }
+            ]
+    },
+    {
+        "id": "up_goetic_chargeofhatred",
+        "type": "Upgrade",
+        "name": "Charge Of Hatred",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "When this model Charges, it can always move the maximum distance of 12”, although it suffers penalties to this movement as standard (Difficult Terrain, Standing etc.). Additionally, it must make a RISKY ACTION to Charge an enemy model other than the closest one."
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_lessermarkofcain",
+        "type": "Upgrade",
+        "name": "Lesser Mark of Cain",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "An inferior copy of the mark that God-Tyrant YHWH placed on the forehead of Cain, the First Murderer."
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Injuries against this model are rolled with -1 DICE.",
+                "glossary": [{"val": "-1 DICE", "id": "gl_minusdice"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_blindrage",
+        "type": "Upgrade",
+        "name": "Blind Rage",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model rolls to Dash with +1 DICE.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_enviouseyes",
+        "type": "Upgrade",
+        "name": "Envious Eyes",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model can be equipped with one weapon or suit of armour (excluding shields) from Trench Pilgrim, New Antioch or Iron Sultanate warband armouries. You must pay the cost of this item as standard and, if it is lost, it must be purchased again as soon as you have the funds. This item follows the normal limitations. The model will never willingly trade this item away or allow it to be removed. A Sorcerer with this Power can be equipped with a ranged weapon purchased in this way, even though they can normally only equip melee weapons.",
+                "glossary": []
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_covetedposition",
+        "type": "Upgrade",
+        "name": "Coveted Position",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (2) Spell, this model changes positions with any other model it can see within 12”, as long as the bases of the models fit into their positions. This cannot be done if either model is engaged in Melee Combat.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_whatisyoursismine",
+        "type": "Upgrade",
+        "name": "What Is Yours Is Mine",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (1) Spell, this model can remove a BLOOD MARKER or BLESSING MARKER from any model that it can see. This model then gains a marker of that type. This marker can come from models regardless of their Keywords and is separate from the BLOOD MARKER used to cast this spell.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"},{"val": "BLOOD MARKER", "id": "gl_bloodmarker"},{"val": "BLESSING MARKER", "id": "gl_blessingmarker"},{"val": "DEMONIC", "id": "gl_demonic"},{"val": "BLACK GRAIL", "id": "gl_blackgrail"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_forbiddenpleasures",
+        "type": "Upgrade",
+        "name": "Forbidden Pleasures",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Before the battle begins, select one model in your Warband without the Keyword DEMONIC. It starts the battle with 3 BLOOD MARKERs.",
+                "glossary": [{"val": "DEMONIC", "id": "gl_demonic"},{"val": "BLOOD MARKERs", "id": "gl_bloodmarker"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_exquisitepain",
+        "type": "Upgrade",
+        "name": "Exquisite Pain",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (1-2) Spell, this model inflicts X BLOOD MARKERS on an enemy model that it can see, where X is the amount of BLOOD MARKERS spent.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"},{"val": "BLOOD MARKER", "id": "gl_bloodmarker"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_callofflesh",
+        "type": "Upgrade",
+        "name": "Call Of Flesh",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (2) Spell that ends this model’s Activation, beckoning magic fills the air. When the enemy next Activates a model during this Turn, that model must Move as its first ACTION. This Move must be a Retreat if the model started its Activation in Melee Combat with a model other than the caster of this Spell. If that model is Down, it instead Stands and then Moves. During this movement, it moves in a direct path toward the caster of this Spell through any passable terrain, including Dangerous Terrain, Jumping Down etc. The model suffers injuries as normal. It can act normally after taking the prescribed ACTION(S), or attempting to take the prescribed ACTION(S) if it couldn’t, but cannot target the caster of this Spell during this Activation with ranged or melee attacks.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_prouddefiance",
+        "type": "Upgrade",
+        "name": "Proud Defiance",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "While this model is on the battlefield, its Warband automatically succeeds Morale Tests.",
+                "glossary": []
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_iwillnotkneel",
+        "type": "Upgrade",
+        "name": "Too Proud To Fall",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (2) Spell, when this model would otherwise fall Down for any reason, it instead doesn’t. If used to negate a Down result, this model still suffers any BLOOD MARKER as normal. This Spell can be cast outside of this model’s Activation. Note that if a TOUGH model suffers an Out of Action result, which is then converted into Down, this Spell can be used, but TOUGH is considered to have been used.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"},{"val": "TOUGH", "id": "gl_tough"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_lightofthemorningstar",
+        "type": "Upgrade",
+        "name": "Light of Samael",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (2) Spell, this model can hit an enemy model it can see within 24” with punishing light. That model rolls on the Injury Chart. If the target is on a 32mm or smaller base and was not taken Out of Action, it is pushed D6” directly away from the caster of this Spell, stopping if it hits another model or a solid object. They also stop if they would otherwise enter Impassable Terrain or if they would be pushed out of the battlefield.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_morpheanmind",
+        "type": "Upgrade",
+        "name": "Morphean Mind",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "No more than one BLOOD MARKER at a time can be used to negatively affect an ACTION or RISKY ACTION this model takes.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "BLOOD", "id": "gl_bloodmarker"},{"val": "BLESSING", "id": "gl_blessingmarker"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_charmofacedia",
+        "type": "Upgrade",
+        "name": "Charm Of Acedia",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This GOETIC (1) Spell can be cast right before the model casting it takes an ACTION targeting any model, friend or foe (including the model itself and thus covering Dashing, Climbing, Jumping etc). The target ceases any potential resistance or tension, seeing no point in such effort, making the ACTION succeed automatically with no dice rolled.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "GOETIC", "id": "gl_goetic"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_daemoniummerdianum",
+        "type": "Upgrade",
+        "name": "Daemonium Meridianum",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Open Terrain within 6” of this model is considered Difficult Terrain for enemy models. Dangerous Terrain within 6” of this model is considered both Dangerous Terrain and Difficult Terrain for enemy models.",
+                "glossary": []
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_bellyofthebeast",
+        "type": "Upgrade",
+        "name": "Belly Of The Beast",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "This creature is known to feast on vast mounds of flesh before it leaves Hell. It then vomits the partially-digested contents of its vast gut before the battle. Yoke Fiends gorge themselves on this flesh of the damned before they go to war, calming their bloodlust during the battle."
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "gap"}],
+                "content": ""
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Whenever an enemy model inflicts one or more BLOOD MARKERS on this model with a melee attack, that model suffers one BLOOD MARKER.",
+                "glossary": [{"val": "BLOOD MARKER", "id": "gl_bloodmarker"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_uncaringgluttony",
+        "type": "Upgrade",
+        "name": "Uncaring Gluttony",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "This curse drives its target mad with an unnatural hunger, making them heedless of any danger as it seeks to consume any matter its manipulated mind perceives as edible."
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "gap"}],
+                "content": ""
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "As a GOETIC (2) Spell, this model can curse any enemy model that has not been Activated during the Battle with ravenous hunger. Pick any one equipment item (i.e. not weapon or armour) the model is carrying. This item is discarded for the duration of the battle as the model has been chewing on it, rendering the item temporarily unusable.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_eateroftheflesh",
+        "type": "Upgrade",
+        "name": "Eater of the Flesh",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "The unnatural hunger for the flesh haunts this creature. Whenever blood of a mortal creature is spilled this demonic entity may consume it through tears in reality, to orge themselves in viscera and guts."
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "gap"}],
+                "content": ""
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "Whenever a model without the keyword DEMONIC or BLACK GRAIL suffers one or more BLOOD MARKERS in melee combat from the model with this power, you can remove any number of those markers and heal an equal number of BLOOD MARKERS from the model with the Eater of the Flesh power.",
+                "glossary": [{"val": "DEMONIC", "id": "gl_demonic"},{"val": "BLACK GRAIL", "id": "gl_blackgrail"},{"val": "BLOOD MARKERS", "id": "gl_bloodmarker"}]
+            }
+        ]
+    },
+    {
+        "id": "up_knightcompanionoftheflyranged",
+        "type": "Upgrade",
+        "name": "Knight Companion of the Fly (Ranged)",
+        "eventtags": {"trait": true, "ranged": 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Add +1 DICE to Ranged.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+        ]
+    },
+    {
+        "id": "up_knightcompanionoftheflymelee",
+        "type": "Upgrade",
+        "name": "Knight Companion of the Fly (Melee)",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Add +1 DICE to Melee.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+        ]
+    },
+    {
+        "id": "up_knightoftherottencross",
+        "type": "Upgrade",
+        "name": "Knight of the Rotten Cross",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "When acquired, this model may purchase any Weapon from the New Antioch or Heretic Legion list. It may re-purchase this same weapon during the Campaign.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+        ]
+    },
+    {
+        "id": "up_knightplaguealmoner",
+        "type": "Upgrade",
+        "name": "Plague Almoner",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": " This model requires 1 less BLOOD MARKER/INFECTION MARKER to cause Bloodbath.",
+                "glossary": [{"val": "BLOOD MARKER", "id": "gl_bloodmarker"},{"val": "INFECTION MARKER", "id": "gl_infectionmarker"}]
+            }
+        ]
+    },
+    {
+        "id": "up_goetic_bodyofgold",
+        "type": "Upgrade",
+        "name": "Body of Gold",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "So great is the devotion of this servant of greed that their entire body takes on the aspect of the precious metal.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "BLAST", "id": "gl_blastx"},{"val": "FIRE", "id": "gl_fire"},{"val": "GOETIC", "id": "gl_goetic"}]
+            },
+            { "tags": [{"tag_name": "desc_type", "val": "gap"}], "content": ""},
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This model gains the Keyword GOLEM. If the model has the Keyword TOUGH it loses it",
+                "glossary": [{"val": "GOLEM", "id": "gl_golem"},{"val": "TOUGH", "id": "gl_tough"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_blackheart",
+        "type": "Upgrade",
+        "name": "Black Heart",
+        "eventtags": {"action": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Greed has corrupted the heart of this fallen creature to such an extent that within their chest there is a gaping hole. When it desires something enough, it bleeds black tar that empowers this servant of avarice.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"},{"val": "BLAST", "id": "gl_blastx"},{"val": "FIRE", "id": "gl_fire"},{"val": "GOETIC", "id": "gl_goetic"}]
+            },
+            { "tags": [{"tag_name": "desc_type", "val": "gap"}], "content": ""},
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "This GOETIC (1) power allows the model to add +1 DICE to any ACTION it takes. Can be used multiple times per activation, but only once per each ACTION.",
+                "glossary": [{"val": "GOETIC", "id": "gl_goetic"},{"val": "+1 DICE", "id": "gl_plusdice"},{"val": "ACTION", "id": "gl_action"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_goetic_universalgreed",
+        "type": "Upgrade",
+        "name": "Universal Greed",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Greed of others is just as welcome to Hell as that displayed by its own servants."
+            },
+            { "tags": [{"tag_name": "desc_type", "val": "gap"}], "content": ""},
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "For every model in the opposing force that is worth 150 ducats or more, this model gains +1 BLESSING DICE at the start of the Battle.",
+                "glossary": [{"val": "BLESSING DICE", "id": "gl_blessingmarker"}]
+            }
+                        ]
+    },
+    {
+        "id": "up_dog_guarddog",
+        "type": "Upgrade",
+        "name": "Guard Dog",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "These dogs both warn their masters of impending danger and fight fiercely for their company. No infiltrator can be placed within 12” of a Guard Dog, and you can charge any enemy within 4” of this dog even if it is out of sight."
+            }
+        ]
+    },
+    {
+        "id": "up_dog_mercydog",
+        "type": "Upgrade",
+        "name": "Mercy Dog",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Mercy dogs carry a Medi-Kit which can be used by any friendly model on themselves within 1” of the dog. Mercy dogs can also drag any model within 1” that is Down at ½ speed with them, both with normal movement or when dashing -if this takes the model out of melee combat, this does not trigger a free melee attack ACTION.",
+                "glossary": [{"val": "ACTION", "id": "gl_action"}]
+            }
+        ]
+    },
+    {
+        "id": "up_dog_martyrdomdog",
+        "type": "Upgrade",
+        "name": "Martyrdom Dog",
+        "eventtags": {"trait": true},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "Trench Pilgrims often enthusiastically strap their dogs with explosives so they can partake in a glorious martyrdom operation. The explosives use exactly the same rules as the Martyrdom Explosives of the Ecclesiastic Prisoners."
+            },
+            {
+                "tags": [{"tag_name": "desc_type", "val": "gap"}],
+                "content": ""
+            },
+            
+            {
+                "tags": [{"tag_name": "desc_type", "val": "desc"}],
+                "content": "A dog strapped with a Martyrdom Device can trigger it at any point during their Activation. This does not require an ACTION. When detonated, the explosion is treated as a BLAST 3” weapon targeting the dog model. Models within 1” of the dog hit by the explosion roll their injuries with +1 DICE. The dog rolls 4d6 and adds them together to determine the results of their injury roll. If the explosive goes off and the dog somehow survives the battle, you can buy them a new explosive for 35 ducats as normal, or simply field them without.",
+                "glossary": [{"val": "+1 DICE", "id": "gl_plusdice"}]
+            }
+        ]
+    },
+    {
+        "id": "up_dog_hellhound",
+        "type": "Upgrade",
+        "name": "Hellhound",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "This horrifying infernal canine is the size of a small pony, and within its tortured belly rage flames of Hell itself. It howls in constant agony and rage in combat. This dog is immune to any attack with the Keyword FIRE, and its own attack has the Keyword FIRE. It has +1 Dice Melee attack characteristic. For the Mammon or Black Grail Warband, replace Keyword FIRE with keyword GAS in the rules above.",
+                "glossary": [
+                    {"val": "GAS", "id": "gl_gas"},
+                    {"val": "FIRE", "id": "gl_fire"}    
+                ]
+            }
+        ]
+    },
+    {
+        "id": "up_dog_fireteam",
+        "type": "Upgrade",
+        "name": "Fireteam",
+        "eventtags": {"trait": true, "melee": 1},
+        "description":  [
+            {
+                "tags": [{"tag_name": "desc_type", "val": "subeffect"}],
+                "content": "The dog gains an ability to form a FIRETEAM with any 1 model in your Warband.",
+                "glossary": [
+                    {"val": "FIRETEAM", "id": "gl_fireteam"}
+                ]
+            }
+        ]
+    }
+]
