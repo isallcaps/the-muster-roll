@@ -1,6 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { DescBlocksComponent } from './desc-blocks.component';
 import { KeywordToggleService } from '../services/keyword-toggle.service';
+import { PrintSettingsService } from '../services/print-settings.service';
 import type { EnrichedWarbandModel, EnrichedAbility } from '../models/warband.interfaces';
 
 @Component({
@@ -13,7 +14,8 @@ export class ModelCardComponent {
   @Input({ required: true }) model!: EnrichedWarbandModel;
   @Input({ required: true }) warbandName!: string;
 
-  readonly kwToggle = inject(KeywordToggleService);
+  readonly kwToggle      = inject(KeywordToggleService);
+  readonly printSettings = inject(PrintSettingsService);
 
   get addonAbilities(): EnrichedAbility[] {
     return this.model.abilities.filter(a => a.source === 'addon');

@@ -12,7 +12,7 @@
     }
   },
   "projects": {
-    "trench-crusade": {
+    "the-muster-roll": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -49,8 +49,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "12kB"
                 }
               ],
               "outputHashing": "all"
@@ -58,7 +58,23 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/game-data",
+                  "output": "assets/game-data"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/test-cases",
+                  "output": "assets/test-cases"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -67,10 +83,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "trench-crusade:build:production"
+              "buildTarget": "the-muster-roll:build:production"
             },
             "development": {
-              "buildTarget": "trench-crusade:build:development"
+              "buildTarget": "the-muster-roll:build:development"
             }
           },
           "defaultConfiguration": "development"

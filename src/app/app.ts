@@ -9,7 +9,7 @@ import { GameDataService } from './services/game-data.service';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('trench-crusade');
+  protected readonly title = signal('The Muster Roll');
 
   // Dependencies
 	private readonly gameDataService = inject(GameDataService);

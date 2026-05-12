@@ -21,15 +21,54 @@ export class WarbandService {
   readonly parseError = signal<string | null>(null);
 
   /**
+   * The export format produced by trench-companion.com lags behind the game-data
+   * files: IDs get renamed or corrected in the data files without a matching
+   * update to the exporter. Any stale export ID that no longer exists in the
+   * equipment or addon maps goes here so the enrichment pipeline can find the
+   * real entry transparently.
+   *
+   * Format: { '<stale export id>': '<current data file id>' }
+   */
+  private static readonly EQUIPMENT_ID_REMAP: Record<string, string> = {
+    // Typo in the exporter — data file has the correct spelling.
+    'eq_silenecedpistol'           : 'eq_silencedpistol',
+    // Export uses a warband-specific fabricated ID; real entry is an addon.
+    'eq_artillerywitchinfernalbomb': 'ab_infernalbomb',
+    // Equipment IDs renamed in the data files.
+    'eq_sacrificialknife'          : 'eq_sacrificialblade',
+    'eq_greatswordaxe'             : 'eq_greataxe',
+    'eq_knifedagger'               : 'eq_trenchknife',
+  };
+
+  /**
+   * Synthetic ResolvedKeyword entries for SHORT RANGE and LONG RANGE.
+   * These are added to any equipment item that has a numeric range so they
+   * appear in the "I Know These Rules" toggle panel for beginners.
+   */
+  private static readonly SHORT_RANGE_KW: ResolvedKeyword = {
+    exportId   : 'gl_shortrange',
+    exportName : 'SHORT RANGE',
+    negated    : false,
+    glossaryEntry: {
+      id: 'gl_shortrange', type: 'Glossary', source: 'local', tags: [], name: 'Short Range',
+      description: [{ tags: [], content: 'Within half the weapon\'s full range. No penalty to hit.', subcontent: [], glossary: [] }],
+    },
+  };
+
+  private static readonly LONG_RANGE_KW: ResolvedKeyword = {
+    exportId   : 'gl_longrange',
+    exportName : 'LONG RANGE',
+    negated    : false,
+    glossaryEntry: {
+      id: 'gl_longrange', type: 'Glossary', source: 'local', tags: [], name: 'Long Range',
+      description: [{ tags: [], content: 'Beyond half the weapon\'s full range. −1 DICE to hit.', subcontent: [], glossary: [] }],
+    },
+  };
+
+  /**
    * Parse a raw JSON string from trench-companion.com, cross-reference all
    * IDs against GameDataService, and store the fully enriched result in the
    * `warband` signal.
-   *
-   * Each EnrichedWarbandModel is completely self-contained:
-   *  - equipment items carry keyword rule text
-   *  - abilities (ab_ and rl_) carry their full description + keyword refs
-   *  - modelKeywords carry the full rule text for every model tag
-   *  - allKeywords is a deduped alphabetical index for a per-card sidebar
    */
   load(rawJson: string): void {
     this.parseError.set(null);
@@ -57,15 +96,7 @@ export class WarbandService {
       const modelKeywords = m.keywords.map(kw => this.resolveKeyword(kw));
 
       // Regular equipment from the export's equipment array
-      const equipment: EnrichedEquipment[] = m.equipment.map(ref => {
-        const item = this.gameData.getEquipment(ref['equipment-id']);
-        const keywords = item
-          ? item.tags
-              .filter(t => t.val?.startsWith('gl_'))
-              .map(t => this.kwFromGlId(t.val, t.tag_name))
-          : [];
-        return { ref, item, keywords };
-      });
+      const equipment: EnrichedEquipment[] = m.equipment.map(ref => this.resolveEquipment(ref));
 
       // Abilities — weapon addons (eventtags.include: ['category_*']) are
       // routed to the equipment section; everything else stays as an ability.
@@ -98,15 +129,22 @@ export class WarbandService {
       return { export: m, definition, modelKeywords, equipment: allEquipment, abilities, allKeywords };
     });
 
+    // Deduplicated warband-wide keyword list — built once here so components
+    // don't each re-derive it independently.
+    const allWarbandKeywords = this.mergeKeywords(
+      enrichedModels.flatMap(m => m.allKeywords)
+    );
+
     this.warband.set({
-      name        : exported['warband-name'],
-      warbandId   : exported['warband-id'],
-      warbandUrl  : exported['warband-url'],
-      ducatBank   : exported['ducat-bank'],
-      gloryBank   : exported['glory-bank'],
-      ducatRating : exported['ducat-rating'],
-      gloryRating : exported['glory-rating'],
-      models      : enrichedModels,
+      name             : exported['warband-name'],
+      warbandId        : exported['warband-id'],
+      warbandUrl       : exported['warband-url'],
+      ducatBank        : exported['ducat-bank'],
+      gloryBank        : exported['glory-bank'],
+      ducatRating      : exported['ducat-rating'],
+      gloryRating      : exported['glory-rating'],
+      models           : enrichedModels,
+      allWarbandKeywords,
     });
   }
 
@@ -116,22 +154,93 @@ export class WarbandService {
   }
 
   // ---------------------------------------------------------------------------
-  // Keyword resolution
+  // Equipment resolution
+  // ---------------------------------------------------------------------------
+
+  private resolveEquipment(ref: WarbandEquipmentRef): EnrichedEquipment {
+    const rawId      = ref['equipment-id'];
+    const resolvedId = WarbandService.EQUIPMENT_ID_REMAP[rawId] ?? rawId;
+
+    const item = this.gameData.getEquipment(resolvedId);
+    if (item) {
+      const { shortRange, longRange } = this.parseRange(item.range);
+      const keywords = [
+        ...item.tags
+          .filter(t => t.val?.startsWith('gl_'))
+          .map(t => this.kwFromGlId(t.val, t.tag_name)),
+        ...(shortRange !== null ? [WarbandService.SHORT_RANGE_KW, WarbandService.LONG_RANGE_KW] : []),
+      ];
+      return { ref, item, keywords, shortRange, longRange };
+    }
+
+    // Fallback: some exports place weapon addons in the equipment array.
+    const addon = this.gameData.getAddon(resolvedId);
+    if (addon) {
+      const { shortRange, longRange } = this.parseRange(null); // addons don't carry a range field
+      const syntheticItem: Equipment = {
+        id        : addon.id,
+        type      : 'Equipment',
+        source    : addon.source,
+        tags      : addon.tags,
+        category  : this.includeToCategory(addon.eventtags?.['include']),
+        name      : addon.name,
+        equip_type: null,
+        range     : null,
+        blurb     : '',
+        modifiers : null,
+        eventtags : addon.eventtags,
+        description: addon.description,
+      };
+      return { ref, item: syntheticItem, keywords: this.keywordsFromAddon(addon), shortRange, longRange };
+    }
+
+    return { ref, item: undefined, keywords: [], shortRange: null, longRange: null };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Range parsing
   // ---------------------------------------------------------------------------
 
   /**
-   * Resolve a kw_ keyword from the export to a ResolvedKeyword with full
-   * glossary rule text.
+   * Parse an equipment range string into display-ready short and long values.
    *
-   * NEGATE keywords (kw_negate_kw_X) don't have their own glossary entry.
-   * Instead we resolve the base keyword (gl_X) so the print card can show
-   * what the model is immune to.
-   *
-   * Simple keywords (kw_elite, kw_tough, …) map directly to gl_elite etc.
+   * Examples:
+   *   "24\""        → shortRange: '12"',  longRange: '24"'
+   *   "Melee"       → shortRange: null,   longRange: 'Melee'
+   *   "12\"/Melee"  → shortRange: '6"',   longRange: '12" / Melee'
+   *   null          → shortRange: null,   longRange: null
    */
+  private parseRange(rangeStr: string | null): { shortRange: string | null; longRange: string | null } {
+    if (!rangeStr) return { shortRange: null, longRange: null };
+
+    const trimmed = rangeStr.trim();
+
+    if (trimmed.toLowerCase() === 'melee') {
+      return { shortRange: null, longRange: 'Melee' };
+    }
+
+    const numMatch = trimmed.match(/^(\d+)"/);
+    if (numMatch) {
+      const full  = parseInt(numMatch[1], 10);
+      const short = Math.floor(full / 2);
+      const hasMelee = /melee/i.test(trimmed);
+      return {
+        shortRange: `${short}"`,
+        longRange : hasMelee ? `${full}" / Melee` : `${full}"`,
+      };
+    }
+
+    // Non-standard range (e.g. 'Template', 'Special') — display as-is, no halving.
+    return { shortRange: null, longRange: trimmed };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Keyword resolution
+  // ---------------------------------------------------------------------------
+
   private resolveKeyword(kwRef: WarbandKeywordRef): ResolvedKeyword {
-    const rawId = kwRef['keyword-id'];   // e.g. "kw_elite" or "kw_negate_kw_fire"
-    const name  = kwRef['keyword-name']; // e.g. "ELITE"   or "NEGATE FIRE"
+    const rawId = kwRef['keyword-id'];
+    const name  = kwRef['keyword-name'];
 
     // NEGATE pattern: kw_negate_kw_<base>
     const negateMatch = rawId.match(/^kw_negate_kw_(.+)$/);
@@ -146,7 +255,7 @@ export class WarbandService {
     }
 
     // Simple keyword: kw_X → gl_X
-    const glId = `gl_${rawId.slice(3)}`; // strip "kw_"
+    const glId = `gl_${rawId.slice(3)}`;
     return {
       exportId: rawId,
       exportName: name,
@@ -155,7 +264,6 @@ export class WarbandService {
     };
   }
 
-  /** Build a ResolvedKeyword from a raw gl_ id and a human-readable label. */
   private kwFromGlId(glId: string, label: string): ResolvedKeyword {
     return {
       exportId: glId,
@@ -172,17 +280,6 @@ export class WarbandService {
   private resolveAbility(ref: WarbandAbilityRef): EnrichedAbility {
     const id = ref['ability-id'];
 
-    if (id.startsWith('ab_')) {
-      const addon = this.gameData.getAddon(id);
-      return {
-        ref,
-        source     : 'addon',
-        addon,
-        variantRule: undefined,
-        keywords   : addon ? this.keywordsFromAddon(addon) : [],
-      };
-    }
-
     if (id.startsWith('rl_')) {
       const rule = this.gameData.getVariantRule(id);
       return {
@@ -194,15 +291,24 @@ export class WarbandService {
       };
     }
 
+    const addon = this.gameData.getAddon(id);
+    if (addon) {
+      return {
+        ref,
+        source     : 'addon',
+        addon,
+        variantRule: undefined,
+        keywords   : this.keywordsFromAddon(addon),
+      };
+    }
+
     return { ref, source: 'unknown', addon: undefined, variantRule: undefined, keywords: [] };
   }
 
-  /** Collect all glossary refs embedded in an Addon's description. */
   private keywordsFromAddon(addon: Addon): ResolvedKeyword[] {
     return this.keywordsFromDescriptionBlocks(addon.description);
   }
 
-  /** Collect all glossary refs from a VariantRule's description blocks. */
   private keywordsFromVariantRule(rule: VariantRule): ResolvedKeyword[] {
     return this.keywordsFromDescriptionBlocks(rule.description);
   }
@@ -218,7 +324,6 @@ export class WarbandService {
     };
     blocks.forEach(visit);
 
-    // Dedupe and convert to ResolvedKeyword
     const seen = new Map<string, GameGlossaryEntry>();
     for (const e of entries) seen.set(e.id, e);
     return [...seen.values()].map(e => ({
@@ -233,11 +338,6 @@ export class WarbandService {
   // Weapon addon → equipment promotion
   // ---------------------------------------------------------------------------
 
-  /**
-   * An addon is treated as a weapon — and promoted to the equipment section —
-   * when its eventtags carry an `include` array with at least one `category_*`
-   * entry (e.g. `category_ranged`, `category_melee`).
-   */
   private isWeaponAddon(addon: Addon): boolean {
     const include = addon.eventtags?.['include'];
     return (
@@ -246,19 +346,12 @@ export class WarbandService {
     );
   }
 
-  /** Derive a human-readable category string from the include array. */
   private includeToCategory(include: unknown): string {
     if (!Array.isArray(include)) return 'weapon';
     const cat = (include as string[]).find(c => c.startsWith('category_'));
     return cat ? cat.replace('category_', '') : 'weapon';
   }
 
-  /**
-   * Adapt a weapon addon into an EnrichedEquipment so the card template can
-   * render it in the equipment section alongside regular gear. The addon's
-   * description blocks become the rule text; range/equip_type/modifiers/blurb
-   * are unavailable in the addon data and left null/empty.
-   */
   private weaponAddonToEquipment(addon: Addon): EnrichedEquipment {
     const category = this.includeToCategory(addon.eventtags?.['include']);
 
@@ -284,9 +377,11 @@ export class WarbandService {
     };
 
     return {
-      ref     : syntheticRef,
-      item    : syntheticItem,
-      keywords: this.keywordsFromAddon(addon),
+      ref       : syntheticRef,
+      item      : syntheticItem,
+      keywords  : this.keywordsFromAddon(addon),
+      shortRange: null,
+      longRange : null,
     };
   }
 
@@ -294,10 +389,6 @@ export class WarbandService {
   // Merge / dedup helpers
   // ---------------------------------------------------------------------------
 
-  /**
-   * Merge keyword arrays, deduplicate by exportId, sort alphabetically by
-   * exportName. NEGATE keywords sort after their base keyword.
-   */
   private mergeKeywords(keywords: ResolvedKeyword[]): ResolvedKeyword[] {
     const seen = new Map<string, ResolvedKeyword>();
     for (const kw of keywords) seen.set(kw.exportId, kw);

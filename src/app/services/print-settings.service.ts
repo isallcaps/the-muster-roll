@@ -8,10 +8,17 @@ export interface PrintSettings {
    * warband-level rules box instead.
    */
   showVariantRulesOnModels: boolean;
+  /**
+   * When true (default), the flavour/blurb italics text is shown on
+   * equipment items. Uncheck to hide it for a more compact card.
+   * Applies to both screen preview and print.
+   */
+  showBlurb: boolean;
 }
 
 const DEFAULTS: PrintSettings = {
   showVariantRulesOnModels: true,
+  showBlurb: true,
 };
 
 @Injectable({ providedIn: 'root' })

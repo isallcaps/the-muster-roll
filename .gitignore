@@ -21,6 +21,7 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
+.vscode/
 .vscode/mcp.json
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -42,3 +43,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Dev-only test case library — warband data and TC HTML may be copyrighted;
+# keep index.json committed (starts as []) so the directory always exists.
+src/assets/test-cases/*.json
+!src/assets/test-cases/index.json
+/.vscode/

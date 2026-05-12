@@ -71,6 +71,17 @@ export interface EnrichedEquipment {
   item: Equipment | undefined;
   /** One ResolvedKeyword per equipment tag that carries a gl_ val. */
   keywords: ResolvedKeyword[];
+  /**
+   * Calculated short range (half of the weapon's full range), e.g. `'12"'`.
+   * Null for melee-only weapons or items with no parseable numeric range.
+   * Calculated in WarbandService — do not derive in templates.
+   */
+  shortRange: string | null;
+  /**
+   * Display string for the weapon's full range, e.g. `'24"'` or `'12" / Melee'`.
+   * For melee-only items this is `'Melee'`. Null when the item has no range field.
+   */
+  longRange: string | null;
 }
 
 /**
@@ -114,4 +125,10 @@ export interface EnrichedWarband {
   ducatRating: number;
   gloryRating: number;
   models: EnrichedWarbandModel[];
+  /**
+   * Deduplicated, alphabetically sorted union of every unique keyword
+   * referenced across the entire warband (model tags, equipment tags, ability
+   * descriptions). Built once in WarbandService so components just read it.
+   */
+  allWarbandKeywords: ResolvedKeyword[];
 }

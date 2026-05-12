@@ -61,8 +61,11 @@
         <!-- Name · Range · equip_type · modifiers all on one line -->
         <p class="item-block__headline">
           <strong>{{ eq.ref['equipment-name'] }}</strong>
-          @if (eq.item?.range) {
-            <span class="item-block__meta"> · Range: {{ eq.item!.range }}</span>
+          @if (eq.shortRange) {
+            <span class="item-block__meta"> · Short: {{ eq.shortRange }} / Long: {{ eq.longRange }}</span>
+            <span class="item-block__meta item-block__meta--note"> (beyond short range: −1 DICE to hit)</span>
+          } @else if (eq.longRange) {
+            <span class="item-block__meta"> · {{ eq.longRange }}</span>
           }
           @if (eq.item?.equip_type) {
             <span class="item-block__meta"> · {{ eq.item!.equip_type }}</span>
@@ -71,8 +74,8 @@
             <span class="item-block__meta"> · {{ (eq.item!.modifiers ?? []).join(', ') }}</span>
           }
         </p>
-        <!-- Blurb — flavour text in italics, before the rule text -->
-        @if (eq.item?.blurb) {
+        <!-- Blurb — flavour text in italics; hidden when showBlurb is false -->
+        @if (eq.item?.blurb && printSettings.settings().showBlurb) {
           <p class="item-block__blurb">{{ eq.item!.blurb }}</p>
         }
         <!-- Rule text -->
