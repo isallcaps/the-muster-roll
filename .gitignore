@@ -49,4 +49,3 @@ Thumbs.db
 src/assets/test-cases/*.json
 !src/assets/test-cases/index.json
 /.vscode/
-/.vscode/
