@@ -18,6 +18,7 @@ export class WarbandService {
   private gameData = inject(GameDataService);
 
   readonly warband    = signal<EnrichedWarband | null>(null);
+  readonly rawExport  = signal<unknown>(null);
   readonly parseError = signal<string | null>(null);
 
   /**
@@ -76,6 +77,7 @@ export class WarbandService {
     let exported: WarbandExport;
     try {
       exported = JSON.parse(rawJson) as WarbandExport;
+      this.rawExport.set(exported);
     } catch {
       this.parseError.set('Invalid JSON — please check your export and try again.');
       return;
@@ -150,6 +152,7 @@ export class WarbandService {
 
   clear(): void {
     this.warband.set(null);
+    this.rawExport.set(null);
     this.parseError.set(null);
   }
 

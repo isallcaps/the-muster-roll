@@ -1,0 +1,44 @@
+.site-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid black;
+  background: white;
+  padding: 0 16px;
+  flex-shrink: 0;
+
+  @media (prefers-color-scheme: dark) {
+    background: #1a1a1a;
+    border-bottom-color: #555;
+  }
+}
+
+.site-nav__link {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 9pt;
+  color: inherit;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.1s;
+
+  &:hover {
+    border-bottom-color: currentColor;
+  }
+
+  &--active {
+    font-weight: bold;
+    border-bottom-color: currentColor;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: #e8e8e8;
+  }
+}
+
+@media print {
+  .site-nav {
+    display: none !important;
+  }
+}

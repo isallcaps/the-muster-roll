@@ -1,18 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GameDataService } from './services/game-data.service';
+import { NavComponent } from './nav/nav';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('The Muster Roll');
-
-  // Dependencies
-	private readonly gameDataService = inject(GameDataService);
+  private readonly gameDataService = inject(GameDataService);
 
   constructor() {
     this.gameDataService.load();

@@ -76,4 +76,5 @@ in `addons.json` and not matchable as a variant rule slug.
 
 | Ability ID | Display Name | Affected Warband / Notes |
 |------------|--------------|--------------------------|
+
 | *(populate from live Validation Report in the dev toolbar)* | | |
