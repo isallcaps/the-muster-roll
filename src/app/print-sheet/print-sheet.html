@@ -109,11 +109,21 @@
           Validation Report
           <span class="val-report__count">{{ validationReport().length }} issue(s)</span>
         </h2>
-        <p class="val-report__hint">
-          Click "Copy Issue" to copy a pre-formatted GitHub issue body for
-          <a href="https://github.com/Bob-The-Seagull-King/trenchcrusadedata/issues"
-             target="_blank" rel="noopener">trenchcrusadedata</a>.
-        </p>
+
+        <!-- Copy-all header action -->
+        <div class="val-report__header-actions">
+          <button
+            class="toolbar__btn toolbar__btn--primary val-report__copy-all"
+            (click)="copyAllTableRows()"
+            title="Copy every issue as markdown table rows grouped by section"
+          >{{ copiedAll() ? 'Copied!' : 'Copy All as Table Rows' }}</button>
+          <p class="val-report__hint">
+            Paste into
+            <code>DATA_DISCREPANCIES.md</code>.
+            Use "Copy as GitHub Issue" per item to file upstream.
+          </p>
+        </div>
+
         <ul class="val-report__list">
           @for (d of validationReport(); track $index) {
             <li class="val-report__item val-report__item--{{ d.severity }}">
@@ -125,13 +135,18 @@
                 <p class="val-report__id"><code>{{ d.exportId }}</code> — {{ d.exportName }}</p>
                 <p class="val-report__notes">{{ d.notes }}</p>
               </div>
-              <button
-                class="toolbar__btn val-report__copy"
-                (click)="copyIssueReport(d)"
-                title="Copy GitHub issue body to clipboard"
-              >
-                Copy Issue
-              </button>
+              <div class="val-report__actions">
+                <button
+                  class="toolbar__btn toolbar__btn--primary val-report__copy"
+                  (click)="copyTableRow(d)"
+                  [title]="'Copy markdown row for ' + tableRowLabel(d.type)"
+                >{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}</button>
+                <button
+                  class="toolbar__btn val-report__copy val-report__copy--secondary"
+                  (click)="copyIssueReport(d)"
+                  title="Copy full GitHub issue body for trenchcrusadedata"
+                >{{ copiedIssueId() === d.exportId ? 'Copied!' : 'Copy as GitHub Issue' }}</button>
+              </div>
             </li>
           }
         </ul>

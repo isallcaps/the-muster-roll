@@ -3,8 +3,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: white;
-  color: black;
+  // Dark by default — prevents white flash on dark-mode systems.
+  // Individual content areas (model cards, print surface) override to white.
+  background: #1a1a1a;
+  color: #e8e8e8;
 }
 
 @page {
@@ -16,5 +18,7 @@ html, body {
   html, body {
     margin: 0;
     padding: 0;
+    background: white;
+    color: black;
   }
 }

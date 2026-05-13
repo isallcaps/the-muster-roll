@@ -1,0 +1,195 @@
+<div class="arm-shell">
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       Sidebar
+       ══════════════════════════════════════════════════════════════════ -->
+  <nav class="arm-sidebar" aria-label="Data category navigation">
+    <p class="arm-sidebar__heading">The Armoury</p>
+    @for (cat of categories(); track cat.slug) {
+      <a
+        class="arm-sidebar__link"
+        [routerLink]="['/game-data', cat.slug]"
+        routerLinkActive="arm-sidebar__link--active"
+      >
+        <span class="arm-sidebar__label">{{ cat.label }}</span>
+        <span class="arm-sidebar__badge">{{ cat.count }}</span>
+      </a>
+    }
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       Main panel
+       ══════════════════════════════════════════════════════════════════ -->
+  <main class="arm-main">
+
+    <!-- Controls bar -->
+    <div class="arm-controls">
+      <input
+        class="arm-search"
+        type="search"
+        placeholder="Search by name or ID…"
+        [value]="searchQuery()"
+        (input)="onSearch($event)"
+        aria-label="Search entries"
+      />
+
+      @if (availableSources().length > 1) {
+        <select
+          class="arm-filter"
+          [value]="sourceFilter()"
+          (change)="onSourceFilter($event)"
+          aria-label="Filter by source"
+        >
+          <option value="">All sources</option>
+          @for (src of availableSources(); track src) {
+            <option [value]="src">{{ src }}</option>
+          }
+        </select>
+      }
+    </div>
+
+    <!-- Card list -->
+    <div class="arm-list" role="list">
+
+      @for (entry of filteredEntries(); track entry.id) {
+        <article
+          class="arm-card"
+          [class.arm-card--expanded]="isExpanded(entry.id)"
+          role="listitem"
+        >
+          <!-- ── Summary row (always visible, click to expand) ── -->
+          <div class="arm-card__summary" (click)="toggleExpand(entry.id)">
+
+            <div class="arm-card__name-row">
+              <span class="arm-card__name">{{ entry.name }}</span>
+              @if (hasUnresolved(entry)) {
+                <span class="arm-card__unresolved" title="This entry has unresolved glossary references"> [?]</span>
+              }
+            </div>
+
+            <code class="arm-card__id">{{ entry.id }}</code>
+
+            <div class="arm-card__pills">
+              <span class="arm-card__source-pill">{{ entrySource(entry) }}</span>
+              @for (tag of entryTags(entry); track tag) {
+                <span class="arm-card__tag-pill">{{ tag }}</span>
+              }
+            </div>
+
+            <!-- Equipment quick-stats -->
+            @if (asEquipment(entry); as eq) {
+              <div class="arm-card__quick">
+                @if (eq.range)               { <span class="arm-card__mono">{{ eq.range }}</span> }
+                @if (eq.equip_type)          { <span>{{ eq.equip_type }}</span> }
+                @if (eq.modifiers?.length)   { <span class="arm-card__mono">{{ eq.modifiers!.join(', ') }}</span> }
+                @if (eq.category)            { <span class="arm-card__tag-pill">{{ eq.category }}</span> }
+              </div>
+            }
+
+            <!-- Variant rule origin -->
+            @if (asVariantRule(entry); as vr) {
+              <div class="arm-card__quick">
+                <span class="arm-card__source-pill">{{ vr.variantName }}</span>
+              </div>
+            }
+
+            <div class="arm-card__toggle-hint">
+              {{ isExpanded(entry.id) ? '▲' : '▼' }}
+            </div>
+          </div>
+
+          <!-- ── Expanded body ── -->
+          @if (isExpanded(entry.id)) {
+            <div class="arm-card__body">
+
+              <!-- Equipment blurb + description -->
+              @if (asEquipment(entry); as eq) {
+                @if (eq.blurb) {
+                  <p class="arm-card__blurb">{{ eq.blurb }}</p>
+                }
+                @if (eq.description.length) {
+                  <div class="arm-card__desc">
+                    <tc-desc-blocks [blocks]="eq.description" />
+                  </div>
+                }
+              } @else if (asModel(entry); as m) {
+					<!-- Model: stats + blurb + equipment list + abilities -->
+                <div class="arm-card__model-stats">
+                  <span><strong>MOV</strong> {{ m.movement.join('/') }}"</span>
+                  <span><strong>MEL</strong> {{ m.melee.join('/') }}</span>
+                  <span><strong>RNG</strong> {{ m.ranged.join('/') }}</span>
+                  <span><strong>ARM</strong> {{ m.armour.join('/') }}</span>
+                  @if (m.base.length) { <span><strong>BASE</strong> {{ m.base.join('×') }}mm</span> }
+                  @if (m.faction_id) { <span><strong>Faction</strong> {{ m.faction_id }}</span> }
+                </div>
+                @if (m.blurb.length) {
+                  <div class="arm-card__desc">
+                    <tc-desc-blocks [blocks]="m.blurb" />
+                  </div>
+                }
+                @if (m.equipment.length) {
+                  <div class="arm-card__section">
+                    <p class="arm-card__section-title">Equipment</p>
+                    <div class="arm-card__desc">
+                      <tc-desc-blocks [blocks]="m.equipment" />
+                    </div>
+                  </div>
+                }
+                @if (m.abilities.length) {
+                  <div class="arm-card__section">
+                    <p class="arm-card__section-title">Abilities</p>
+                    @for (ab of m.abilities; track $index) {
+                      <p class="arm-card__ability-ref">{{ ab.content }}</p>
+                    }
+                  </div>
+                }
+              } @else if (asAddon(entry); as a) {
+				  <!-- Addon description -->
+                @if (a.description.length) {
+                  <div class="arm-card__desc">
+                    <tc-desc-blocks [blocks]="a.description" />
+                  </div>
+                }
+                @if (a.eventtags['action']) { <p class="arm-card__tag-pill">action</p> }
+                @if (a.eventtags['trait'])  { <p class="arm-card__tag-pill">trait</p>  }
+              } @else {
+				  <!-- Skill / Glossary / VariantRule — generic description -->
+                @if (entryDescription(entry).length) {
+                  <div class="arm-card__desc">
+                    <tc-desc-blocks [blocks]="entryDescription(entry)" />
+                  </div>
+                }
+                @if (asVariantRule(entry); as vr) {
+                  <p class="arm-card__meta-note">Variant: {{ vr.variantName }}</p>
+                }
+              }
+
+            </div>
+          }
+
+          <!-- ── Card footer ── -->
+          <div class="arm-card__foot">
+            <button
+              class="arm-card__copy-btn"
+              [class.arm-card__copy-btn--copied]="copiedId() === entry.id"
+              (click)="copyId(entry.id, $event)"
+              title="Copy ID to clipboard"
+            >{{ copiedId() === entry.id ? 'Copied!' : 'Copy ID' }}</button>
+          </div>
+
+        </article>
+      }
+
+      <!-- Footer count / empty state -->
+      <div class="arm-footer">
+        @if (filteredEntries().length === 0) {
+          <p class="arm-empty">No entries match "{{ searchQuery() }}".</p>
+        } @else {
+          <p class="arm-count">{{ filteredEntries().length }} {{ filteredEntries().length === 1 ? 'entry' : 'entries' }}</p>
+        }
+      </div>
+
+    </div>
+  </main>
+
+</div>

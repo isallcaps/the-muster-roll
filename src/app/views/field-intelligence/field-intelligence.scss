@@ -1,23 +1,13 @@
 // ── Host / page shell ─────────────────────────────────────────────────────────
 
 :host {
-  --fi-bg:       #fff;
-  --fi-fg:       #000;
-  --fi-border:   #000;
-  --fi-muted:    #555;
-  --fi-subtle:   #888;
-  --fi-panel-bg: #fafafa;
-  --fi-error-fg: #000;
-
-  @media (prefers-color-scheme: dark) {
-    --fi-bg:       #141414;
-    --fi-fg:       #e0e0e0;
-    --fi-border:   #444;
-    --fi-muted:    #aaa;
-    --fi-subtle:   #777;
-    --fi-panel-bg: #1e1e1e;
-    --fi-error-fg: #e0e0e0;
-  }
+  --fi-bg:       #141414;
+  --fi-fg:       #e0e0e0;
+  --fi-border:   #444;
+  --fi-muted:    #aaa;
+  --fi-subtle:   #777;
+  --fi-panel-bg: #1e1e1e;
+  --fi-error-fg: #f0a0a0;
 
   display: flex;
   flex-direction: column;
@@ -78,15 +68,17 @@
   font-size: 7.5pt;
   line-height: 1.5;
   border: 1px solid var(--fi-border);
-  background: var(--fi-bg);
+  background: #2a2a2a;
   color: var(--fi-fg);
   padding: 6px 8px;
   resize: vertical;
   outline: none;
   min-width: 0;
 
+  &::placeholder { color: #555; }
+
   &:focus {
-    outline: 2px solid var(--fi-fg);
+    outline: 2px solid var(--fi-muted);
     outline-offset: 1px;
   }
 }
@@ -102,7 +94,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 9pt;
   border: 1px solid var(--fi-border);
-  background: var(--fi-bg);
+  background: #2a2a2a;
   color: var(--fi-fg);
   padding: 7px 16px;
   cursor: pointer;
@@ -146,15 +138,9 @@
   font-size: 7.5pt;
   margin: 0;
   padding: 5px 8px;
-  border: 1px solid #b45309;
-  background: #fffbeb;
-  color: #92400e;
-
-  @media (prefers-color-scheme: dark) {
-    border-color: #d97706;
-    background: #1c1200;
-    color: #fbbf24;
-  }
+  border: 1px solid #d97706;
+  background: #1c1200;
+  color: #fbbf24;
 }
 
 // ── Two-panel layout ──────────────────────────────────────────────────────────

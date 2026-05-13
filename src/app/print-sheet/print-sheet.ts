@@ -49,6 +49,13 @@ export class PrintSheetComponent {
   /** Feedback shown after a "Save Current" copy-to-clipboard action. */
   readonly saveFeedback = signal<string | null>(null);
 
+  /** exportId of the item whose "Copy row" button was last clicked. */
+  readonly copiedRowId   = signal<string | null>(null);
+  /** exportId of the item whose "Copy as GitHub Issue" button was last clicked. */
+  readonly copiedIssueId = signal<string | null>(null);
+  /** True while the "Copy All" button is showing its confirmation. */
+  readonly copiedAll     = signal(false);
+
   readonly modelPairs = computed<ModelPair[]>(() => {
     const models = this.warband()?.models ?? [];
     const pairs: ModelPair[] = [];
@@ -241,7 +248,94 @@ export class PrintSheetComponent {
   }
 
   // ---------------------------------------------------------------------------
-  // Dev-only: copy GitHub issue report to clipboard
+  // Dev-only: table row label for each discrepancy type
+  // ---------------------------------------------------------------------------
+
+  tableRowLabel(type: Discrepancy['type']): string {
+    switch (type) {
+      case 'equipment-unresolved': return 'Missing Equipment Definitions table';
+      case 'ability-unresolved':   return 'Missing Ability Definitions table';
+      case 'keyword-unresolved':   return 'Missing Glossary Entries table';
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dev-only: copy a single markdown table row
+  // ---------------------------------------------------------------------------
+
+  copyTableRow(d: Discrepancy): void {
+    const row = this.buildTableRow(d);
+    navigator.clipboard.writeText(row).then(() => {
+      this.copiedRowId.set(d.exportId);
+      setTimeout(() => this.copiedRowId.update(cur => cur === d.exportId ? null : cur), 2000);
+    }).catch(() => console.log('Table row (copy manually):\n', row));
+  }
+
+  private buildTableRow(d: Discrepancy): string {
+    switch (d.type) {
+      case 'ability-unresolved':
+        return `| \`${d.exportId}\` | ${d.exportName} | ${d.modelName} (${d.warbandName}) |`;
+
+      case 'keyword-unresolved': {
+        const match   = d.notes.match(/\(from equipment "([^"]+)"\)/);
+        const foundIn = match
+          ? `Equipment tags (${match[1]})`
+          : `${d.modelName} (${d.warbandName})`;
+        return `| \`${d.exportId}\` | ${d.exportName} | ${foundIn} |`;
+      }
+
+      case 'equipment-unresolved':
+        return `| \`${d.exportId}\` | ${d.exportName} | ${d.modelName} (${d.warbandName}) |`;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dev-only: copy all discrepancies grouped by section with headings
+  // ---------------------------------------------------------------------------
+
+  copyAllTableRows(): void {
+    const report = this.validationReport();
+    const byType = {
+      'equipment-unresolved': report.filter(d => d.type === 'equipment-unresolved'),
+      'ability-unresolved':   report.filter(d => d.type === 'ability-unresolved'),
+      'keyword-unresolved':   report.filter(d => d.type === 'keyword-unresolved'),
+    };
+
+    const lines: string[] = [];
+
+    if (byType['equipment-unresolved'].length) {
+      lines.push('## Missing Equipment Definitions', '');
+      lines.push('| Equipment ID | Display Name | Affected Warband / Notes |');
+      lines.push('|--------------|--------------|--------------------------|');
+      byType['equipment-unresolved'].forEach(d => lines.push(this.buildTableRow(d)));
+      lines.push('');
+    }
+
+    if (byType['ability-unresolved'].length) {
+      lines.push('## Missing Ability Definitions', '');
+      lines.push('| Ability ID | Display Name | Affected Warband / Notes |');
+      lines.push('|------------|--------------|--------------------------|');
+      byType['ability-unresolved'].forEach(d => lines.push(this.buildTableRow(d)));
+      lines.push('');
+    }
+
+    if (byType['keyword-unresolved'].length) {
+      lines.push('## Missing Glossary Entries', '');
+      lines.push('| Keyword ID | Keyword Name | Found In |');
+      lines.push('|------------|--------------|----------|');
+      byType['keyword-unresolved'].forEach(d => lines.push(this.buildTableRow(d)));
+      lines.push('');
+    }
+
+    const text = lines.join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      this.copiedAll.set(true);
+      setTimeout(() => this.copiedAll.set(false), 2000);
+    }).catch(() => console.log('All table rows (copy manually):\n', text));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dev-only: copy GitHub issue report (secondary action)
   // ---------------------------------------------------------------------------
 
   copyIssueReport(d: Discrepancy): void {
@@ -280,8 +374,9 @@ export class PrintSheetComponent {
       `*Reported via [The Muster Roll](https://github.com/Bob-The-Seagull-King/trenchcrusadedata)*`,
     ].join('\n');
 
-    navigator.clipboard.writeText(body).catch(() => {
-      console.log('Issue report (copy manually):\n', body);
-    });
+    navigator.clipboard.writeText(body).then(() => {
+      this.copiedIssueId.set(d.exportId);
+      setTimeout(() => this.copiedIssueId.update(cur => cur === d.exportId ? null : cur), 2000);
+    }).catch(() => console.log('Issue report (copy manually):\n', body));
   }
 }

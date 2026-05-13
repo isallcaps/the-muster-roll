@@ -1,110 +1,114 @@
 # The Muster Roll
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
+> Know your soldiers. Know the rules.
 
-## Development server
+A warband print sheet and rules reference tool for Trench Crusade. Paste your warband export JSON from Trench Companion and get a print-ready card for each model — with full inline keyword and ability definitions so beginners don't need a separate cheat sheet.
 
-To start a local development server, run:
+---
+
+## Features
+
+- **Print-ready model cards** — landscape layout, 2 cards per page, designed to be cut apart
+- **Inline rule definitions** — every keyword, ability, and equipment tag shows its full rule text directly on the card
+- **'I Know These Rules' toggle** — hide definitions for keywords you've memorised to keep cards compact
+- **Flavour text toggle** — show or hide equipment blurb text
+- **Short/long range display** — automatically calculates and displays short and long range for every ranged weapon
+- **Field Intelligence** — side-by-side viewer comparing raw warband export JSON against the fully enriched data object
+- **The Armoury** — browse the complete game data — equipment, abilities, keywords, models, and variant rules
+- **Graceful fallbacks** — if a rule definition is missing from the data, the card still renders the item name with a note to refer to the rulebook
+- **Data validation** — dev tool for comparing enriched output against Trench Companion print HTML to catch data gaps
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- Angular CLI 19
+- Git
+
+### Installation
 
 ```bash
+# Clone the repo
+git clone https://github.com/isallcaps/the-muster-roll.git
+cd the-muster-roll
+
+# Initialize the game data submodule
+git submodule update --init
+
+# Install dependencies
+npm install
+
+# Start the dev server
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open `http://localhost:4200` in your browser.
 
-## Code scaffolding
+### Updating Game Data
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The game data is pulled from [trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) as a git submodule. To update to the latest data:
 
 ```bash
-ng generate --help
+git submodule update --remote
+git add src/assets/game-data
+git commit -m "chore: update game data"
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 ---
 
-## Dev Tooling
+## How To Use
 
-### Test Case Library
+### Printing a Warband
 
-The dev toolbar (visible only in `ng serve` / development builds via `isDevMode()`) includes a
-persistent test case library so you can save warbands locally and reload them without re-pasting.
+1. Go to [Trench Companion](https://trench-companion.com) and open your warband
+2. Use the **Export Data** button to download your warband JSON
+3. Paste the JSON into The Muster Roll's textarea and click **Render**
+4. Use the **'I Know These Rules'** panel to hide definitions you don't need
+5. Click **Print**
 
-**Folder:** `src/assets/test-cases/`
-- `index.json` — list of saved test cases; committed as an empty array
-- `<id>.json` — individual test case files; **gitignored** (may contain copyrighted Trench Companion HTML)
+### Field Intelligence
 
-**Saving a test case:**
+Navigate to `/viewer` to paste a warband export and inspect the raw vs enriched data side by side. Useful for debugging data gaps or understanding how the enrichment pipeline works.
 
-1. Paste the warband export JSON and (optionally) the Trench Companion reference HTML into the toolbar textareas.
-2. Click **Save Current**, enter a name when prompted — the JSON is copied to your clipboard.
-3. In your terminal, run:
-   ```bash
-   # macOS
-   pbpaste | node scripts/save-test-case.mjs
+### The Armoury
 
-   # Linux
-   xclip -selection clipboard -o | node scripts/save-test-case.mjs
-   ```
-   The script writes `src/assets/test-cases/<id>.json` and updates `index.json`.
-4. The warband appears in the **Load saved test case** dropdown on the next page load.
-
-**Production builds** never include `src/assets/test-cases/` (excluded from `angular.json` production
-assets config) and the entire toolbar is absent from production bundles (`@if (devMode)` guard).
+Navigate to `/game-data` to browse all loaded game data by category — equipment, abilities, keywords, models, and variant rules. Use the search to find specific entries by name or ID.
 
 ---
 
-### Validation Report & Discrepancy Tracking
+## Built With
 
-After rendering a warband, the dev toolbar shows a **Validation Report** that scans the enriched
-warband object for items that failed to resolve against the game data:
+- [Angular 19](https://angular.dev)
+- [trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) — open game data submodule
+- [Trench Companion](https://trench-companion.com) — warband export format
 
-| Severity | Meaning |
-|----------|---------|
-| **FAIL** | An equipment or ability ID in the export has no matching entry anywhere in the game data files — the item renders with name only. |
-| **WARN** | A keyword tag has no glossary entry — the keyword name appears on the card but no definition text is shown. |
+---
 
-Click **Copy Issue** next to any finding to copy a pre-formatted GitHub issue body to your clipboard.
-Paste it into a new issue at:
-**https://github.com/Bob-The-Seagull-King/trenchcrusadedata/issues**
+## Data Discrepancies
 
-Known persistent gaps (IDs that exist in Trench Companion exports but are absent or renamed in the
-game data submodule) are catalogued in [`DATA_DISCREPANCIES.md`](DATA_DISCREPANCIES.md).
-Add new findings there so they can be tracked and batched into upstream reports.
+During development, gaps are found between the Trench Companion export format and the game data submodule. These are tracked in [DATA_DISCREPANCIES.md](DATA_DISCREPANCIES.md) and reported upstream to the trenchcrusadedata maintainers to help improve the data for everyone.
+
+If you find a discrepancy not already listed, please open an issue or submit a pull request.
+
+---
+
+## Credits
+
+- **[Trench Companion](https://trench-companion.com)** — the officially supported Trench Crusade resource, source of the warband export format
+- **[Bob-The-Seagull-King](https://github.com/Bob-The-Seagull-King)** — maintainer of the trenchcrusadedata repository
+- **[Trench Crusade](https://www.trenchcrusade.com/)** — the game this tool is built for
+
+---
+
+## Disclaimer
+
+The Muster Roll is a fan-made tool and is not affiliated with, endorsed by, or officially connected to the Trench Crusade team in any way. Trench Crusade and all associated content are the property of their respective owners.
+
+---
+
+## License
+
+MIT

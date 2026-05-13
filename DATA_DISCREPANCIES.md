@@ -76,5 +76,12 @@ in `addons.json` and not matchable as a variant rule slug.
 
 | Ability ID | Display Name | Affected Warband / Notes |
 |------------|--------------|--------------------------|
+## Missing Ability Definitions
+
+| Ability ID | Display Name | Affected Warband / Notes |
+|------------|--------------|--------------------------|
+| `ab_abioticlife` | Abiotic Life | Eris (The Wrecking Crew v2) |
+| `ab_artillerywitchbattery` | Artillery Witch Battery | Eris (The Wrecking Crew v2) |
+| `ab_hereticlegionnaire` | Heretic Legionnaire | Rum (The Wrecking Crew v2) |
 
 | *(populate from live Validation Report in the dev toolbar)* | | |

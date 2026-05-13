@@ -60,6 +60,16 @@ export class GameDataService {
         glossary.forEach(g => this.glossaryMap.set(g.id, g));
         variants.forEach(v => this.indexVariantRules(v));
 
+        const byName = (a: { name: string }, b: { name: string }) =>
+          a.name.localeCompare(b.name);
+
+        this.equipmentList.set([...this.equipmentMap.values()].sort(byName));
+        this.modelList.set([...this.modelMap.values()].sort(byName));
+        this.addonList.set([...this.addonMap.values()].sort(byName));
+        this.skillList.set([...this.skillMap.values()].sort(byName));
+        this.glossaryList.set([...this.glossaryMap.values()].sort(byName));
+        this.variantRuleList.set([...this.variantRuleMap.values()].sort(byName));
+
         this.loadState = true;
         console.log(
           `[GameDataService] loaded — equipment:${this.equipmentMap.size}` +
