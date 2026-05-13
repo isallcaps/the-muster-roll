@@ -40,6 +40,12 @@
   @if (warband(); as wb) {
     <p class="fi-status">{{ wb.name }} — {{ wb.models.length }} {{ wb.models.length === 1 ? 'model' : 'models' }}</p>
   }
+
+  @if (unresolvedCount() > 0) {
+    <p class="fi-unresolved-banner" role="alert">
+      ⚠ {{ unresolvedCount() }} unresolved {{ unresolvedCount() === 1 ? 'ID' : 'IDs' }} — items render with name only. See browser console for details.
+    </p>
+  }
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════

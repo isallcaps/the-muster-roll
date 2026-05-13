@@ -44,8 +44,10 @@
     @for (kw of model.modelKeywords; track kw.exportId) {
       <p class="def-line">
         <strong class="def-line__term">{{ kw.exportName }}</strong>
-        @if (isDefVisible(kw.exportId) && kw.glossaryEntry?.description?.[0]?.content) {
-          <span> — {{ kw.glossaryEntry!.description[0].content }}</span>
+        @if (isUnresolved(kw.glossaryEntry)) {
+          <span class="def-line__unresolved"> [?]</span>
+        } @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+          <span> — {{ kw.glossaryEntry.description[0].content }}</span>
         }
       </p>
     }
@@ -61,25 +63,30 @@
         <!-- Name · Range · equip_type · modifiers all on one line -->
         <p class="item-block__headline">
           <strong>{{ eq.ref['equipment-name'] }}</strong>
+          @if (isUnresolved(eq.item)) {
+            <span class="item-block__tag--unresolved"> [?]</span>
+          }
           @if (eq.shortRange) {
             <span class="item-block__meta"> · Short: {{ eq.shortRange }} / Long: {{ eq.longRange }}</span>
             <span class="item-block__meta item-block__meta--note"> (beyond short range: −1 DICE to hit)</span>
           } @else if (eq.longRange) {
             <span class="item-block__meta"> · {{ eq.longRange }}</span>
           }
-          @if (eq.item?.equip_type) {
-            <span class="item-block__meta"> · {{ eq.item!.equip_type }}</span>
+          @if (eq.item.equip_type) {
+            <span class="item-block__meta"> · {{ eq.item.equip_type }}</span>
           }
-          @if (eq.item?.modifiers?.length) {
-            <span class="item-block__meta"> · {{ (eq.item!.modifiers ?? []).join(', ') }}</span>
+          @if (eq.item.modifiers?.length) {
+            <span class="item-block__meta"> · {{ (eq.item.modifiers ?? []).join(', ') }}</span>
           }
         </p>
         <!-- Blurb — flavour text in italics; hidden when showBlurb is false -->
-        @if (eq.item?.blurb && printSettings.settings().showBlurb) {
-          <p class="item-block__blurb">{{ eq.item!.blurb }}</p>
+        @if (eq.item.blurb && printSettings.settings().showBlurb) {
+          <p class="item-block__blurb">{{ eq.item.blurb }}</p>
         }
         <!-- Rule text -->
-        @if (eq.item?.description?.length) {
+        @if (isUnresolved(eq.item)) {
+          <p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+        } @else if (eq.item.description.length) {
           <div class="item-block__desc">
             <tc-desc-blocks [blocks]="eq.item!.description" />
           </div>
@@ -88,8 +95,10 @@
         @for (kw of eq.keywords; track kw.exportId) {
           <p class="def-line def-line--indent">
             <strong class="def-line__term">{{ kw.exportName }}</strong>
-            @if (isDefVisible(kw.exportId) && kw.glossaryEntry?.description?.[0]?.content) {
-              <span> — {{ kw.glossaryEntry!.description[0].content }}</span>
+            @if (isUnresolved(kw.glossaryEntry)) {
+              <span class="def-line__unresolved"> [?]</span>
+            } @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+              <span> — {{ kw.glossaryEntry.description[0].content }}</span>
             }
           </p>
         }
@@ -110,6 +119,9 @@
       <div class="item-block">
         <p class="item-block__headline">
           <strong>{{ ab.ref['ability-name'] }}</strong>
+          @if (isUnresolved(ab.addon)) {
+            <span class="item-block__tag--unresolved"> [?]</span>
+          }
           @if (ab.addon?.eventtags?.['action']) {
             <span class="item-block__tag"> [action]</span>
           }
@@ -117,7 +129,9 @@
             <span class="item-block__tag"> [trait]</span>
           }
         </p>
-        @if (ab.addon?.description?.length) {
+        @if (isUnresolved(ab.addon)) {
+          <p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+        } @else if (ab.addon?.description?.length) {
           <div class="item-block__desc">
             <tc-desc-blocks [blocks]="ab.addon!.description" />
           </div>
@@ -125,8 +139,10 @@
         @for (kw of ab.keywords; track kw.exportId) {
           <p class="def-line def-line--indent">
             <strong class="def-line__term">{{ kw.exportName }}</strong>
-            @if (isDefVisible(kw.exportId) && kw.glossaryEntry?.description?.[0]?.content) {
-              <span> — {{ kw.glossaryEntry!.description[0].content }}</span>
+            @if (isUnresolved(kw.glossaryEntry)) {
+              <span class="def-line__unresolved"> [?]</span>
+            } @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+              <span> — {{ kw.glossaryEntry.description[0].content }}</span>
             }
           </p>
         }
@@ -146,11 +162,16 @@
       <div class="item-block">
         <p class="item-block__headline">
           <strong>{{ ab.ref['ability-name'] }}</strong>
+          @if (isUnresolved(ab.variantRule)) {
+            <span class="item-block__tag--unresolved"> [?]</span>
+          }
           @if (ab.variantRule?.variantName) {
             <span class="item-block__meta"> ({{ ab.variantRule!.variantName }})</span>
           }
         </p>
-        @if (ab.variantRule?.description?.length) {
+        @if (isUnresolved(ab.variantRule)) {
+          <p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+        } @else if (ab.variantRule?.description?.length) {
           <div class="item-block__desc">
             <tc-desc-blocks [blocks]="ab.variantRule!.description" />
           </div>
@@ -158,8 +179,10 @@
         @for (kw of ab.keywords; track kw.exportId) {
           <p class="def-line def-line--indent">
             <strong class="def-line__term">{{ kw.exportName }}</strong>
-            @if (isDefVisible(kw.exportId) && kw.glossaryEntry?.description?.[0]?.content) {
-              <span> — {{ kw.glossaryEntry!.description[0].content }}</span>
+            @if (isUnresolved(kw.glossaryEntry)) {
+              <span class="def-line__unresolved"> [?]</span>
+            } @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+              <span> — {{ kw.glossaryEntry.description[0].content }}</span>
             }
           </p>
         }

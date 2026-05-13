@@ -1,10 +1,18 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, isDevMode, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import type {
-  Equipment, Model, Addon, Skill, GameGlossaryEntry, Variant, VariantRule,
+  AnyDataEntry,
+  Equipment,
+  Model,
+  Addon,
+  Skill,
+  GameGlossaryEntry,
+  Variant,
+  VariantRule,
+  UnresolvedFallback,
 } from '../models/game-data.interfaces';
 
 const BASE = 'assets/game-data/data/data';
@@ -20,11 +28,20 @@ export class GameDataService {
   private glossaryMap    = new Map<string, GameGlossaryEntry>();
   private variantRuleMap = new Map<string, VariantRule>();
 
-  // Tri-state: false = not yet attempted, true = success, 'error' = failed.
+  /** Deduplicated set of IDs that could not be found in any data map. */
+  readonly unresolvedIds = signal<Set<string>>(new Set());
+
+  /** Full sorted lists for each data type — populated once after load. */
+  readonly equipmentList   = signal<Equipment[]>([]);
+  readonly modelList       = signal<Model[]>([]);
+  readonly addonList       = signal<Addon[]>([]);
+  readonly skillList       = signal<Skill[]>([]);
+  readonly glossaryList    = signal<GameGlossaryEntry[]>([]);
+  readonly variantRuleList = signal<VariantRule[]>([]);
+
   private loadState: false | true | 'error' = false;
 
   load(): void {
-    // Allow retry if a previous attempt errored; skip if already loaded.
     if (this.loadState === true) return;
 
     forkJoin({
@@ -38,14 +55,7 @@ export class GameDataService {
       tap(({ equipment, models, addons, skills, glossary, variants }) => {
         equipment.forEach(e => this.equipmentMap.set(e.id, e));
         models.forEach(m => this.modelMap.set(m.id, m));
-
-        // Index every entry in addons.json regardless of id prefix or type.
-        // The file contains entries with 'ab_' and 'db_' prefixes; all must
-        // be reachable by getAddon().
         addons.forEach(a => this.addonMap.set(a.id, a));
-        console.log(`[GameDataService] addons loaded: ${addons.length} entries`);
-        console.log('[GameDataService] addon IDs:', addons.map(a => a.id));
-
         skills.forEach(s => this.skillMap.set(s.id, s));
         glossary.forEach(g => this.glossaryMap.set(g.id, g));
         variants.forEach(v => this.indexVariantRules(v));
@@ -55,28 +65,94 @@ export class GameDataService {
           `[GameDataService] loaded — equipment:${this.equipmentMap.size}` +
           ` models:${this.modelMap.size}` +
           ` addons:${this.addonMap.size}` +
-          ` glossary:${this.glossaryMap.size}`
+          ` glossary:${this.glossaryMap.size}`,
         );
       }),
       catchError(err => {
         this.loadState = 'error';
         console.error('[GameDataService] failed to load game data:', err);
         return EMPTY;
-      })
+      }),
     ).subscribe();
   }
 
-  getEquipment(id: string)    : Equipment         | undefined { return this.equipmentMap.get(id);   }
-  getModel(id: string)        : Model             | undefined { return this.modelMap.get(id);        }
-  getAddon(id: string)        : Addon             | undefined { return this.addonMap.get(id);        }
-  getSkill(id: string)        : Skill             | undefined { return this.skillMap.get(id);        }
-  getGlossaryEntry(id: string): GameGlossaryEntry | undefined { return this.glossaryMap.get(id);    }
-  getVariantRule(id: string)  : VariantRule       | undefined { return this.variantRuleMap.get(id); }
+  // ---------------------------------------------------------------------------
+  // Universal resolver — the single entry point for all ID lookups.
+  // Never returns null or undefined. Logs and tracks every miss.
+  // ---------------------------------------------------------------------------
+
+  resolve(id: string): AnyDataEntry {
+    const e = this.equipmentMap.get(id);   if (e) return e;
+    const a = this.addonMap.get(id);       if (a) return a;
+    const g = this.glossaryMap.get(id);    if (g) return g;
+    const v = this.variantRuleMap.get(id); if (v) return v;
+    const m = this.modelMap.get(id);       if (m) return m;
+    const s = this.skillMap.get(id);       if (s) return s;
+
+    this.recordUnresolved(id);
+    return this.makeFallback(id);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Typed convenience accessors — each calls resolve() so all misses are logged.
+  // ---------------------------------------------------------------------------
+
+  getEquipment(id: string)    : Equipment         | undefined {
+    const e = this.resolve(id); return e.type === 'Equipment'    ? e as Equipment         : undefined;
+  }
+  getModel(id: string)        : Model             | undefined {
+    const e = this.resolve(id); return e.type === 'Model'        ? e as Model             : undefined;
+  }
+  getAddon(id: string)        : Addon             | undefined {
+    const e = this.resolve(id); return e.type === 'Addon'        ? e as Addon             : undefined;
+  }
+  getSkill(id: string)        : Skill             | undefined {
+    const e = this.resolve(id); return e.type === 'Skill'        ? e as Skill             : undefined;
+  }
+  getGlossaryEntry(id: string): GameGlossaryEntry | undefined {
+    const e = this.resolve(id); return e.type === 'Glossary'     ? e as GameGlossaryEntry : undefined;
+  }
+  getVariantRule(id: string)  : VariantRule       | undefined {
+    const e = this.resolve(id); return e.type === 'VariantRule'  ? e as VariantRule       : undefined;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Fallback factory — public so WarbandService can use it for edge cases.
+  // ---------------------------------------------------------------------------
+
+  makeFallback(id: string): UnresolvedFallback {
+    return {
+      id,
+      name       : this.formatIdAsName(id),
+      source     : 'unknown',
+      type       : 'Unknown',
+      description: [],
+      tags       : [],
+      unresolved : true,
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Private helpers
+  // ---------------------------------------------------------------------------
+
+  private recordUnresolved(id: string): void {
+    if (this.unresolvedIds().has(id)) return;
+    this.unresolvedIds.update(prev => new Set([...prev, id]));
+    if (isDevMode()) {
+      console.warn(`[MusterRoll] Unresolved ID: ${id} — add to DATA_DISCREPANCIES.md`);
+    }
+  }
+
+  private formatIdAsName(id: string): string {
+    const body = id.replace(/^[a-z]+_/, '');
+    const words = body.split('_').filter(Boolean);
+    if (words.length === 0) return id;
+    return words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  }
 
   // ---------------------------------------------------------------------------
   // Variant rule indexing
-  // The companion app generates rl_ slugs from effect-type block titles:
-  //   "Fast As Lightning:" → rl_fastaslightning
   // ---------------------------------------------------------------------------
 
   private indexVariantRules(variant: Variant): void {
@@ -85,23 +161,21 @@ export class GameDataService {
         const isEffect = block.tags.some(t => t.val === 'effect');
         if (isEffect && block.content.endsWith(':')) {
           const id = this.titleToRlId(block.content);
-          const description = block.subcontent ?? [];
+          const title = block.content.replace(/:$/, '').trim();
           this.variantRuleMap.set(id, {
             id,
-            title      : block.content.replace(/:$/, '').trim(),
+            type       : 'VariantRule',
+            name       : title,
+            title,
             variantId  : variant.id,
             variantName: variant.name,
-            description,
+            description: block.subcontent ?? [],
           });
         }
       }
     }
   }
 
-  /**
-   * "Fast As Lightning:" → "rl_fastaslightning"
-   * Matches the slug algorithm used by trench-companion.com.
-   */
   private titleToRlId(title: string): string {
     return 'rl_' + title.toLowerCase().replace(/[^a-z]/g, '');
   }

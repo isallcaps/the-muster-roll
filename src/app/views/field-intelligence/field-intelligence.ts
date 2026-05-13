@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { WarbandService } from '../../services/warband.service';
+import { GameDataService } from '../../services/game-data.service';
 import { JsonTreeComponent } from '../../components/json-tree/json-tree';
 
 @Component({
@@ -10,7 +11,8 @@ import { JsonTreeComponent } from '../../components/json-tree/json-tree';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldIntelligenceView {
-  private readonly warbandSvc = inject(WarbandService);
+  private readonly warbandSvc  = inject(WarbandService);
+  private readonly gameDataSvc = inject(GameDataService);
 
   readonly warband    = this.warbandSvc.warband;
   readonly rawExport  = this.warbandSvc.rawExport;
@@ -18,21 +20,9 @@ export class FieldIntelligenceView {
 
   jsonDraft = '';
 
-  /** IDs that failed to resolve during enrichment — used to warn in the raw panel. */
-  readonly unresolvedIds = computed(() => {
-    const wb = this.warband();
-    if (!wb) return new Set<string>();
-    const ids = new Set<string>();
-    for (const model of wb.models) {
-      for (const eq of model.equipment) {
-        if (!eq.item) ids.add(eq.ref['equipment-id']);
-      }
-      for (const ab of model.abilities) {
-        if (ab.source === 'unknown') ids.add(ab.ref['ability-id']);
-      }
-    }
-    return ids;
-  });
+  /** Session-wide unresolved IDs tracked by GameDataService. */
+  readonly unresolvedIds    = this.gameDataSvc.unresolvedIds;
+  readonly unresolvedCount  = computed(() => this.unresolvedIds().size);
 
   readonly downloadLabel = computed(() => {
     const wb = this.warband();

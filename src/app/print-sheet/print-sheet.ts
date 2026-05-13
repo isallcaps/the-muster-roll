@@ -5,6 +5,7 @@ import { KeywordToggleService } from '../services/keyword-toggle.service';
 import { PrintSettingsService } from '../services/print-settings.service';
 import { TestCaseService } from '../services/test-case.service';
 import { ModelCardComponent } from './model-card';
+import { isUnresolvedFallback } from '../models/game-data.interfaces';
 import type { EnrichedWarbandModel, ResolvedKeyword } from '../models/warband.interfaces';
 
 type ModelPair = [EnrichedWarbandModel, EnrichedWarbandModel | null];
@@ -87,7 +88,7 @@ export class PrintSheetComponent {
 
       // FAIL — equipment IDs with no matching game data entry
       for (const eq of model.equipment) {
-        if (!eq.item) {
+        if (isUnresolvedFallback(eq.item)) {
           issues.push({
             severity   : 'fail',
             type       : 'equipment-unresolved',
@@ -102,7 +103,7 @@ export class PrintSheetComponent {
 
       // FAIL — ability IDs with no matching game data entry
       for (const ab of model.abilities) {
-        if (ab.source === 'unknown') {
+        if (isUnresolvedFallback(ab.addon) || isUnresolvedFallback(ab.variantRule)) {
           issues.push({
             severity   : 'fail',
             type       : 'ability-unresolved',
@@ -117,7 +118,7 @@ export class PrintSheetComponent {
 
       // WARN — model keywords with no glossary entry (deduped globally)
       for (const kw of model.modelKeywords) {
-        if (!kw.glossaryEntry && !seenKeywords.has(kw.exportId)) {
+        if (isUnresolvedFallback(kw.glossaryEntry) && !seenKeywords.has(kw.exportId)) {
           seenKeywords.add(kw.exportId);
           issues.push({
             severity   : 'warn',
@@ -134,7 +135,7 @@ export class PrintSheetComponent {
       // WARN — equipment keyword tags with no glossary entry (deduped globally)
       for (const eq of model.equipment) {
         for (const kw of eq.keywords) {
-          if (!kw.glossaryEntry && !seenKeywords.has(kw.exportId)) {
+          if (isUnresolvedFallback(kw.glossaryEntry) && !seenKeywords.has(kw.exportId)) {
             seenKeywords.add(kw.exportId);
             issues.push({
               severity   : 'warn',

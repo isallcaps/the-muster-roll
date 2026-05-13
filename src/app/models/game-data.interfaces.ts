@@ -25,9 +25,10 @@ export interface Equipment {
   equip_type: string | null;
   range: string | null;
   blurb: string;
-  modifiers: string[] | null; // null is present in the raw JSON for items with no modifiers
+  modifiers: string[] | null;
   eventtags: Record<string, boolean | string>;
   description: DescriptionBlock[];
+  unresolved?: boolean;
 }
 
 export interface ModelAbilityRef {
@@ -54,6 +55,7 @@ export interface Model {
   blurb: DescriptionBlock[];
   equipment: DescriptionBlock[];
   abilities: ModelAbilityRef[];
+  unresolved?: boolean;
 }
 
 export interface Addon {
@@ -65,6 +67,7 @@ export interface Addon {
   name: string;
   eventtags: Record<string, boolean | string>;
   description: DescriptionBlock[];
+  unresolved?: boolean;
 }
 
 export interface Skill {
@@ -75,6 +78,7 @@ export interface Skill {
   eventtags: Record<string, boolean | string>;
   name: string;
   description: DescriptionBlock[];
+  unresolved?: boolean;
 }
 
 export interface GameGlossaryEntry {
@@ -84,6 +88,7 @@ export interface GameGlossaryEntry {
   tags: Tag[];
   name: string;
   description: DescriptionBlock[];
+  unresolved?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -106,15 +111,56 @@ export interface Variant {
   rules: VariantRuleBlock[];
 }
 
-/**
- * A single named rule extracted from a Variant, keyed by its `rl_` slug.
- * The slug is derived by lowercasing the rule title and stripping non-alpha
- * characters (e.g. "Fast As Lightning:" → rl_fastaslightning).
- */
 export interface VariantRule {
-  id: string;           // e.g. "rl_fastaslightning"
-  title: string;        // e.g. "Fast As Lightning"
-  variantId: string;    // e.g. "fv_navalraidingparty"
-  variantName: string;  // e.g. "Naval Raiding Party"
+  id: string;
+  type: 'VariantRule';
+  name: string;
+  title: string;
+  variantId: string;
+  variantName: string;
   description: DescriptionBlock[];
+  unresolved?: boolean;
+}
+
+// ---------------------------------------------------------------------------
+// Universal fallback returned by GameDataService.resolve() on a miss.
+// ---------------------------------------------------------------------------
+
+export interface UnresolvedFallback {
+  id: string;
+  name: string;
+  source: 'unknown';
+  type: 'Unknown';
+  description: DescriptionBlock[];
+  tags: Tag[];
+  unresolved: true;
+  // Optional compatibility shims so templates can access common fields without casts
+  range?: string | null;
+  blurb?: string;
+  modifiers?: string[] | null;
+  equip_type?: string | null;
+  eventtags?: Record<string, boolean | string>;
+  category?: string;
+  faction_id?: string;
+  title?: string;
+  variantId?: string;
+  variantName?: string;
+}
+
+export type AnyDataEntry =
+  | Equipment
+  | Model
+  | Addon
+  | Skill
+  | GameGlossaryEntry
+  | VariantRule
+  | UnresolvedFallback;
+
+export function isUnresolvedFallback(entry: unknown): entry is UnresolvedFallback {
+  return (
+    entry !== null &&
+    entry !== undefined &&
+    typeof entry === 'object' &&
+    (entry as { unresolved?: boolean }).unresolved === true
+  );
 }

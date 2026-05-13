@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { DescBlocksComponent } from './desc-blocks.component';
 import { KeywordToggleService } from '../services/keyword-toggle.service';
 import { PrintSettingsService } from '../services/print-settings.service';
+import { isUnresolvedFallback } from '../models/game-data.interfaces';
 import type { EnrichedWarbandModel, EnrichedAbility } from '../models/warband.interfaces';
 
 @Component({
@@ -25,11 +26,11 @@ export class ModelCardComponent {
     return this.model.abilities.filter(a => a.source === 'variant-rule');
   }
 
-  /**
-   * Whether the definition for this keyword should be rendered.
-   * Reads from the KeywordToggleService signal — reactive in templates.
-   */
   isDefVisible(exportId: string): boolean {
     return this.kwToggle.isVisible(exportId);
+  }
+
+  isUnresolved(entry: unknown): boolean {
+    return isUnresolvedFallback(entry);
   }
 }

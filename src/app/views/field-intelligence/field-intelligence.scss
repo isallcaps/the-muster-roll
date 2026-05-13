@@ -142,6 +142,21 @@
   color: var(--fi-muted);
 }
 
+.fi-unresolved-banner {
+  font-size: 7.5pt;
+  margin: 0;
+  padding: 5px 8px;
+  border: 1px solid #b45309;
+  background: #fffbeb;
+  color: #92400e;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #d97706;
+    background: #1c1200;
+    color: #fbbf24;
+  }
+}
+
 // ── Two-panel layout ──────────────────────────────────────────────────────────
 
 .fi-panels {

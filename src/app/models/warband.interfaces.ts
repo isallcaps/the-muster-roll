@@ -1,4 +1,11 @@
-import type { Equipment, Addon, VariantRule, Model, GameGlossaryEntry } from './game-data.interfaces';
+import type {
+  Equipment,
+  Addon,
+  VariantRule,
+  Model,
+  GameGlossaryEntry,
+  UnresolvedFallback,
+} from './game-data.interfaces';
 
 // ---------------------------------------------------------------------------
 // Raw export shape (from trench-companion.com)
@@ -16,8 +23,8 @@ export interface WarbandAbilityRef {
 }
 
 export interface WarbandKeywordRef {
-  'keyword-name': string;  // e.g. "ELITE", "NEGATE FIRE"
-  'keyword-id': string;    // e.g. "kw_elite", "kw_negate_kw_fire"
+  'keyword-name': string;
+  'keyword-id': string;
 }
 
 export interface WarbandModelExport {
@@ -53,66 +60,47 @@ export interface WarbandExport {
 // ---------------------------------------------------------------------------
 
 /**
- * A resolved keyword with its full glossary rule text.
- * For NEGATE keywords (e.g. NEGATE FIRE), `negated` is true and
- * `glossaryEntry` points to the base keyword being negated (gl_fire) —
- * so a print card can show what the model is immune to.
+ * A resolved keyword. glossaryEntry is always present — either a real entry
+ * from glossary.json or an UnresolvedFallback (description: [], unresolved: true).
  */
 export interface ResolvedKeyword {
-  exportId: string;                     // kw_elite / kw_negate_kw_fire
-  exportName: string;                   // "ELITE" / "NEGATE FIRE"
+  exportId: string;
+  exportName: string;
   negated: boolean;
-  glossaryEntry: GameGlossaryEntry | undefined;
+  glossaryEntry: GameGlossaryEntry | UnresolvedFallback;
 }
 
-/** Equipment with all keyword tags resolved to their full glossary entries. */
+/**
+ * Equipment with all keyword tags resolved. item is always present —
+ * either a real Equipment object or an UnresolvedFallback.
+ */
 export interface EnrichedEquipment {
   ref: WarbandEquipmentRef;
-  item: Equipment | undefined;
-  /** One ResolvedKeyword per equipment tag that carries a gl_ val. */
+  item: Equipment | UnresolvedFallback;
   keywords: ResolvedKeyword[];
-  /**
-   * Calculated short range (half of the weapon's full range), e.g. `'12"'`.
-   * Null for melee-only weapons or items with no parseable numeric range.
-   * Calculated in WarbandService — do not derive in templates.
-   */
   shortRange: string | null;
-  /**
-   * Display string for the weapon's full range, e.g. `'24"'` or `'12" / Melee'`.
-   * For melee-only items this is `'Melee'`. Null when the item has no range field.
-   */
   longRange: string | null;
 }
 
 /**
- * An ability that may come from addons.json (ab_ prefix) or from
- * a variant rule in variants.json (rl_ prefix).
+ * An ability (addon or variant rule). Source is always 'addon' or
+ * 'variant-rule'; the corresponding field holds either the real entry
+ * or an UnresolvedFallback — never a silent undefined/unknown.
  */
 export interface EnrichedAbility {
   ref: WarbandAbilityRef;
-  source: 'addon' | 'variant-rule' | 'unknown';
-  addon: Addon | undefined;
-  variantRule: VariantRule | undefined;
-  /** Glossary entries referenced inside the ability description, deduped. */
+  source: 'addon' | 'variant-rule';
+  addon: Addon | UnresolvedFallback | undefined;
+  variantRule: VariantRule | UnresolvedFallback | undefined;
   keywords: ResolvedKeyword[];
 }
 
-/**
- * Fully self-contained enriched model. Everything needed to play this model
- * is present — no external lookups required at render time.
- */
 export interface EnrichedWarbandModel {
   export: WarbandModelExport;
-  /** Static definition from models.json — undefined if model-id not found. */
   definition: Model | undefined;
-  /** Model-level keywords resolved to full rule text (+ NEGATE handling). */
   modelKeywords: ResolvedKeyword[];
   equipment: EnrichedEquipment[];
   abilities: EnrichedAbility[];
-  /**
-   * Deduplicated, alphabetically sorted union of every unique keyword
-   * referenced anywhere on this model. Useful for a per-card inline index.
-   */
   allKeywords: ResolvedKeyword[];
 }
 
@@ -125,10 +113,5 @@ export interface EnrichedWarband {
   ducatRating: number;
   gloryRating: number;
   models: EnrichedWarbandModel[];
-  /**
-   * Deduplicated, alphabetically sorted union of every unique keyword
-   * referenced across the entire warband (model tags, equipment tags, ability
-   * descriptions). Built once in WarbandService so components just read it.
-   */
   allWarbandKeywords: ResolvedKeyword[];
 }
