@@ -425,6 +425,13 @@
   gap: 6px;
 }
 
+.val-report__content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
 .val-report__item {
   display: flex;
   align-items: flex-start;
@@ -489,7 +496,6 @@
 .val-report__copy {
   font-size: 7pt;
   padding: 3px 8px;
-  white-space: nowrap;
 
   &--secondary {
     opacity: 0.6;
