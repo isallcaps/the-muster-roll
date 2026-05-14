@@ -26,6 +26,19 @@ be fixed upstream.
 
 ---
 
+## Model ID Mismatches
+
+Model type IDs present in Trench Companion exports that do not match any entry in
+`data/player/models.json`. Handled locally in `WarbandService.MODEL_ID_REMAP`. Without
+the remap, all four stat values (MOV/MEL/RNG/ARM) render as `?` on the model card.
+
+| Export ID | Correct / Current ID | Status | Notes |
+|-----------|----------------------|--------|-------|
+| `md_annointedheavyinfantry` | `md_anointedheavyinfantry` | Worked around locally | Typo in the TC exporter — double 'n' in "annointed" |
+| `md_deathcommando` | `md_hereticdeathcommando` | Worked around locally | TC exporter omits the 'heretic' prefix used in the data file |
+
+---
+
 ## Missing Glossary Entries
 
 Keyword IDs referenced by equipment tags or model keyword lists that have no
@@ -76,12 +89,18 @@ in `addons.json` and not matchable as a variant rule slug.
 
 | Ability ID | Display Name | Affected Warband / Notes |
 |------------|--------------|--------------------------|
-## Missing Ability Definitions
-
-| Ability ID | Display Name | Affected Warband / Notes |
-|------------|--------------|--------------------------|
 | `ab_abioticlife` | Abiotic Life | Eris (The Wrecking Crew v2) |
 | `ab_artillerywitchbattery` | Artillery Witch Battery | Eris (The Wrecking Crew v2) |
 | `ab_hereticlegionnaire` | Heretic Legionnaire | Rum (The Wrecking Crew v2) |
 
 | *(populate from live Validation Report in the dev toolbar)* | | |
+
+---
+
+## Resolved via Rulebook Override
+
+Entries manually added from the PDF rulebook to patch gaps in the submodule data.
+These should be removed from the override file once the upstream repo is updated.
+
+| ID | Name | Type | Added |
+|----|------|------|-------|

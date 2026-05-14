@@ -62,6 +62,9 @@
 
             <div class="arm-card__name-row">
               <span class="arm-card__name">{{ entry.name }}</span>
+              @if (isOverride(entry)) {
+                <span class="arm-card__override-badge" title="Added from the PDF rulebook — patches a gap in the submodule data">Rulebook</span>
+              }
               @if (hasUnresolved(entry)) {
                 <span class="arm-card__unresolved" title="This entry has unresolved glossary references"> [?]</span>
               }

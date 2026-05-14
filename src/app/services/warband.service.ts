@@ -95,6 +95,11 @@ export class WarbandService {
     'https://synod.trench-companion.com/wp-json/synod/v1/warband';
 
   // IDs that the TC exporter uses that differ from the current data file IDs.
+  private static readonly MODEL_ID_REMAP: Record<string, string> = {
+    'md_annointedheavyinfantry': 'md_anointedheavyinfantry',  // TC exporter typo (double-n)
+    'md_deathcommando'         : 'md_hereticdeathcommando',   // TC exporter missing 'heretic' prefix
+  };
+
   private static readonly EQUIPMENT_ID_REMAP: Record<string, string> = {
     'eq_silenecedpistol'           : 'eq_silencedpistol',
     'eq_artillerywitchinfernalbomb': 'ab_infernalbomb',
@@ -257,8 +262,9 @@ export class WarbandService {
     const factionRuleIds = (data.faction?.faction_rules ?? []).map(r => r.object_id);
 
     const models: WarbandModelExport[] = (data.models ?? []).map(entry => {
-      const m   = entry.model;
-      const def = this.gameData.getModel(m.model);
+      const m        = entry.model;
+      const modelId  = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+      const def      = this.gameData.getModel(modelId);
 
       // Equipment: the actual equipment ID lives in equipment_id.object_id.
       // The entry.equipment.id may be a relationship ID for mandatory equipment.
@@ -296,7 +302,7 @@ export class WarbandService {
 
       return {
         'model-name'  : def?.name ?? m.model,
-        'model-id'    : m.model,
+        'model-id'    : modelId,
         name          : m.name,
         'stat-move'   : statMove,
         'stat-melee'  : statMelee,

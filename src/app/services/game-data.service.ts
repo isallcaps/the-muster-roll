@@ -1,6 +1,6 @@
 import { Injectable, inject, isDevMode, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import type {
@@ -17,6 +17,16 @@ import type {
 
 const BASE = 'assets/game-data/data/data';
 
+interface RulebookOverride {
+  version     : string;
+  source      : string;
+  lastUpdated : string;
+  glossary    : Record<string, GameGlossaryEntry>;
+  equipment   : Record<string, Equipment>;
+  abilities   : Record<string, Addon>;
+  variantRules: Record<string, VariantRule>;
+}
+
 @Injectable({ providedIn: 'root' })
 export class GameDataService {
   private http = inject(HttpClient);
@@ -27,6 +37,7 @@ export class GameDataService {
   private skillMap       = new Map<string, Skill>();
   private glossaryMap    = new Map<string, GameGlossaryEntry>();
   private variantRuleMap = new Map<string, VariantRule>();
+  private overrideIds    = new Set<string>();
 
   /** Deduplicated set of IDs that could not be found in any data map. */
   readonly unresolvedIds = signal<Set<string>>(new Set());
@@ -51,14 +62,24 @@ export class GameDataService {
       skills    : this.http.get<Skill[]>(`${BASE}/general/skills.json`),
       glossary  : this.http.get<GameGlossaryEntry[]>(`${BASE}/references/glossary.json`),
       variants  : this.http.get<Variant[]>(`${BASE}/player/variants.json`),
+      override  : this.http.get<RulebookOverride>('assets/rulebook-override.json').pipe(
+        catchError(() => of({} as RulebookOverride)),
+      ),
     }).pipe(
-      tap(({ equipment, models, addons, skills, glossary, variants }) => {
+      tap(({ equipment, models, addons, skills, glossary, variants, override }) => {
         equipment.forEach(e => { try { this.equipmentMap.set(e.id, e); } catch (err) { console.warn(`[GameDataService] skipping equipment entry ${e?.id}:`, err); } });
         models.forEach(m => { try { this.modelMap.set(m.id, m); } catch (err) { console.warn(`[GameDataService] skipping model entry ${m?.id}:`, err); } });
         addons.forEach(a => { try { this.addonMap.set(a.id, a); } catch (err) { console.warn(`[GameDataService] skipping addon entry ${a?.id}:`, err); } });
         skills.forEach(s => { try { this.skillMap.set(s.id, s); } catch (err) { console.warn(`[GameDataService] skipping skill entry ${s?.id}:`, err); } });
         glossary.forEach(g => { try { this.glossaryMap.set(g.id, g); } catch (err) { console.warn(`[GameDataService] skipping glossary entry ${g?.id}:`, err); } });
         variants.forEach(v => { try { this.indexVariantRules(v); } catch (err) { console.warn(`[GameDataService] skipping variant ${v?.id}:`, err); } });
+
+        // Apply rulebook overrides — take precedence over submodule data
+        let ovGlossary = 0, ovEquipment = 0, ovAbilities = 0, ovVariantRules = 0;
+        for (const [id, entry] of Object.entries(override?.glossary     ?? {})) { this.glossaryMap.set(id,    { ...entry, id, source: 'rulebook-override' }); this.overrideIds.add(id); ovGlossary++;     }
+        for (const [id, entry] of Object.entries(override?.equipment    ?? {})) { this.equipmentMap.set(id,   { ...entry, id, source: 'rulebook-override' }); this.overrideIds.add(id); ovEquipment++;    }
+        for (const [id, entry] of Object.entries(override?.abilities    ?? {})) { this.addonMap.set(id,       { ...entry, id, source: 'rulebook-override' }); this.overrideIds.add(id); ovAbilities++;    }
+        for (const [id, entry] of Object.entries(override?.variantRules ?? {})) { this.variantRuleMap.set(id, { ...entry, id });                               this.overrideIds.add(id); ovVariantRules++; }
 
         const byName = (a: { name: string }, b: { name: string }) =>
           a.name.localeCompare(b.name);
@@ -76,6 +97,10 @@ export class GameDataService {
           ` models:${this.modelMap.size}` +
           ` addons:${this.addonMap.size}` +
           ` glossary:${this.glossaryMap.size}`,
+        );
+        console.log(
+          `[MusterRoll] Rulebook overrides applied: ${ovGlossary} glossary,` +
+          ` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules`,
         );
       }),
       catchError(err => {
@@ -113,6 +138,10 @@ export class GameDataService {
     return this.equipmentMap.has(id) || this.addonMap.has(id)   ||
            this.glossaryMap.has(id)  || this.variantRuleMap.has(id) ||
            this.modelMap.has(id)     || this.skillMap.has(id);
+  }
+
+  isOverride(id: string): boolean {
+    return this.overrideIds.has(id);
   }
 
   // ---------------------------------------------------------------------------

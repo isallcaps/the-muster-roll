@@ -112,6 +112,8 @@ export class ArmouryView {
     return false;
   }
 
+  isOverride(e: AnyDataEntry): boolean { return this.gameData.isOverride(e.id); }
+
   isExpanded(id: string): boolean { return this.expandedId() === id; }
 
   toggleExpand(id: string): void {

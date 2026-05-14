@@ -197,6 +197,17 @@
   color: #f59e0b;
 }
 
+.arm-card__override-badge {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 6pt;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: #6ee7b7;
+  background: #064e3b;
+  border: 1px solid #065f46;
+  padding: 1px 5px;
+}
+
 .arm-card__id {
   font-family: 'Courier New', Courier, monospace;
   font-size: 7pt;

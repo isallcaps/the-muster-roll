@@ -33,6 +33,11 @@
                 "glob": "**/*",
                 "input": "src/assets/game-data",
                 "output": "assets/game-data"
+              },
+              {
+                "glob": "rulebook-override.json",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
@@ -73,6 +78,11 @@
                   "glob": "**/*",
                   "input": "src/assets/test-cases",
                   "output": "assets/test-cases"
+                },
+                {
+                  "glob": "rulebook-override.json",
+                  "input": "src/assets",
+                  "output": "assets"
                 }
               ]
             }
