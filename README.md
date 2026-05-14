@@ -47,15 +47,23 @@ ng serve
 
 Then open `http://localhost:4200` in your browser.
 
-### Updating Game Data
+## Game Data
 
-The game data is pulled from [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata) as a git submodule — a maintained fork of [Bob-The-Seagull-King/trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) with additional glossary entries, abilities, and variant rules sourced from the v1.0.2 rulebook PDFs. To update to the latest data:
+Warband rule definitions are powered by a maintained fork of the
+[trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata)
+repository, included as a git submodule. The fork adds missing glossary
+entries, abilities, and faction rules sourced from the official v1.0.2
+rulebook PDFs.
 
-```bash
+To update the game data:
+\```bash
 git submodule update --remote
 git add src/assets/game-data
 git commit -m "chore: update game data"
-```
+\```
+
+The original upstream repository is maintained by
+[Bob-The-Seagull-King](https://github.com/Bob-The-Seagull-King/trenchcrusadedata).
 
 ---
 

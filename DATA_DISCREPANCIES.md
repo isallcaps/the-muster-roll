@@ -1,11 +1,15 @@
 # Data Discrepancies
 
-Gaps found between the Trench Companion print view and the game data submodule
-([trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata)).
-Intended to be reported as issues to the data maintainers.
+Gaps found between the Trench Crusade print view and the game data.
+Sourced against the official v1.0.2 rulebook PDFs.
 
-Use the **Copy for Issue Report** button in the dev toolbar's Validation Report
-section to generate a pre-formatted GitHub issue body for any live discrepancy.
+This project uses a maintained fork of the upstream data repository:
+https://github.com/isallcaps/trenchcrusadedata
+
+Fixes confirmed against the rulebook are applied directly to the fork.
+Entries in this file are gaps not yet fixed in the fork, or discrepancies
+that require upstream attention at the original repository:
+https://github.com/Bob-The-Seagull-King/trenchcrusadedata
 
 ---
 
