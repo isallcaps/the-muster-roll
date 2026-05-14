@@ -1,10 +1,13 @@
 import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { GameDataService } from './game-data.service';
 import { isUnresolvedFallback } from '../models/game-data.interfaces';
 import type {
   Addon,
   Equipment,
   GameGlossaryEntry,
+  Model,
   VariantRule,
   DescriptionBlock,
   UnresolvedFallback,
@@ -14,6 +17,7 @@ import type {
   WarbandAbilityRef,
   WarbandEquipmentRef,
   WarbandKeywordRef,
+  WarbandModelExport,
   EnrichedWarband,
   EnrichedWarbandModel,
   EnrichedEquipment,
@@ -21,14 +25,76 @@ import type {
   ResolvedKeyword,
 } from '../models/warband.interfaces';
 
+export type WarbandFormat = 'api' | 'full' | 'simplified';
+
+// ---------------------------------------------------------------------------
+// TC internal format types (Trench Companion API — Format 1 & Format 2)
+//
+// Format 1: full API wrapper  — { warband_id: number, warband_data: string }
+//   warband_data is a double-serialised JSON string requiring a second parse.
+//
+// Format 2: pre-parsed warband_data — the inner object after the second parse
+//   (detected by the presence of `faction` and models with nested `model` objects)
+// ---------------------------------------------------------------------------
+
+interface TcApiSubproperty {
+  object_id: string;
+  tags: Record<string, boolean>;
+}
+
+interface TcApiEquipmentItem {
+  id: string;
+  name: string;
+  equipment_id: { object_id: string };
+  tags: Record<string, boolean | string>;
+}
+
+interface TcApiEquipmentEntry {
+  equipment: TcApiEquipmentItem;
+}
+
+interface TcApiModelData {
+  id: string;
+  name: string;
+  model: string;   // model-type ID, e.g. "md_hereticpriest"
+  elite: boolean;
+  subproperties: TcApiSubproperty[];
+  equipment: TcApiEquipmentEntry[];
+}
+
+interface TcApiModelEntry {
+  purchase: { cost_value: number };
+  model: TcApiModelData;
+}
+
+interface TcApiFaction {
+  faction_rules: TcApiSubproperty[];
+}
+
+interface TcApiWarbandData {
+  name: string;
+  ducat_bank: number;
+  glory_bank: number;
+  faction?: TcApiFaction;
+  models: TcApiModelEntry[];
+}
+
+// ---------------------------------------------------------------------------
+
 @Injectable({ providedIn: 'root' })
 export class WarbandService {
   private gameData = inject(GameDataService);
+  private http     = inject(HttpClient);
 
-  readonly warband    = signal<EnrichedWarband | null>(null);
-  readonly rawExport  = signal<unknown>(null);
-  readonly parseError = signal<string | null>(null);
+  readonly warband        = signal<EnrichedWarband | null>(null);
+  readonly rawExport      = signal<unknown>(null);
+  readonly parseError     = signal<string | null>(null);
+  readonly detectedFormat = signal<WarbandFormat | null>(null);
 
+  private static readonly TC_API =
+    'https://synod.trench-companion.com/wp-json/synod/v1/warband';
+
+  // IDs that the TC exporter uses that differ from the current data file IDs.
   private static readonly EQUIPMENT_ID_REMAP: Record<string, string> = {
     'eq_silenecedpistol'           : 'eq_silencedpistol',
     'eq_artillerywitchinfernalbomb': 'ab_infernalbomb',
@@ -57,24 +123,73 @@ export class WarbandService {
     },
   };
 
-  load(rawJson: string): void {
+  // ---------------------------------------------------------------------------
+  // API fetch — returns the raw JSON string so callers can populate a textarea
+  // ---------------------------------------------------------------------------
+
+  loadFromApi(warbandId: string | number): Observable<string> {
+    return this.http
+      .get(`${WarbandService.TC_API}/${warbandId}`)
+      .pipe(map(response => JSON.stringify(response, null, 2)));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Main load entry point — format detection is content-based
+  // ---------------------------------------------------------------------------
+
+  load(rawJson: string, _source?: WarbandFormat): void {
     this.parseError.set(null);
 
-    let exported: WarbandExport;
+    let parsed: unknown;
     try {
-      exported = JSON.parse(rawJson) as WarbandExport;
-      this.rawExport.set(exported);
+      parsed = JSON.parse(rawJson);
+      this.rawExport.set(parsed);
     } catch {
       this.parseError.set('Invalid JSON — please check your export and try again.');
+      this.detectedFormat.set(null);
       return;
+    }
+
+    let exported: WarbandExport;
+    const rec = parsed as Record<string, unknown>;
+
+    // ── Format 1: full API wrapper ─────────────────────────────────────────
+    // Detected by: warband_id (number) + warband_data (JSON string) at root.
+    // warband_data requires a second JSON.parse() to get the inner object.
+    if (typeof rec['warband_id'] === 'number' && typeof rec['warband_data'] === 'string') {
+      this.detectedFormat.set('api');
+      let inner: unknown;
+      try {
+        inner = JSON.parse(rec['warband_data'] as string);
+      } catch {
+        this.parseError.set('warband_data could not be parsed — the data may be corrupted.');
+        this.detectedFormat.set(null);
+        return;
+      }
+      exported = this.translateTcInternal(inner as TcApiWarbandData);
+
+    // ── Format 2: pre-parsed TC internal object ────────────────────────────
+    // Detected by: faction object + models array where models[0].model is an object
+    // (i.e., the inner warband_data content after it's already been parsed).
+    } else if (this.isTcInternalFormat(rec)) {
+      this.detectedFormat.set('full');
+      exported = this.translateTcInternal(rec as unknown as TcApiWarbandData);
+
+    // ── Format 3: simplified warband export ────────────────────────────────
+    // Detected by: warband-name + flat model objects with stat-move etc.
+    } else {
+      this.detectedFormat.set('simplified');
+      exported = parsed as WarbandExport;
     }
 
     if (!exported.models || !Array.isArray(exported.models)) {
       this.parseError.set('Export JSON must have a "models" array.');
+      this.detectedFormat.set(null);
       return;
     }
 
     const enrichedModels: EnrichedWarbandModel[] = exported.models.map(m => {
+      // Strip the "/Infantry" or "/Cavalry" movement suffix from simplified exports.
       m['stat-move'] = m['stat-move']?.split('/')[0] ?? m['stat-move'];
 
       const definition    = this.gameData.getModel(m['model-id']);
@@ -131,6 +246,137 @@ export class WarbandService {
     this.warband.set(null);
     this.rawExport.set(null);
     this.parseError.set(null);
+    this.detectedFormat.set(null);
+  }
+
+  // ---------------------------------------------------------------------------
+  // TC internal format → WarbandExport translation
+  // ---------------------------------------------------------------------------
+
+  private translateTcInternal(data: TcApiWarbandData): WarbandExport {
+    const factionRuleIds = (data.faction?.faction_rules ?? []).map(r => r.object_id);
+
+    const models: WarbandModelExport[] = (data.models ?? []).map(entry => {
+      const m   = entry.model;
+      const def = this.gameData.getModel(m.model);
+
+      // Equipment: the actual equipment ID lives in equipment_id.object_id.
+      // The entry.equipment.id may be a relationship ID for mandatory equipment.
+      const equipment: WarbandEquipmentRef[] = m.equipment.map(eq => ({
+        'equipment-name': eq.equipment.name,
+        'equipment-id'  : eq.equipment.equipment_id.object_id,
+        'equipment-type': this.tagsToEquipType(eq.equipment.tags),
+      }));
+
+      // Abilities: per-model subproperties, then any warband faction rules
+      // that are not already listed on this model.
+      const modelSubpropIds = new Set(m.subproperties.map(s => s.object_id));
+
+      const abilities: WarbandAbilityRef[] = [
+        ...m.subproperties.map(s => ({
+          'ability-name': this.gameData.resolve(s.object_id).name,
+          'ability-id'  : s.object_id,
+        })),
+        ...factionRuleIds
+          .filter(id => !modelSubpropIds.has(id))
+          .map(id => ({
+            'ability-name': this.gameData.resolve(id).name,
+            'ability-id'  : id,
+          })),
+      ];
+
+      // Keywords: elite flag + any kw_* tags on the game-data model definition.
+      const keywords = this.keywordsFromTcModel(m, def);
+
+      // Stats from game-data model definition (not provided by the TC API).
+      const statMove   = def ? `${def.movement.join('/')}` : '?';
+      const statMelee  = def ? def.melee.join('/')         : '?';
+      const statRanged = def ? def.ranged.join('/')        : '?';
+      const statArmour = def ? def.armour.join('/')        : '?';
+
+      return {
+        'model-name'  : def?.name ?? m.model,
+        'model-id'    : m.model,
+        name          : m.name,
+        'stat-move'   : statMove,
+        'stat-melee'  : statMelee,
+        'stat-ranged' : statRanged,
+        'stat-armour' : statArmour,
+        cost          : { ducats: entry.purchase?.cost_value ?? 0, glory: 0 },
+        equipment,
+        abilities,
+        upgrades      : [],
+        advancements  : [],
+        injuries      : [],
+        keywords,
+      };
+    });
+
+    return {
+      'warband-id'   : 0,
+      'warband-url'  : '',
+      'warband-name' : data.name ?? 'Unknown Warband',
+      'ducat-bank'   : data.ducat_bank ?? 0,
+      'glory-bank'   : data.glory_bank ?? 0,
+      'ducat-rating' : 0,
+      'glory-rating' : 0,
+      models,
+    };
+  }
+
+  // Detect the TC internal format (inner warband_data object, already parsed).
+  // models[0] has a `model` property that is itself an object with a `model`
+  // string field (the model-type ID like "md_hereticpriest").
+  private isTcInternalFormat(rec: Record<string, unknown>): boolean {
+    if (!Array.isArray(rec['models']) || (rec['models'] as unknown[]).length === 0) {
+      return false;
+    }
+    const first = (rec['models'] as Record<string, unknown>[])[0];
+    const modelField = first?.['model'];
+    return (
+      modelField !== null &&
+      typeof modelField === 'object' &&
+      typeof (modelField as Record<string, unknown>)['model'] === 'string'
+    );
+  }
+
+  // Derive equipment type from the TC API tags object.
+  private tagsToEquipType(tags: Record<string, boolean | string>): string {
+    if (tags['armour'])  return 'armour';
+    if (tags['shield'])  return 'shield';
+    if (tags['grenade']) return 'grenade';
+    if (tags['weapon'])  return 'weapon';
+    if (tags['trait'])   return 'trait';
+    return 'equipment';
+  }
+
+  // Extract keyword refs from the TC internal model object.
+  // Uses the `elite` flag and any kw_* tags on the game-data model definition.
+  private keywordsFromTcModel(
+    m: TcApiModelData,
+    def: Model | undefined,
+  ): WarbandKeywordRef[] {
+    const keywords: WarbandKeywordRef[] = [];
+    const seen = new Set<string>();
+
+    if (m.elite) {
+      keywords.push({ 'keyword-name': 'ELITE', 'keyword-id': 'kw_elite' });
+      seen.add('kw_elite');
+    }
+
+    if (def) {
+      for (const tag of def.tags) {
+        if (tag.val?.startsWith('kw_') && !seen.has(tag.val)) {
+          keywords.push({
+            'keyword-name': tag.tag_name.toUpperCase(),
+            'keyword-id'  : tag.val,
+          });
+          seen.add(tag.val);
+        }
+      }
+    }
+
+    return keywords;
   }
 
   // ---------------------------------------------------------------------------

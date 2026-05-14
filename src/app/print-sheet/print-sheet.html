@@ -1,218 +1,246 @@
-
+<!-- ═══════════════════════════════════════════════════════════════════
+     TOOLBAR — hidden when printing
+     ═══════════════════════════════════════════════════════════════════ -->
 <aside class="toolbar no-print" aria-label="Muster Roll toolbar">
 
-    <div class="toolbar__brand">
-      <h1 class="toolbar__app-name">The Muster Roll</h1>
-      <p class="toolbar__tagline">Know your soldiers. Know the rules.</p>
-    </div>
+  <div class="toolbar__brand">
+    <h1 class="toolbar__app-name">The Muster Roll</h1>
+    <p class="toolbar__tagline">Know your soldiers. Know the rules.</p>
+  </div>
 
-	@if (devMode) {
-		<!-- ── Test case selector ──────────────────────────────────────── -->
-		<div class="toolbar__test-cases">
-			<label class="toolbar__label" for="tc-select">Load saved test case</label>
-			<select
-					id="tc-select"
-					class="toolbar__select"
-					(change)="onTestCaseSelect($event)"
-					[disabled]="testCaseSvc.loading()"
-			>
-				<option value="">— select a warband —</option>
-				@for (tc of testCaseSvc.index(); track tc.id) {
-					<option [value]="tc.id">{{ tc.name }}</option>
-				}
-			</select>
-			@if (testCaseSvc.index().length === 0) {
-				<p class="toolbar__hint">No test cases saved yet. Paste a warband below and click "Save Current".</p>
-			}
-		</div>
-	}
-
-    <!-- ── Warband export JSON ─────────────────────────────────────── -->
-    <div class="toolbar__import">
-      <label class="toolbar__label" for="json-paste">
-        Warband export JSON
-      </label>
-      <textarea
-        id="json-paste"
-        class="toolbar__textarea"
-        rows="8"
-        spellcheck="false"
-        autocomplete="off"
-        placeholder='{"warband-name": "…", "models": […]}'
-        [(ngModel)]="jsonDraft"
-      ></textarea>
-
-      @if (parseError(); as err) {
-        <p class="toolbar__error" role="alert">
-          <strong>Error:</strong> {{ err }}
-        </p>
+  @if (devMode) {
+    <!-- ── Test case selector ───────────────────────────────────────── -->
+    <div class="toolbar__test-cases">
+      <label class="toolbar__label" for="tc-select">Load saved test case</label>
+      <select
+        id="tc-select"
+        class="toolbar__select"
+        (change)="onTestCaseSelect($event)"
+        [disabled]="testCaseSvc.loading()"
+      >
+        <option value="">— select a warband —</option>
+        @for (tc of testCaseSvc.index(); track tc.id) {
+          <option [value]="tc.id">{{ tc.name }}</option>
+        }
+      </select>
+      @if (testCaseSvc.index().length === 0) {
+        <p class="toolbar__hint">No test cases saved yet. Paste a warband below and click "Save Current".</p>
+      }
+      @if (loadedTestCaseWarbandId()) {
+        <button
+          class="toolbar__btn"
+          [disabled]="apiLoading()"
+          (click)="refreshFromApi()"
+          title="Re-fetch live data for this test case from the Trench Companion API"
+        >{{ apiLoading() ? 'Loading…' : 'Refresh from API' }}</button>
       }
     </div>
+  }
 
-	@if (devMode) {
-		<!-- ── Trench Companion reference HTML ────────────────────────── -->
-		<div class="toolbar__import">
-			<label class="toolbar__label" for="html-paste">
-				Trench Companion reference HTML
-				<span class="toolbar__label-note">(paste from TC print view)</span>
-			</label>
-			<textarea
-					id="html-paste"
-					class="toolbar__textarea toolbar__textarea--html"
-					rows="5"
-					spellcheck="false"
-					autocomplete="off"
-					placeholder="Paste the full HTML from trench-companion.com print view…"
-					[(ngModel)]="htmlDraft"
-			></textarea>
-		</div>
-	}
+  <!-- ── Primary: load by warband ID ─────────────────────────────────── -->
+  <div class="toolbar__api-load">
+    <label class="toolbar__label" for="warband-id-input">Warband ID</label>
+    <div class="toolbar__api-row">
+      <input
+        id="warband-id-input"
+        class="toolbar__id-input"
+        type="text"
+        inputmode="numeric"
+        placeholder="e.g. 278648"
+        [(ngModel)]="warbandIdDraft"
+        (keydown.enter)="loadFromTcApi()"
+        aria-label="Trench Companion warband ID"
+      />
+      <button
+        class="toolbar__btn toolbar__btn--primary"
+        [disabled]="!warbandIdDraft.trim() || apiLoading()"
+        (click)="loadFromTcApi()"
+      >{{ apiLoading() ? 'Loading…' : 'Load from Trench Companion' }}</button>
+    </div>
+    <p class="toolbar__hint">
+      From the warband URL: trench-companion.com/warband/detail/<strong>278648</strong>
+    </p>
 
+    @if (apiError(); as err) {
+      <p class="toolbar__api-error" role="alert">{{ err }}</p>
+    }
+  </div>
 
-    <!-- ── Actions ────────────────────────────────────────────────── -->
-    <div class="toolbar__actions">
-      <button class="toolbar__btn toolbar__btn--primary" (click)="render()">
-        Render
-      </button>
+  <!-- ── Divider ───────────────────────────────────────────────────────── -->
+  <div class="toolbar__divider">
+    <span class="toolbar__divider-label">or paste JSON manually</span>
+  </div>
+
+  <!-- ── Fallback: manual JSON paste ──────────────────────────────────── -->
+  <div class="toolbar__import">
+    <label class="toolbar__label" for="json-paste">Warband export JSON</label>
+    <textarea
+      id="json-paste"
+      class="toolbar__textarea"
+      rows="6"
+      spellcheck="false"
+      autocomplete="off"
+      placeholder='{"warband-name": "…", "models": […]}'
+      [(ngModel)]="jsonDraft"
+    ></textarea>
+
+    @if (parseError(); as err) {
+      <p class="toolbar__error" role="alert"><strong>Error:</strong> {{ err }}</p>
+    }
+  </div>
+
+  @if (devMode) {
+    <!-- ── Trench Companion reference HTML ──────────────────────────── -->
+    <div class="toolbar__import">
+      <label class="toolbar__label" for="html-paste">
+        Trench Companion reference HTML
+        <span class="toolbar__label-note">(paste from TC print view)</span>
+      </label>
+      <textarea
+        id="html-paste"
+        class="toolbar__textarea toolbar__textarea--html"
+        rows="4"
+        spellcheck="false"
+        autocomplete="off"
+        placeholder="Paste the full HTML from trench-companion.com print view…"
+        [(ngModel)]="htmlDraft"
+      ></textarea>
+    </div>
+  }
+
+  <!-- ── Actions ───────────────────────────────────────────────────────── -->
+  <div class="toolbar__actions">
+    <button class="toolbar__btn toolbar__btn--primary" (click)="render()">Render</button>
+    <button
+      class="toolbar__btn"
+      (click)="print()"
+      [disabled]="!warband()"
+      title="Render a warband first"
+    >Print</button>
+    @if (devMode) {
       <button
         class="toolbar__btn"
-        (click)="print()"
-        [disabled]="!warband()"
-        title="Render a warband first"
-      >
-        Print
-      </button>
-		@if (devMode) {
-			<button
-					class="toolbar__btn"
-					(click)="saveCurrentHandler()"
-					[disabled]="!jsonDraft.trim()"
-					title="Save current inputs as a test case"
-			>
-				Save Current
-			</button>
-		}
-
-    </div>
-
-    <!-- ── Save feedback ──────────────────────────────────────────── -->
-    @if (saveFeedback(); as msg) {
-      <pre class="toolbar__save-feedback">{{ msg }}</pre>
+        (click)="saveCurrentHandler()"
+        [disabled]="!jsonDraft.trim()"
+        title="Save current inputs as a test case"
+      >Save Current</button>
     }
+  </div>
 
-    @if (warband(); as wb) {
-      <p class="toolbar__status">
-        {{ wb.name }} &mdash; {{ wb.models.length }}
-        {{ wb.models.length === 1 ? 'model' : 'models' }}
-      </p>
-    }
+  <!-- ── Format label ─────────────────────────────────────────────────── -->
+  @if (formatLabel(); as label) {
+    <p class="toolbar__format-label">{{ label }}</p>
+  }
 
-    <!-- ── Validation report ──────────────────────────────────────── -->
-    @if (warband() && validationReport().length) {
-      <section class="val-report">
-        <h2 class="val-report__title">
-          Validation Report
-          <span class="val-report__count">{{ validationReport().length }} issue(s)</span>
-        </h2>
+  <!-- ── Save feedback ─────────────────────────────────────────────────── -->
+  @if (saveFeedback(); as msg) {
+    <pre class="toolbar__save-feedback">{{ msg }}</pre>
+  }
 
-        <!-- Copy-all header action -->
-        <div class="val-report__header-actions">
-          <button
-            class="toolbar__btn toolbar__btn--primary val-report__copy-all"
-            (click)="copyAllTableRows()"
-            title="Copy every issue as markdown table rows grouped by section"
-          >{{ copiedAll() ? 'Copied!' : 'Copy All as Table Rows' }}</button>
-          <p class="val-report__hint">
-            Paste into
-            <code>DATA_DISCREPANCIES.md</code>.
-            Use "Copy as GitHub Issue" per item to file upstream.
-          </p>
-        </div>
+  @if (warband(); as wb) {
+    <p class="toolbar__status">
+      {{ wb.name }} &mdash; {{ wb.models.length }}
+      {{ wb.models.length === 1 ? 'model' : 'models' }}
+    </p>
+  }
 
-        <ul class="val-report__list">
-          @for (d of validationReport(); track $index) {
-            <li class="val-report__item val-report__item--{{ d.severity }}">
+  <!-- ── Validation report ─────────────────────────────────────────────── -->
+  @if (warband() && validationReport().length) {
+    <section class="val-report">
+      <h2 class="val-report__title">
+        Validation Report
+        <span class="val-report__count">{{ validationReport().length }} issue(s)</span>
+      </h2>
 
-				  <span class="val-report__badge val-report__badge--{{ d.severity }}">
-                {{ d.severity.toUpperCase() }}
-              </span>
-<div class="val-report__content">
-				  <div class="val-report__body">
-					  <p class="val-report__model">{{ d.modelName }}</p>
-					  <p class="val-report__id"><code>{{ d.exportId }}</code> — {{ d.exportName }}</p>
-					  <p class="val-report__notes">{{ d.notes }}</p>
-				  </div>
-
-
-
-              <div class="val-report__actions">
-                <button
-                  class="toolbar__btn toolbar__btn--primary val-report__copy"
-                  (click)="copyTableRow(d)"
-                  [title]="'Copy md row for ' + tableRowLabel(d.type)"
-                >{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}</button>
-                <button
-                  class="toolbar__btn val-report__copy val-report__copy--secondary"
-                  (click)="copyIssueReport(d)"
-                  title="Copy full GitHub issue body for trenchcrusadedata"
-                >{{ copiedIssueId() === d.exportId ? 'Copied!' : 'Copy as GitHub Issue' }}</button>
-              </div>
-				</div>
-            </li>
-          }
-        </ul>
-      </section>
-    } @else if (warband()) {
-      <p class="val-report__all-clear">✓ No data gaps found for this warband.</p>
-    }
-
-    <!-- ── Display toggles ────────────────────────────────────────── -->
-    @if (warband()) {
-      <div class="toolbar__toggles">
-        <label class="toolbar__toggle-label">
-          <input
-            type="checkbox"
-            class="toolbar__toggle-checkbox"
-            [checked]="printSettings.settings().showBlurb"
-            (change)="toggleBlurb($event)"
-          >
-          Show flavour text
-        </label>
-      </div>
-    }
-
-    <!-- ── Keyword toggle panel ─────────────────────────────────────── -->
-    @if (allWarbandKeywords().length) {
-      <section class="kw-panel">
-        <h2 class="kw-panel__title">I Know These Rules</h2>
-        <p class="kw-panel__hint">
-          Uncheck a rule to hide its definition text on the cards.
-          The rule name still appears — only the explanation is hidden.
+      <div class="val-report__header-actions">
+        <button
+          class="toolbar__btn toolbar__btn--primary val-report__copy-all"
+          (click)="copyAllTableRows()"
+          title="Copy every issue as markdown table rows grouped by section"
+        >{{ copiedAll() ? 'Copied!' : 'Copy All as Table Rows' }}</button>
+        <p class="val-report__hint">
+          Paste into <code>DATA_DISCREPANCIES.md</code>.
+          Use "Copy as GitHub Issue" per item to file upstream.
         </p>
-        <div class="kw-panel__bulk">
-          <button class="toolbar__btn" (click)="showAllDefs()">Show All</button>
-          <button class="toolbar__btn" (click)="hideAllDefs()">Hide All</button>
-        </div>
-        <ul class="kw-panel__list">
-          @for (kw of allWarbandKeywords(); track kw.exportId) {
-            <li class="kw-panel__item">
-              <label class="kw-panel__label">
-                <input
-                  class="kw-panel__checkbox"
-                  type="checkbox"
-                  [checked]="kwToggle.isVisible(kw.exportId)"
-                  (change)="kwToggle.toggle(kw.exportId)"
-                >
-                {{ kw.exportName }}
-              </label>
-            </li>
-          }
-        </ul>
-      </section>
-    }
+      </div>
 
-  </aside>
+      <ul class="val-report__list">
+        @for (d of validationReport(); track $index) {
+          <li class="val-report__item val-report__item--{{ d.severity }}">
+            <span class="val-report__badge val-report__badge--{{ d.severity }}">
+              {{ d.severity.toUpperCase() }}
+            </span>
+            <div class="val-report__body">
+              <p class="val-report__model">{{ d.modelName }}</p>
+              <p class="val-report__id"><code>{{ d.exportId }}</code> — {{ d.exportName }}</p>
+              <p class="val-report__notes">{{ d.notes }}</p>
+            </div>
+            <div class="val-report__actions">
+              <button
+                class="toolbar__btn toolbar__btn--primary val-report__copy"
+                (click)="copyTableRow(d)"
+                [title]="'Copy md row for ' + tableRowLabel(d.type)"
+              >{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}</button>
+              <button
+                class="toolbar__btn val-report__copy val-report__copy--secondary"
+                (click)="copyIssueReport(d)"
+                title="Copy full GitHub issue body for trenchcrusadedata"
+              >{{ copiedIssueId() === d.exportId ? 'Copied!' : 'Copy as GitHub Issue' }}</button>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+  } @else if (warband()) {
+    <p class="val-report__all-clear">✓ No data gaps found for this warband.</p>
+  }
 
+  <!-- ── Display toggles ──────────────────────────────────────────────── -->
+  @if (warband()) {
+    <div class="toolbar__toggles">
+      <label class="toolbar__toggle-label">
+        <input
+          type="checkbox"
+          class="toolbar__toggle-checkbox"
+          [checked]="printSettings.settings().showBlurb"
+          (change)="toggleBlurb($event)"
+        >
+        Show flavour text
+      </label>
+    </div>
+  }
+
+  <!-- ── Keyword toggle panel ──────────────────────────────────────────── -->
+  @if (allWarbandKeywords().length) {
+    <section class="kw-panel">
+      <h2 class="kw-panel__title">I Know These Rules</h2>
+      <p class="kw-panel__hint">
+        Uncheck a rule to hide its definition text on the cards.
+        The rule name still appears — only the explanation is hidden.
+      </p>
+      <div class="kw-panel__bulk">
+        <button class="toolbar__btn" (click)="showAllDefs()">Show All</button>
+        <button class="toolbar__btn" (click)="hideAllDefs()">Hide All</button>
+      </div>
+      <ul class="kw-panel__list">
+        @for (kw of allWarbandKeywords(); track kw.exportId) {
+          <li class="kw-panel__item">
+            <label class="kw-panel__label">
+              <input
+                class="kw-panel__checkbox"
+                type="checkbox"
+                [checked]="kwToggle.isVisible(kw.exportId)"
+                (change)="kwToggle.toggle(kw.exportId)"
+              >
+              {{ kw.exportName }}
+            </label>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+</aside>
 
 <!-- ═══════════════════════════════════════════════════════════════════
      PRINT CONTENT — visible on screen as preview, printed as cards
@@ -247,6 +275,6 @@
 
 } @else {
   <div class="empty-state no-print">
-    <p>Paste your warband export JSON in the panel on the left, then click <strong>Render</strong>.</p>
+    <p>Enter a warband ID above, or paste the export JSON, then click <strong>Render</strong>.</p>
   </div>
 }

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { GameDataService } from '../../services/game-data.service';
 import { DescBlocksComponent } from '../../print-sheet/desc-blocks.component';
-import { isUnresolvedFallback } from '../../models/game-data.interfaces';
 import type {
   AnyDataEntry,
   Equipment,
@@ -106,7 +105,7 @@ export class ArmouryView {
   private scanBlocks(blocks: DescriptionBlock[]): boolean {
     for (const b of blocks) {
       for (const ref of b.glossary ?? []) {
-        if (isUnresolvedFallback(this.gameData.resolve(ref.id))) return true;
+        if (!this.gameData.exists(ref.id)) return true;
       }
       if (b.subcontent && this.scanBlocks(b.subcontent)) return true;
     }

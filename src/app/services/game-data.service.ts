@@ -53,12 +53,12 @@ export class GameDataService {
       variants  : this.http.get<Variant[]>(`${BASE}/player/variants.json`),
     }).pipe(
       tap(({ equipment, models, addons, skills, glossary, variants }) => {
-        equipment.forEach(e => this.equipmentMap.set(e.id, e));
-        models.forEach(m => this.modelMap.set(m.id, m));
-        addons.forEach(a => this.addonMap.set(a.id, a));
-        skills.forEach(s => this.skillMap.set(s.id, s));
-        glossary.forEach(g => this.glossaryMap.set(g.id, g));
-        variants.forEach(v => this.indexVariantRules(v));
+        equipment.forEach(e => { try { this.equipmentMap.set(e.id, e); } catch (err) { console.warn(`[GameDataService] skipping equipment entry ${e?.id}:`, err); } });
+        models.forEach(m => { try { this.modelMap.set(m.id, m); } catch (err) { console.warn(`[GameDataService] skipping model entry ${m?.id}:`, err); } });
+        addons.forEach(a => { try { this.addonMap.set(a.id, a); } catch (err) { console.warn(`[GameDataService] skipping addon entry ${a?.id}:`, err); } });
+        skills.forEach(s => { try { this.skillMap.set(s.id, s); } catch (err) { console.warn(`[GameDataService] skipping skill entry ${s?.id}:`, err); } });
+        glossary.forEach(g => { try { this.glossaryMap.set(g.id, g); } catch (err) { console.warn(`[GameDataService] skipping glossary entry ${g?.id}:`, err); } });
+        variants.forEach(v => { try { this.indexVariantRules(v); } catch (err) { console.warn(`[GameDataService] skipping variant ${v?.id}:`, err); } });
 
         const byName = (a: { name: string }, b: { name: string }) =>
           a.name.localeCompare(b.name);
@@ -101,6 +101,18 @@ export class GameDataService {
 
     this.recordUnresolved(id);
     return this.makeFallback(id);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Side-effect-free existence check — no signal reads or writes.
+  // Use this anywhere a pure boolean lookup is needed during view rendering.
+  // ---------------------------------------------------------------------------
+
+  exists(id: string): boolean {
+    if (!id) return false;
+    return this.equipmentMap.has(id) || this.addonMap.has(id)   ||
+           this.glossaryMap.has(id)  || this.variantRuleMap.has(id) ||
+           this.modelMap.has(id)     || this.skillMap.has(id);
   }
 
   // ---------------------------------------------------------------------------

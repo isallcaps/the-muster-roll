@@ -1,5 +1,6 @@
 import { Component, computed, inject, isDevMode, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { WarbandService } from '../services/warband.service';
 import { KeywordToggleService } from '../services/keyword-toggle.service';
 import { PrintSettingsService } from '../services/print-settings.service';
@@ -7,6 +8,7 @@ import { TestCaseService } from '../services/test-case.service';
 import { ModelCardComponent } from './model-card';
 import { isUnresolvedFallback } from '../models/game-data.interfaces';
 import type { EnrichedWarbandModel, ResolvedKeyword } from '../models/warband.interfaces';
+import type { TestCase } from '../models/test-case.interfaces';
 
 type ModelPair = [EnrichedWarbandModel, EnrichedWarbandModel | null];
 
@@ -39,12 +41,23 @@ export class PrintSheetComponent {
   /** True only in `ng serve` / development builds — drives @if guards in template. */
   readonly devMode = isDevMode();
 
-  readonly warband    = this.warbandSvc.warband;
-  readonly parseError = this.warbandSvc.parseError;
+  readonly warband        = this.warbandSvc.warband;
+  readonly parseError     = this.warbandSvc.parseError;
+  readonly detectedFormat = this.warbandSvc.detectedFormat;
 
   /** Textarea values bound via [(ngModel)] so test-case loading can set them. */
   jsonDraft = '';
   htmlDraft = '';
+
+  /** Warband ID input for direct API fetch. */
+  warbandIdDraft = '';
+
+  /** API fetch state. */
+  readonly apiLoading = signal(false);
+  readonly apiError   = signal<string | null>(null);
+
+  /** Warband ID of the currently-loaded test case, if any. */
+  readonly loadedTestCaseWarbandId = signal<number | null>(null);
 
   /** Feedback shown after a "Save Current" copy-to-clipboard action. */
   readonly saveFeedback = signal<string | null>(null);
@@ -56,6 +69,15 @@ export class PrintSheetComponent {
   /** True while the "Copy All" button is showing its confirmation. */
   readonly copiedAll     = signal(false);
 
+  readonly formatLabel = computed<string | null>(() => {
+    const fmt = this.detectedFormat();
+    if (!fmt) return null;
+    if (fmt === 'api')        return 'Loaded via API — full warband data';
+    if (fmt === 'full')       return 'Detected: Full warband data';
+    if (fmt === 'simplified') return 'Detected: Simplified export';
+    return null;
+  });
+
   readonly modelPairs = computed<ModelPair[]>(() => {
     const models = this.warband()?.models ?? [];
     const pairs: ModelPair[] = [];
@@ -65,10 +87,6 @@ export class PrintSheetComponent {
     return pairs;
   });
 
-  /**
-   * Deduplicated warband-wide keyword list — built once in WarbandService and
-   * surfaced here as a simple computed wrapper. Drives the keyword toggle panel.
-   */
   readonly allWarbandKeywords = computed<ResolvedKeyword[]>(
     () => this.warband()?.allWarbandKeywords ?? []
   );
@@ -77,12 +95,6 @@ export class PrintSheetComponent {
   // Dev-only: live validation report
   // ---------------------------------------------------------------------------
 
-  /**
-   * Scans the enriched warband for items that failed to resolve against the
-   * game data and emits a flat list of discrepancies. Only computed in dev
-   * mode (the template guards it); in production the warband signal is never
-   * populated via the toolbar anyway.
-   */
   readonly validationReport = computed<Discrepancy[]>(() => {
     const wb = this.warband();
     if (!wb) return [];
@@ -93,7 +105,6 @@ export class PrintSheetComponent {
     for (const model of wb.models) {
       const modelName = model.export['name'] || model.export['model-name'];
 
-      // FAIL — equipment IDs with no matching game data entry
       for (const eq of model.equipment) {
         if (isUnresolvedFallback(eq.item)) {
           issues.push({
@@ -108,7 +119,6 @@ export class PrintSheetComponent {
         }
       }
 
-      // FAIL — ability IDs with no matching game data entry
       for (const ab of model.abilities) {
         if (isUnresolvedFallback(ab.addon) || isUnresolvedFallback(ab.variantRule)) {
           issues.push({
@@ -123,7 +133,6 @@ export class PrintSheetComponent {
         }
       }
 
-      // WARN — model keywords with no glossary entry (deduped globally)
       for (const kw of model.modelKeywords) {
         if (isUnresolvedFallback(kw.glossaryEntry) && !seenKeywords.has(kw.exportId)) {
           seenKeywords.add(kw.exportId);
@@ -139,7 +148,6 @@ export class PrintSheetComponent {
         }
       }
 
-      // WARN — equipment keyword tags with no glossary entry (deduped globally)
       for (const eq of model.equipment) {
         for (const kw of eq.keywords) {
           if (isUnresolvedFallback(kw.glossaryEntry) && !seenKeywords.has(kw.exportId)) {
@@ -167,7 +175,51 @@ export class PrintSheetComponent {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // API loading — primary path
+  // ---------------------------------------------------------------------------
+
+  loadFromTcApi(id?: string | number): void {
+    const warbandId = String(id ?? this.warbandIdDraft).trim();
+    if (!warbandId) return;
+
+    this.apiLoading.set(true);
+    this.apiError.set(null);
+
+    this.warbandSvc.loadFromApi(warbandId).subscribe({
+      next: (json) => {
+        this.jsonDraft = json;
+        this.warbandSvc.load(json, 'api');
+        this.kwToggle.showAll();
+        this.apiLoading.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.apiLoading.set(false);
+        if (err.status === 0) {
+          this.apiError.set(
+            'Unable to load directly — CORS policy may be blocking this request. ' +
+            'Please use the Export Data option in Trench Companion and paste the JSON manually instead.'
+          );
+        } else if (err.status === 404) {
+          this.apiError.set('Warband not found. Check the ID and try again.');
+        } else {
+          this.apiError.set('Could not reach Trench Companion. Check your connection and try again.');
+        }
+      },
+    });
+  }
+
+  refreshFromApi(): void {
+    const id = this.loadedTestCaseWarbandId();
+    if (id) this.loadFromTcApi(id);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Manual render — fallback path
+  // ---------------------------------------------------------------------------
+
   render(): void {
+    this.apiError.set(null);
     this.warbandSvc.load(this.jsonDraft);
     this.kwToggle.showAll();
   }
@@ -194,22 +246,23 @@ export class PrintSheetComponent {
 
   onTestCaseSelect(event: Event): void {
     const id = (event.target as HTMLSelectElement).value;
-    if (!id) return;
+    if (!id) {
+      this.loadedTestCaseWarbandId.set(null);
+      return;
+    }
 
-    this.testCaseSvc.loadTestCase(id).subscribe(tc => {
+    this.testCaseSvc.loadTestCase(id).subscribe((tc: TestCase | null) => {
       this.testCaseSvc.loading.set(false);
       if (!tc) return;
       this.jsonDraft = JSON.stringify(tc.exportJson, null, 2);
       this.htmlDraft = tc.trenchCompanionHtml;
+      this.loadedTestCaseWarbandId.set(tc.warbandId ?? null);
+      if (tc.warbandId) {
+        this.warbandIdDraft = String(tc.warbandId);
+      }
     });
   }
 
-  /**
-   * Builds a TestCase JSON from the current textarea contents, copies it to
-   * the system clipboard, then shows the terminal paste command the user runs
-   * to write the file.  Writing directly to src/assets/ from the browser is
-   * not possible at runtime, so the workflow is: copy → paste into terminal.
-   */
   saveCurrentHandler(): void {
     const name = window.prompt('Name for this test case (e.g. "The Wrecking Crew v2"):');
     if (!name?.trim()) return;
@@ -227,8 +280,18 @@ export class PrintSheetComponent {
       return;
     }
 
-    const testCase = { id, name: name.trim(), exportJson, trenchCompanionHtml: this.htmlDraft };
-    const payload  = JSON.stringify(testCase, null, 2);
+    const warbandIdNum = this.detectedFormat() === 'api' && this.warbandIdDraft.trim()
+      ? parseInt(this.warbandIdDraft.trim(), 10)
+      : undefined;
+
+    const testCase: Record<string, unknown> = {
+      id,
+      name: name.trim(),
+      ...(warbandIdNum ? { warbandId: warbandIdNum } : {}),
+      exportJson,
+      trenchCompanionHtml: this.htmlDraft,
+    };
+    const payload = JSON.stringify(testCase, null, 2);
 
     navigator.clipboard.writeText(payload).then(() => {
       this.saveFeedback.set(
