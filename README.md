@@ -56,11 +56,11 @@ entries, abilities, and faction rules sourced from the official v1.0.2
 rulebook PDFs.
 
 To update the game data:
-\```bash
+```bash
 git submodule update --remote
 git add src/assets/game-data
 git commit -m "chore: update game data"
-\```
+```
 
 The original upstream repository is maintained by
 [Bob-The-Seagull-King](https://github.com/Bob-The-Seagull-King/trenchcrusadedata).
