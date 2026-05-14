@@ -29,15 +29,14 @@
       @if (loadedTestCaseWarbandId()) {
         <button
           class="toolbar__btn"
-          [disabled]="apiLoading()"
-          (click)="refreshFromApi()"
-          title="Re-fetch live data for this test case from the Trench Companion API"
-        >{{ apiLoading() ? 'Loading…' : 'Refresh from API' }}</button>
+          (click)="openApiUrl(loadedTestCaseWarbandId())"
+          title="Open this test case's warband JSON in a new tab"
+        >Open API URL</button>
       }
     </div>
   }
 
-  <!-- ── Primary: load by warband ID ─────────────────────────────────── -->
+  <!-- ── API URL helper ───────────────────────────────────────────────── -->
   <div class="toolbar__api-load">
     <label class="toolbar__label" for="warband-id-input">Warband ID</label>
     <div class="toolbar__api-row">
@@ -48,30 +47,28 @@
         inputmode="numeric"
         placeholder="e.g. 278648"
         [(ngModel)]="warbandIdDraft"
-        (keydown.enter)="loadFromTcApi()"
+        (keydown.enter)="openApiUrl()"
         aria-label="Trench Companion warband ID"
       />
       <button
         class="toolbar__btn toolbar__btn--primary"
-        [disabled]="!warbandIdDraft.trim() || apiLoading()"
-        (click)="loadFromTcApi()"
-      >{{ apiLoading() ? 'Loading…' : 'Load from Trench Companion' }}</button>
+        [disabled]="!warbandIdDraft.trim()"
+        (click)="openApiUrl()"
+      >Open API URL</button>
     </div>
     <p class="toolbar__hint">
-      From the warband URL: trench-companion.com/warband/detail/<strong>278648</strong>
+      Enter your warband ID from the Trench Companion URL
+      (e.g. trench-companion.com/warband/detail/<strong>278648</strong>),
+      click <strong>Open API URL</strong>, copy the JSON from the new tab, and paste it below.
     </p>
-
-    @if (apiError(); as err) {
-      <p class="toolbar__api-error" role="alert">{{ err }}</p>
-    }
   </div>
 
   <!-- ── Divider ───────────────────────────────────────────────────────── -->
   <div class="toolbar__divider">
-    <span class="toolbar__divider-label">or paste JSON manually</span>
+    <span class="toolbar__divider-label">paste warband JSON</span>
   </div>
 
-  <!-- ── Fallback: manual JSON paste ──────────────────────────────────── -->
+  <!-- ── Primary: manual JSON paste ───────────────────────────────────── -->
   <div class="toolbar__import">
     <label class="toolbar__label" for="json-paste">Warband export JSON</label>
     <textarea

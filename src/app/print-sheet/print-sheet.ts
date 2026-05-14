@@ -1,6 +1,5 @@
 import { Component, computed, inject, isDevMode, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { WarbandService } from '../services/warband.service';
 import { KeywordToggleService } from '../services/keyword-toggle.service';
 import { PrintSettingsService } from '../services/print-settings.service';
@@ -49,12 +48,8 @@ export class PrintSheetComponent {
   jsonDraft = '';
   htmlDraft = '';
 
-  /** Warband ID input for direct API fetch. */
+  /** Warband ID input — used to build the Open API URL helper link. */
   warbandIdDraft = '';
-
-  /** API fetch state. */
-  readonly apiLoading = signal(false);
-  readonly apiError   = signal<string | null>(null);
 
   /** Warband ID of the currently-loaded test case, if any. */
   readonly loadedTestCaseWarbandId = signal<number | null>(null);
@@ -174,50 +169,20 @@ export class PrintSheetComponent {
   }
 
   // ---------------------------------------------------------------------------
-  // API loading — primary path
+  // Open API URL — opens the warband JSON in a new tab for copy-paste
   // ---------------------------------------------------------------------------
 
-  loadFromTcApi(id?: string | number): void {
+  openApiUrl(id?: number | null): void {
     const warbandId = String(id ?? this.warbandIdDraft).trim();
     if (!warbandId) return;
-
-    this.apiLoading.set(true);
-    this.apiError.set(null);
-
-    this.warbandSvc.loadFromApi(warbandId).subscribe({
-      next: (json) => {
-        this.jsonDraft = json;
-        this.warbandSvc.load(json, 'api');
-        this.kwToggle.showAll();
-        this.apiLoading.set(false);
-      },
-      error: (err: HttpErrorResponse) => {
-        this.apiLoading.set(false);
-        if (err.status === 0) {
-          this.apiError.set(
-            'Unable to load directly — CORS policy may be blocking this request. ' +
-            'Please use the Export Data option in Trench Companion and paste the JSON manually instead.'
-          );
-        } else if (err.status === 404) {
-          this.apiError.set('Warband not found. Check the ID and try again.');
-        } else {
-          this.apiError.set('Could not reach Trench Companion. Check your connection and try again.');
-        }
-      },
-    });
-  }
-
-  refreshFromApi(): void {
-    const id = this.loadedTestCaseWarbandId();
-    if (id) this.loadFromTcApi(id);
+    window.open(`https://synod.trench-companion.com/wp-json/synod/v1/warband/${warbandId}`, '_blank');
   }
 
   // ---------------------------------------------------------------------------
-  // Manual render — fallback path
+  // Manual render — primary path
   // ---------------------------------------------------------------------------
 
   render(): void {
-    this.apiError.set(null);
     this.warbandSvc.load(this.jsonDraft);
     this.kwToggle.showAll();
   }
