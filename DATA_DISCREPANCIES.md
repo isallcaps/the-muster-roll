@@ -97,10 +97,26 @@ in `addons.json` and not matchable as a variant rule slug.
 
 ---
 
-## Resolved via Rulebook Override
+## Migrated to Fork
 
-Entries manually added from the PDF rulebook to patch gaps in the submodule data.
-These should be removed from the override file once the upstream repo is updated.
+Entries that were patched locally in `rulebook-override.json` and have since been
+committed to the [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata)
+fork. The override file is now empty — these IDs are resolved by the submodule directly.
 
-| ID | Name | Type | Added |
-|----|------|------|-------|
+### Commit: `dfab215` — fix: add missing glossary entries, abilities and variant rules from rulebook v1.0.2
+
+**Glossary (41 entries):** `gl_minusdice1`, `gl_injurydice`, `gl_injurydice1`, `gl_injurydice-1`,
+`gl_injurymodifier`, `gl_injurymodifier2`, `gl_injurymodifier-1`, `gl_injurymodifier-2`,
+`gl_ammunition`, `gl_armourpiercing`, `gl_automatic`, `gl_bayonetlug`, `gl_blast3`,
+`gl_blessed`, `gl_block`, `gl_cleavex`, `gl_cover`, `gl_deadly`, `gl_flamethrower`,
+`gl_flying`, `gl_held`, `gl_ignorearmour`, `gl_ignoremodifier`, `gl_ignoremodifiercover`,
+`gl_ignoremodifierlong_range`, `gl_ignoremodifierelevated_position`, `gl_ignoremodifierarmour`,
+`gl_impervious`, `gl_mined`, `gl_negate`, `gl_negate_kw_fire`, `gl_negate_kw_gas`,
+`gl_negate_kw_fear`, `gl_negate_kw_heavy`, `gl_negate_kw_shrapnel`, `gl_pistol`,
+`gl_reload`, `gl_regenerate`, `gl_scatter`, `gl_shotgun`, `gl_shieldcombo`
+
+**Abilities (3 entries):** `ab_abioticlife` (Abiotic Life), `ab_artillerywitchbattery` (Artillery Witch Battery),
+`ab_hereticlegionnaire` (Heretic Legionnaires)
+
+**Variant Rules (3 entries, added to `fv_navalraidingparty`):** `rl_closeassaultweapons` (Close Assault Weapons),
+`rl_letsleepingdogslie` (Let Sleeping Dogs Lie), `rl_lighttroops` (Light Troops)

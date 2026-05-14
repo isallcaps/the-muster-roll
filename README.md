@@ -49,7 +49,7 @@ Then open `http://localhost:4200` in your browser.
 
 ### Updating Game Data
 
-The game data is pulled from [trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) as a git submodule. To update to the latest data:
+The game data is pulled from [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata) as a git submodule — a maintained fork of [Bob-The-Seagull-King/trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) with additional glossary entries, abilities, and variant rules sourced from the v1.0.2 rulebook PDFs. To update to the latest data:
 
 ```bash
 git submodule update --remote
@@ -82,14 +82,14 @@ Navigate to `/game-data` to browse all loaded game data by category — equipmen
 ## Built With
 
 - [Angular 19](https://angular.dev)
-- [trenchcrusadedata](https://github.com/Bob-The-Seagull-King/trenchcrusadedata) — open game data submodule
+- [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata) — maintained fork of the open game data submodule
 - [Trench Companion](https://trench-companion.com) — warband export format
 
 ---
 
 ## Data Discrepancies
 
-During development, gaps are found between the Trench Companion export format and the game data submodule. These are tracked in [DATA_DISCREPANCIES.md](DATA_DISCREPANCIES.md) and reported upstream to the trenchcrusadedata maintainers to help improve the data for everyone.
+During development, gaps are found between the Trench Companion export format and the game data submodule. These are tracked in [DATA_DISCREPANCIES.md](DATA_DISCREPANCIES.md) and fixed in the [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata) fork where possible.
 
 If you find a discrepancy not already listed, please open an issue or submit a pull request.
 
@@ -98,7 +98,8 @@ If you find a discrepancy not already listed, please open an issue or submit a p
 ## Credits
 
 - **[Trench Companion](https://trench-companion.com)** — the officially supported Trench Crusade resource, source of the warband export format
-- **[Bob-The-Seagull-King](https://github.com/Bob-The-Seagull-King)** — maintainer of the trenchcrusadedata repository
+- **[Bob-The-Seagull-King](https://github.com/Bob-The-Seagull-King)** — original author of the trenchcrusadedata repository
+- **[isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata)** — maintained fork with additional rulebook data
 - **[Trench Crusade](https://www.trenchcrusade.com/)** — the game this tool is built for
 
 ---
