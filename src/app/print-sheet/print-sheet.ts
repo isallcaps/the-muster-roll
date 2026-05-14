@@ -64,9 +64,7 @@ export class PrintSheetComponent {
 
   /** exportId of the item whose "Copy row" button was last clicked. */
   readonly copiedRowId   = signal<string | null>(null);
-  /** exportId of the item whose "Copy as GitHub Issue" button was last clicked. */
-  readonly copiedIssueId = signal<string | null>(null);
-  /** True while the "Copy All" button is showing its confirmation. */
+/** True while the "Copy All" button is showing its confirmation. */
   readonly copiedAll     = signal(false);
 
   readonly formatLabel = computed<string | null>(() => {
@@ -397,49 +395,4 @@ export class PrintSheetComponent {
     }).catch(() => console.log('All table rows (copy manually):\n', text));
   }
 
-  // ---------------------------------------------------------------------------
-  // Dev-only: copy GitHub issue report (secondary action)
-  // ---------------------------------------------------------------------------
-
-  copyIssueReport(d: Discrepancy): void {
-    const typeLabel: Record<Discrepancy['type'], string> = {
-      'equipment-unresolved': 'Equipment ID not found in game data',
-      'ability-unresolved'  : 'Ability ID not found in game data',
-      'keyword-unresolved'  : 'Glossary entry missing from game data',
-    };
-
-    const body = [
-      `## Summary`,
-      ``,
-      `Data discrepancy found during validation of a Trench Companion warband export.`,
-      ``,
-      `## Discrepancy Type`,
-      typeLabel[d.type],
-      ``,
-      `## Details`,
-      `- **Severity**: ${d.severity.toUpperCase()}`,
-      `- **Export ID**: \`${d.exportId}\``,
-      `- **Display name in export**: ${d.exportName}`,
-      `- **Affected model**: ${d.modelName}`,
-      `- **Warband**: ${d.warbandName}`,
-      ``,
-      `## Notes`,
-      d.notes,
-      ``,
-      `## Expected Behavior`,
-      `The ID \`${d.exportId}\` should resolve to an entry in the game data files` +
-        ` with full definition text so that print tools can display the complete rule.`,
-      ``,
-      `## Actual Behavior`,
-      `No matching entry found. The item renders with name only.`,
-      ``,
-      `---`,
-      `*Reported via [The Muster Roll](https://github.com/Bob-The-Seagull-King/trenchcrusadedata)*`,
-    ].join('\n');
-
-    navigator.clipboard.writeText(body).then(() => {
-      this.copiedIssueId.set(d.exportId);
-      setTimeout(() => this.copiedIssueId.update(cur => cur === d.exportId ? null : cur), 2000);
-    }).catch(() => console.log('Issue report (copy manually):\n', body));
-  }
 }

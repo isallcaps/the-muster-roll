@@ -148,7 +148,7 @@
   @if (warband() && validationReport().length) {
     <section class="val-report">
       <h2 class="val-report__title">
-        Validation Report
+        Validation Report — unresolved items can be fixed in <code>rulebook-override.json</code> or the data fork
         <span class="val-report__count">{{ validationReport().length }} issue(s)</span>
       </h2>
 
@@ -160,7 +160,6 @@
         >{{ copiedAll() ? 'Copied!' : 'Copy All as Table Rows' }}</button>
         <p class="val-report__hint">
           Paste into <code>DATA_DISCREPANCIES.md</code>.
-          Use "Copy as GitHub Issue" per item to file upstream.
         </p>
       </div>
 
@@ -176,16 +175,12 @@
               <p class="val-report__notes">{{ d.notes }}</p>
             </div>
             <div class="val-report__actions">
+              <span class="val-report__fix-hint">Add to <code>rulebook-override.json</code> or fix in fork</span>
               <button
                 class="toolbar__btn toolbar__btn--primary val-report__copy"
                 (click)="copyTableRow(d)"
                 [title]="'Copy md row for ' + tableRowLabel(d.type)"
               >{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}</button>
-              <button
-                class="toolbar__btn val-report__copy val-report__copy--secondary"
-                (click)="copyIssueReport(d)"
-                title="Copy full GitHub issue body for trenchcrusadedata"
-              >{{ copiedIssueId() === d.exportId ? 'Copied!' : 'Copy as GitHub Issue' }}</button>
             </div>
           </li>
         }
