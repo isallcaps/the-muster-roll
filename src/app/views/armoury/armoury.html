@@ -89,13 +89,6 @@
               </div>
             }
 
-            <!-- Variant rule origin -->
-            @if (asVariantRule(entry); as vr) {
-              <div class="arm-card__quick">
-                <span class="arm-card__source-pill">{{ vr.variantName }}</span>
-              </div>
-            }
-
             <div class="arm-card__toggle-hint">
               {{ isExpanded(entry.id) ? '▲' : '▼' }}
             </div>

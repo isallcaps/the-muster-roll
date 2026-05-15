@@ -3,7 +3,9 @@
 :host {
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
+  flex: 1;
+  min-height: 0;        // allow shrink in the app-root flex column
+  overflow: hidden;     // cards scroll inside; body never scrolls
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -20,10 +22,7 @@
   background: #1a1a1a;
   color: #e8e8e8;
   border-right: 1px solid #333;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
+  overflow-y: auto;     // toolbar internal content scrolls; no sticky needed
 }
 
 .toolbar__app-name {
@@ -319,11 +318,13 @@
 
 .print-content {
   flex: 1;
+  min-height: 0;        // must be set for overflow-y: auto to engage in a flex child
   display: flex;
   flex-direction: column;
   gap: 12mm;
   padding: 12mm;
   background: #2a2a2a;
+  overflow-y: auto;     // only the card area scrolls
   // Inner card pages carry their own white background; the dark surround
   // provides visual separation from the toolbar.
 }
@@ -628,7 +629,9 @@
 
   :host {
     display: block;
+    height: auto;
     min-height: unset;
+    overflow: visible;
   }
 
   .print-content {

@@ -296,7 +296,12 @@ export class WarbandService {
       const keywords = this.keywordsFromTcModel(m, def);
 
       // Stats from game-data model definition (not provided by the TC API).
-      const statMove   = def ? `${def.movement.join('/')}` : '?';
+      // The TC API gives only the model-type ID; movement distance and type
+      // come entirely from game data. Reconstruct the canonical display string
+      // '{n}"/Infantry' (or '/Flying' for models with eventtags.flying).
+      const movDist  = def ? def.movement[0] : null;
+      const movType  = def?.eventtags['flying'] ? 'Flying' : 'Infantry';
+      const statMove = movDist != null ? `${movDist}"/${movType}` : '?';
       const statMelee  = def ? def.melee.join('/')         : '?';
       const statRanged = def ? def.ranged.join('/')        : '?';
       const statArmour = def ? def.armour.join('/')        : '?';

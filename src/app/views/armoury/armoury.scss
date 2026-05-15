@@ -1,3 +1,13 @@
+// ── Host ───────────────────────────────────────────────────────────────────────
+
+:host {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 // ── Shell ──────────────────────────────────────────────────────────────────────
 
 .arm-shell {
@@ -22,9 +32,7 @@
   border-right: 1px solid #3a3a3a;
   padding: 16px 0;
   overflow-y: auto;
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  height: 100%;
 }
 
 .arm-sidebar__heading {
@@ -58,10 +66,15 @@
   }
 
   &--active {
-    color: #f0f0f0;
+    background: #e8e8e8;
+    color: #111111;
     font-weight: bold;
     border-left-color: #e8e8e8;
-    background: #2a2a2a;
+
+    .arm-sidebar__badge {
+      background: #d0d0d0;
+      color: #333;
+    }
   }
 }
 
