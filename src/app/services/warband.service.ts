@@ -194,8 +194,6 @@ export class WarbandService {
     }
 
     const enrichedModels: EnrichedWarbandModel[] = exported.models.map(m => {
-      // Strip the "/Infantry" or "/Cavalry" movement suffix from simplified exports.
-      m['stat-move'] = m['stat-move']?.split('/')[0] ?? m['stat-move'];
 
       const definition    = this.gameData.getModel(m['model-id']);
       const modelKeywords = m.keywords.map(kw => this.resolveKeyword(kw));
