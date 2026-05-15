@@ -102,6 +102,14 @@
   border-left: 2px solid #444;
 }
 
+.toolbar__format-badge {
+  font-size: 7pt;
+  font-style: italic;
+  color: #88cc88;
+  margin: 0;
+  padding: 2px 0;
+}
+
 .toolbar__import {
   display: flex;
   flex-direction: column;

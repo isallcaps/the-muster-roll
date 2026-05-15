@@ -73,10 +73,8 @@ export class PrintSheetComponent {
   readonly formatLabel = computed<string | null>(() => {
     const fmt = this.detectedFormat();
     if (!fmt) return null;
-    if (fmt === 'api')        return 'Loaded via API — full warband data';
-    if (fmt === 'full')       return 'Detected: Full warband data';
-    if (fmt === 'simplified') return 'Detected: Simplified export';
-    return null;
+    if (fmt === 'api') return 'API format';
+    return 'Export format';
   });
 
   readonly factionAbilities = computed<EnrichedAbility[]>(() => {

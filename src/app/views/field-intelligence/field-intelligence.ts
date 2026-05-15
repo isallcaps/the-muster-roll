@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, isDevMode } from '@angular/core';
 import { WarbandService } from '../../services/warband.service';
 import { GameDataService } from '../../services/game-data.service';
 import { JsonTreeComponent } from '../../components/json-tree/json-tree';
@@ -13,6 +13,8 @@ import { JsonTreeComponent } from '../../components/json-tree/json-tree';
 export class FieldIntelligenceView {
   private readonly warbandSvc  = inject(WarbandService);
   private readonly gameDataSvc = inject(GameDataService);
+
+  readonly devMode = isDevMode();
 
   readonly warband    = this.warbandSvc.warband;
   readonly rawExport  = this.warbandSvc.rawExport;

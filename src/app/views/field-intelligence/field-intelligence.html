@@ -24,12 +24,14 @@
     ></textarea>
     <div class="fi-import__actions">
       <button class="fi-btn fi-btn--primary" (click)="render()">Render</button>
-      <button
-        class="fi-btn"
-        [disabled]="!warband()"
-        (click)="downloadEnriched()"
-        title="Download the enriched warband object as JSON"
-      >Download Enriched JSON</button>
+      @if (devMode) {
+        <button
+          class="fi-btn"
+          [disabled]="!warband()"
+          (click)="downloadEnriched()"
+          title="Download the enriched warband object as JSON"
+        >Download Enriched JSON</button>
+      }
     </div>
   </div>
 

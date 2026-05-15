@@ -10,7 +10,7 @@
 
   @if (warband()) {
     <button class="toolbar__collapse-bar" (click)="inputCollapsed.set(!inputCollapsed())">
-      {{ warband()!.name }} {{ inputCollapsed() ? '▾' : '▴' }}
+      {{ warband()!.name }}{{ formatLabel() ? ' · ' + formatLabel() : '' }} {{ inputCollapsed() ? '▾' : '▴' }}
     </button>
   }
 
@@ -66,9 +66,7 @@
           >Open API URL</button>
         </div>
         <p class="toolbar__hint">
-          Enter your warband ID from the Trench Companion URL
-          (e.g. trench-companion.com/warband/detail/<strong>278648</strong>),
-          click <strong>Open API URL</strong>, copy the JSON from the new tab, and paste it below.
+          Enter your Warband ID, click to open the JSON in your browser, then copy and paste it below.
         </p>
       </div>
 
@@ -86,9 +84,13 @@
           rows="6"
           spellcheck="false"
           autocomplete="off"
-          placeholder='{"warband-name": "…", "models": […]}'
+          placeholder='Paste your warband JSON here — supports both Trench Companion API format and Export Data format'
           [(ngModel)]="jsonDraft"
         ></textarea>
+
+        @if (formatLabel(); as label) {
+          <p class="toolbar__format-badge">✓ {{ label }}</p>
+        }
 
         @if (parseError(); as err) {
           <p class="toolbar__error" role="alert"><strong>Error:</strong> {{ err }}</p>
@@ -126,11 +128,6 @@
           >Save Current</button>
         }
       </div>
-
-      <!-- ── Format label ─────────────────────────────────────────────────── -->
-      @if (formatLabel(); as label) {
-        <p class="toolbar__format-label">{{ label }}</p>
-      }
 
       <!-- ── Save feedback ─────────────────────────────────────────────────── -->
       @if (saveFeedback(); as msg) {
