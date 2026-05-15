@@ -57,25 +57,21 @@ original list have been added to the fork. The remaining gap is:
 
 ## Equipment Modifier to Keyword Gaps
 
-Several equipment entries have free-text `modifiers` values with no direct `gl_*`
-keyword mapping. These are shown on the card as plain text and do not link to
-glossary definitions. A fork PR should convert them to tagged glossary links.
+Free-text `modifiers` strings that have no `gl_*` mapping in `MODIFIER_TO_GLOSSARY_ID`
+and no entry in `WEAPON_KEYWORD_OVERRIDES`. These log a dev-mode warning at startup and
+are shown on cards only through fallback rule text, not as keyword chips.
+
+The four remaining unmapped strings have no direct glossary keyword equivalent —
+they express raw dice modifiers that are purely descriptive:
 
 | Modifier String | Equipment | Notes |
 |-----------------|-----------|-------|
-| `+1D to Hit` | Shotgun, Heavy Shotgun, Automatic Shotgun, Punt Gun, Sniper Rifle, Gun Turret | Generic +DICE; ambiguous tag target |
-| `-1D to Hit` | Knife/Dagger, Unarmed | Generic −DICE; ambiguous tag target |
-| `-1D to Hit for Chargers` | Polearm, Lochaber Axe | Situational modifier, no direct keyword |
-| `-1D to Hit/Injuries` | Unarmed | Combined modifier, no direct keyword |
-| `+1D to Hit in Cover` | Silenced Pistol | Situational, inverse of IGNORE COVER |
-| `+2D to Hit` | Viscera Cannon | Would need `gl_plusdice2` (not yet in glossary) |
-| `+1 to Injury` | Two-Handed Hammer | Would need `gl_injurymodifier1` |
-| `1 Attack` | Mortar | May indicate RELOAD; verify against rulebook |
-| `3D6 Injury Roll` | Malebranche Sword | Close to DEADLY but not identical |
-| `Double Blood Marker` | Demonic Aura Grenade | No keyword; describe in rule text |
-| `Ignore Shield` | Shotel | No glossary entry; describe in rule text |
-| `Special` | Tormentor Chain | No keyword; rule text covers this |
-| `or` | Bow Of Lethe | Noise word in multi-option modifier array |
+| `+1D to Hit` | Shotgun (eq_shotgun), Flail/Scourge (eq_flail) | Generic +DICE to hit; no keyword maps to this exact mechanic |
+| `-1D to Hit` | Knife/Dagger (eq_trenchknife) | eq_trenchknife gets `gl_minusdice1` via WEAPON_KEYWORD_OVERRIDES; warning fires but is superseded |
+| `-1D to Hit/Injuries` | Unarmed (eq_unarmed) | Combined modifier; no single keyword covers both |
+
+All other previously-listed gaps have been resolved via `MODIFIER_TO_GLOSSARY_ID`,
+`WEAPON_KEYWORD_OVERRIDES`, or glossary entries in `rulebook-override.json`.
 
 ---
 
@@ -121,6 +117,21 @@ Report in the dev toolbar.
 **Abilities (3):** `ab_abioticlife`, `ab_artillerywitchbattery`, `ab_hereticlegionnaire`
 
 **Variant Rules (3, added to `fv_navalraidingparty`):** `rl_closeassaultweapons`, `rl_letsleepingdogslie`, `rl_lighttroops`
+
+### Rulebook-override.json additions (2026-05-15)
+
+**5 new glossary entries:** `gl_deployable`, `gl_block`, `gl_injurymodifier-3`,
+`gl_negate_kw_mined`, `gl_infectionmarkers`
+
+**App-side mapping expanded:** `MODIFIER_TO_GLOSSARY_ID` extended from 33 to 51 entries;
+`WEAPON_KEYWORD_OVERRIDES` extended from 1 to 30 entries covering all major weapons,
+armour, shields, grenades, and equipment with missing keyword coverage.
+
+**Audit result:** 106/178 equipment entries now PASS (up from 99); 0 FAIL; 72 no-keywords
+(these are genuinely keywordless misc items, banners, relics, and campaign equipment).
+4 unmapped modifier strings remain — all are raw dice expressions with no keyword equivalent.
+
+---
 
 ### Commit `5d18354` — fix: add missing keyword tags to equipment entries from rulebook v1.0.2
 
