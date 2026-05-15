@@ -398,7 +398,7 @@ export class WarbandService {
   private resolveEquipment(ref: WarbandEquipmentRef): EnrichedEquipment {
     const rawId      = ref['equipment-id'];
     const resolvedId = WarbandService.EQUIPMENT_ID_REMAP[rawId] ?? rawId;
-    const entry      = this.gameData.resolve(resolvedId);
+    const entry      = this.gameData.resolve(resolvedId, ref['equipment-name']);
 
     if (entry.type === 'Equipment') {
       const eq = entry as Equipment;
@@ -467,7 +467,7 @@ export class WarbandService {
     const negateMatch = rawId.match(/^kw_negate_kw_(.+)$/);
     if (negateMatch) {
       const baseGlId    = `gl_${negateMatch[1]}`;
-      const entry       = this.gameData.resolve(baseGlId);
+      const entry       = this.gameData.resolve(baseGlId, name);
       const glossaryEntry = entry.type === 'Glossary'
         ? entry as GameGlossaryEntry
         : entry as UnresolvedFallback;
@@ -475,7 +475,7 @@ export class WarbandService {
     }
 
     const glId        = `gl_${rawId.slice(3)}`;
-    const entry       = this.gameData.resolve(glId);
+    const entry       = this.gameData.resolve(glId, name);
     const glossaryEntry = entry.type === 'Glossary'
       ? entry as GameGlossaryEntry
       : entry as UnresolvedFallback;
@@ -496,7 +496,7 @@ export class WarbandService {
 
   private resolveAbility(ref: WarbandAbilityRef): EnrichedAbility {
     const id    = ref['ability-id'];
-    const entry = this.gameData.resolve(id);
+    const entry = this.gameData.resolve(id, ref['ability-name']);
 
     if (id.startsWith('rl_') || entry.type === 'VariantRule') {
       const variantRule = entry.type === 'VariantRule'

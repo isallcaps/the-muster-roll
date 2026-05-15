@@ -38,10 +38,54 @@
       "type": "Glossary",
       "tags": [],
       "description": [{ "tags": [], "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.", "subcontent": [], "glossary": [] }]
+    },
+    "kw_negate_kw_difficultterrain": {
+      "name": "Negate Difficult Terrain",
+      "source": "rulebook",
+      "type": "Glossary",
+      "tags": [],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
+    },
+    "gl_negate_kw_difficultterrain": {
+      "name": "Negate Difficult Terrain",
+      "source": "rulebook",
+      "type": "Glossary",
+      "tags": [],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
     }
   },
   "equipment": {},
   "abilities": {
+    "ab_assaultbeast": {
+      "id": "ab_assaultbeast",
+      "name": "Assault Beast",
+      "type": "Addon",
+      "source": "rulebook-override",
+      "tags": [],
+      "faction_id": "fc_hereticlegion",
+      "eventtags": { "trait": true },
+      "description": [{
+        "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+        "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.",
+        "subcontent": [],
+        "glossary": []
+      }]
+    },
+    "ab_lopingdash": {
+      "id": "ab_lopingdash",
+      "name": "Loping Dash",
+      "type": "Addon",
+      "source": "rulebook-override",
+      "tags": [],
+      "faction_id": "fc_hereticlegion",
+      "eventtags": { "trait": true },
+      "description": [{
+        "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+        "content": "Add +1 DICE to the Risky Success Roll for a War Wolf that is taking a Dash ACTION.",
+        "subcontent": [],
+        "glossary": []
+      }]
+    },
     "ab_infernalbomb": {
       "id": "ab_infernalbomb",
       "type": "Addon",

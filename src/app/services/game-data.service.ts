@@ -112,6 +112,8 @@ const WEAPON_KEYWORD_OVERRIDES: Record<string, string[]> = {
   'eq_puntgun'                 : ['gl_plusdice', 'gl_injurydice1', 'gl_heavy', 'gl_shotgun', 'gl_shrapnel'],
   'eq_chainmaw'                : ['gl_plusdice', 'gl_injurydice1', 'gl_ignorearmour', 'gl_riskyaction'],
   'eq_shreddingclaws'          : ['gl_injurydice1', 'gl_cumbersome', 'gl_riskyaction'],
+  'eq_warwolfchainmaw'         : ['gl_plusdice', 'gl_injurydice1', 'gl_ignorearmour', 'gl_riskyaction'],
+  'eq_warwolfshreddingclaws'   : ['gl_injurydice1', 'gl_cumbersome', 'gl_riskyaction'],
   'eq_pistol'                  : ['gl_pistol'],
 };
 
@@ -137,6 +139,15 @@ export class GameDataService {
   private glossaryMap    = new Map<string, GameGlossaryEntry>();
   private variantRuleMap = new Map<string, VariantRule>();
   private overrideIds    = new Set<string>();
+
+  /**
+   * Secondary lookup: normalised display name → entry.
+   * Populated after every data load, covering equipment, addons, glossary,
+   * and variant rules. Used as a fallback when an exact ID lookup misses.
+   * Models and skills are excluded — the fallback only applies to top-level
+   * entity types that appear in warband exports with a human-readable name.
+   */
+  private nameToEntryMap = new Map<string, AnyDataEntry>();
 
   /** Deduplicated set of IDs that could not be found in any data map. */
   readonly unresolvedIds = signal<Set<string>>(new Set());
@@ -190,6 +201,18 @@ export class GameDataService {
         this.glossaryList.set([...this.glossaryMap.values()].sort(byName));
         this.variantRuleList.set([...this.variantRuleMap.values()].sort(byName));
 
+        // Build secondary name→entry map for display-name fallback lookups.
+        // Later entries win on collision (override data loads last, so it
+        // correctly shadows base data with the same display name).
+        this.nameToEntryMap.clear();
+        const addToNameMap = (e: AnyDataEntry) => {
+          if (e.name) this.nameToEntryMap.set(this.normalizeName(e.name), e);
+        };
+        this.equipmentMap.forEach(addToNameMap);
+        this.addonMap.forEach(addToNameMap);
+        this.glossaryMap.forEach(addToNameMap);
+        this.variantRuleMap.forEach(addToNameMap);
+
         this.loadState = true;
         console.log(
           `[GameDataService] loaded — equipment:${this.equipmentMap.size}` +
@@ -218,7 +241,21 @@ export class GameDataService {
   // Never returns null or undefined. Logs and tracks every miss.
   // ---------------------------------------------------------------------------
 
-  resolve(id: string): AnyDataEntry {
+  /**
+   * Universal resolver. Never returns null/undefined.
+   *
+   * Lookup order:
+   *   1. Exact ID match across all primary maps.
+   *   2. If `displayName` is provided and the ID misses, try a normalised
+   *      name match in the secondary nameToEntryMap. Logs in dev mode.
+   *   3. Last resort: UnresolvedFallback (tracked in unresolvedIds signal).
+   *
+   * Pass `displayName` only for top-level entity lookups (abilities, glossary
+   * keywords, equipment, variant rules). Do NOT pass it for internal gl_* ID
+   * lookups — those are always exact-match-only.
+   */
+  resolve(id: string, displayName?: string): AnyDataEntry {
+    // 1. Primary — exact ID
     const e = this.equipmentMap.get(id);   if (e) return e;
     const a = this.addonMap.get(id);       if (a) return a;
     const g = this.glossaryMap.get(id);    if (g) return g;
@@ -226,6 +263,18 @@ export class GameDataService {
     const m = this.modelMap.get(id);       if (m) return m;
     const s = this.skillMap.get(id);       if (s) return s;
 
+    // 2. Name-based fallback
+    if (displayName) {
+      const byName = this.nameToEntryMap.get(this.normalizeName(displayName));
+      if (byName) {
+        if (isDevMode()) {
+          console.log(`[MusterRoll] ID '${id}' not found — resolved via name match '${displayName}'`);
+        }
+        return byName;
+      }
+    }
+
+    // 3. Last resort
     this.recordUnresolved(id);
     return this.makeFallback(id);
   }
@@ -336,6 +385,15 @@ export class GameDataService {
   // ---------------------------------------------------------------------------
   // Private helpers
   // ---------------------------------------------------------------------------
+
+  /**
+   * Normalise a display name for secondary lookup.
+   * Strips everything that isn't a lowercase letter or digit.
+   * Examples: 'Chain Maw' → 'chainmaw', 'Assault Beast' → 'assaultbeast'
+   */
+  private normalizeName(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
 
   private recordUnresolved(id: string): void {
     if (this.unresolvedIds().has(id)) return;
