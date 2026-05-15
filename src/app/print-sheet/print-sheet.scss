@@ -269,6 +269,50 @@
   color: #c8c8c8;
 }
 
+.toolbar__collapse-bar {
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 9pt;
+  font-style: italic;
+  text-align: left;
+  background: #252525;
+  color: #bbb;
+  border: 1px solid #3a3a3a;
+  padding: 7px 10px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.1s, color 0.1s;
+
+  &:hover {
+    background: #333;
+    color: #e8e8e8;
+  }
+}
+
+.toolbar__print-row {
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar__input-section {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease;
+
+  &--collapsed {
+    grid-template-rows: 0fr;
+  }
+
+  &__inner {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+    padding-bottom: 2px; // prevents clipping of the last element's focus ring
+  }
+}
+
 // ── Print content area (screen preview) ───────────────────────────────────
 // Always white — this is the print surface. color-scheme: light prevents
 // browsers from inverting it even in system dark mode.

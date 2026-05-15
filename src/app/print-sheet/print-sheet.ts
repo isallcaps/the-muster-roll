@@ -5,11 +5,17 @@ import { KeywordToggleService } from '../services/keyword-toggle.service';
 import { PrintSettingsService } from '../services/print-settings.service';
 import { TestCaseService } from '../services/test-case.service';
 import { ModelCardComponent } from './model-card';
+import { FactionCardComponent } from './faction-card';
 import { isUnresolvedFallback } from '../models/game-data.interfaces';
-import type { EnrichedWarbandModel, ResolvedKeyword } from '../models/warband.interfaces';
+import type { EnrichedWarbandModel, EnrichedAbility, ResolvedKeyword } from '../models/warband.interfaces';
 import type { TestCase } from '../models/test-case.interfaces';
 
-type ModelPair = [EnrichedWarbandModel, EnrichedWarbandModel | null];
+type CardSlot =
+  | { kind: 'model'; model: EnrichedWarbandModel }
+  | { kind: 'faction' }
+  | { kind: 'empty' };
+
+type CardPage = [CardSlot, CardSlot];
 
 // ---------------------------------------------------------------------------
 // Dev-only validation types
@@ -27,7 +33,7 @@ interface Discrepancy {
 
 @Component({
   selector: 'app-print-sheet',
-  imports: [ModelCardComponent, FormsModule],
+  imports: [ModelCardComponent, FactionCardComponent, FormsModule],
   templateUrl: './print-sheet.html',
   styleUrl: './print-sheet.scss',
 })
@@ -51,6 +57,8 @@ export class PrintSheetComponent {
   /** Warband ID input — used to build the Open API URL helper link. */
   warbandIdDraft = '';
 
+  readonly inputCollapsed = signal(false);
+
   /** Warband ID of the currently-loaded test case, if any. */
   readonly loadedTestCaseWarbandId = signal<number | null>(null);
 
@@ -71,13 +79,45 @@ export class PrintSheetComponent {
     return null;
   });
 
-  readonly modelPairs = computed<ModelPair[]>(() => {
-    const models = this.warband()?.models ?? [];
-    const pairs: ModelPair[] = [];
-    for (let i = 0; i < models.length; i += 2) {
-      pairs.push([models[i], models[i + 1] ?? null]);
+  readonly factionAbilities = computed<EnrichedAbility[]>(() => {
+    const wb = this.warband();
+    if (!wb) return [];
+    const seen = new Set<string>();
+    const result: EnrichedAbility[] = [];
+    for (const model of wb.models) {
+      for (const ab of model.abilities) {
+        if (ab.source === 'variant-rule' && !seen.has(ab.ref['ability-id'])) {
+          seen.add(ab.ref['ability-id']);
+          result.push(ab);
+        }
+      }
     }
-    return pairs;
+    return result;
+  });
+
+  readonly factionName = computed<string | null>(() => {
+    const ab = this.factionAbilities()[0];
+    if (!ab?.variantRule || isUnresolvedFallback(ab.variantRule)) return null;
+    return (ab.variantRule as { variantName?: string }).variantName ?? null;
+  });
+
+  readonly totalDucats = computed<number>(() =>
+    this.warband()?.models.reduce((s, m) => s + (m.export.cost?.ducats ?? 0), 0) ?? 0
+  );
+
+  readonly cardPages = computed<CardPage[]>(() => {
+    const wb = this.warband();
+    if (!wb) return [];
+    const hasFaction = this.factionAbilities().length > 0;
+    const slots: CardSlot[] = [
+      ...(hasFaction ? [{ kind: 'faction' as const }] : []),
+      ...wb.models.map(m => ({ kind: 'model' as const, model: m })),
+    ];
+    const pages: CardPage[] = [];
+    for (let i = 0; i < slots.length; i += 2) {
+      pages.push([slots[i], slots[i + 1] ?? { kind: 'empty' as const }]);
+    }
+    return pages;
   });
 
   readonly allWarbandKeywords = computed<ResolvedKeyword[]>(
@@ -184,6 +224,7 @@ export class PrintSheetComponent {
 
   render(): void {
     this.warbandSvc.load(this.jsonDraft);
+    if (this.warbandSvc.warband()) this.inputCollapsed.set(true);
     this.kwToggle.showAll();
   }
 

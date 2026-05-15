@@ -257,7 +257,8 @@ export class WarbandService {
   // ---------------------------------------------------------------------------
 
   private translateTcInternal(data: TcApiWarbandData): WarbandExport {
-    const factionRuleIds = (data.faction?.faction_rules ?? []).map(r => r.object_id);
+    const factionRules  = data.faction?.faction_rules ?? [];
+    const factionRuleIds = factionRules.map(r => r.object_id);
 
     const models: WarbandModelExport[] = (data.models ?? []).map(entry => {
       const m        = entry.model;
@@ -280,12 +281,14 @@ export class WarbandService {
         ...m.subproperties.map(s => ({
           'ability-name': this.gameData.resolve(s.object_id).name,
           'ability-id'  : s.object_id,
+          'ability-tags': s.tags,
         })),
-        ...factionRuleIds
-          .filter(id => !modelSubpropIds.has(id))
-          .map(id => ({
-            'ability-name': this.gameData.resolve(id).name,
-            'ability-id'  : id,
+        ...factionRules
+          .filter(r => !modelSubpropIds.has(r.object_id))
+          .map(r => ({
+            'ability-name': this.gameData.resolve(r.object_id).name,
+            'ability-id'  : r.object_id,
+            'ability-tags': r.tags,
           })),
       ];
 
@@ -494,6 +497,8 @@ export class WarbandService {
       const variantRule = entry.type === 'VariantRule'
         ? entry as VariantRule
         : entry as UnresolvedFallback;
+      // isGameplayRule: if tags present, true only when bonus===true; otherwise default true (backward compat)
+      const isGameplayRule = ref['ability-tags'] ? ref['ability-tags']['bonus'] === true : true;
       return {
         ref,
         source     : 'variant-rule',
@@ -502,16 +507,17 @@ export class WarbandService {
         keywords   : entry.type === 'VariantRule'
           ? this.keywordsFromVariantRule(entry as VariantRule)
           : [],
+        isGameplayRule,
       };
     }
 
     if (entry.type === 'Addon') {
       const addon = entry as Addon;
-      return { ref, source: 'addon', addon, variantRule: undefined, keywords: this.keywordsFromAddon(addon) };
+      return { ref, source: 'addon', addon, variantRule: undefined, keywords: this.keywordsFromAddon(addon), isGameplayRule: true };
     }
 
     // Unresolved — surface as an addon-shaped fallback
-    return { ref, source: 'addon', addon: entry as UnresolvedFallback, variantRule: undefined, keywords: [] };
+    return { ref, source: 'addon', addon: entry as UnresolvedFallback, variantRule: undefined, keywords: [], isGameplayRule: true };
   }
 
   private keywordsFromAddon(addon: Addon): ResolvedKeyword[] {

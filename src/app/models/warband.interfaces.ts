@@ -20,6 +20,7 @@ export interface WarbandEquipmentRef {
 export interface WarbandAbilityRef {
   'ability-name': string;
   'ability-id': string;
+  'ability-tags'?: Record<string, boolean>;
 }
 
 export interface WarbandKeywordRef {
@@ -93,6 +94,7 @@ export interface EnrichedAbility {
   addon: Addon | UnresolvedFallback | undefined;
   variantRule: VariantRule | UnresolvedFallback | undefined;
   keywords: ResolvedKeyword[];
+  isGameplayRule: boolean;
 }
 
 export interface EnrichedWarbandModel {

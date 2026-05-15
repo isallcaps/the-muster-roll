@@ -23,7 +23,7 @@ export class ModelCardComponent {
   }
 
   get variantAbilities(): EnrichedAbility[] {
-    return this.model.abilities.filter(a => a.source === 'variant-rule');
+    return this.model.abilities.filter(a => a.source === 'variant-rule' && a.isGameplayRule);
   }
 
   isDefVisible(exportId: string): boolean {
