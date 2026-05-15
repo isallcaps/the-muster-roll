@@ -60,7 +60,7 @@
     <h3 class="mc-section__title">Equipment</h3>
     @for (eq of model.equipment; track eq.ref['equipment-id']) {
       <div class="item-block">
-        <!-- Name · Range · equip_type · modifiers all on one line -->
+        <!-- Name · Range · equip_type on one line -->
         <p class="item-block__headline">
           <strong>{{ eq.ref['equipment-name'] }}</strong>
           @if (isUnresolved(eq.item)) {
@@ -75,10 +75,21 @@
           @if (eq.item.equip_type) {
             <span class="item-block__meta"> · {{ eq.item.equip_type }}</span>
           }
-          @if (eq.item.modifiers?.length) {
-            <span class="item-block__meta"> · {{ (eq.item.modifiers ?? []).join(', ') }}</span>
-          }
         </p>
+        <!-- Keyword label row — bold outlined chips, one per tag; click to toggle definition -->
+        @if (eq.keywords.length) {
+          <div class="item-block__kw-row">
+            @for (kw of eq.keywords; track kw.exportId) {
+              <button
+                class="kw-chip"
+                [class.kw-chip--active]="isDefVisible(kw.exportId)"
+                (click)="toggleDef(kw.exportId)"
+                [attr.aria-pressed]="isDefVisible(kw.exportId)"
+                [attr.aria-label]="'Toggle definition for ' + kw.exportName"
+              >{{ kw.exportName }}</button>
+            }
+          </div>
+        }
         <!-- Blurb — flavour text in italics; hidden when showBlurb is false -->
         @if (eq.item.blurb && printSettings.settings().showBlurb) {
           <p class="item-block__blurb">{{ eq.item.blurb }}</p>
@@ -91,16 +102,18 @@
             <tc-desc-blocks [blocks]="eq.item!.description" />
           </div>
         }
-        <!-- Tag definitions (e.g. ASSAULT) -->
+        <!-- Keyword definitions — shown inline when chip is active -->
         @for (kw of eq.keywords; track kw.exportId) {
-          <p class="def-line def-line--indent">
-            <strong class="def-line__term">{{ kw.exportName }}</strong>
-            @if (isUnresolved(kw.glossaryEntry)) {
-              <span class="def-line__unresolved"> [?]</span>
-            } @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
-              <span> — {{ kw.glossaryEntry.description[0].content }}</span>
-            }
-          </p>
+          @if (isDefVisible(kw.exportId)) {
+            <p class="def-line def-line--indent">
+              <strong class="def-line__term">{{ kw.exportName }}</strong>
+              @if (isUnresolved(kw.glossaryEntry)) {
+                <span class="def-line__unresolved"> [?]</span>
+              } @else if (kw.glossaryEntry.description[0]?.content) {
+                <span> — {{ kw.glossaryEntry.description[0].content }}</span>
+              }
+            </p>
+          }
         }
       </div>
       <!-- Divider between equipment items, not after the last -->

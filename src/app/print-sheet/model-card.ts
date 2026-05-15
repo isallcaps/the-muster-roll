@@ -30,6 +30,10 @@ export class ModelCardComponent {
     return this.kwToggle.isVisible(exportId);
   }
 
+  toggleDef(exportId: string): void {
+    this.kwToggle.toggle(exportId);
+  }
+
   isUnresolved(entry: unknown): boolean {
     return isUnresolvedFallback(entry);
   }

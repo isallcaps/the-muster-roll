@@ -102,6 +102,9 @@ export class GameDataService {
           `[MusterRoll] Rulebook overrides applied: ${ovGlossary} glossary,` +
           ` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules`,
         );
+        if (isDevMode()) {
+          this.auditEquipmentTags();
+        }
       }),
       catchError(err => {
         this.loadState = 'error';
@@ -229,5 +232,41 @@ export class GameDataService {
 
   private titleToRlId(title: string): string {
     return 'rl_' + title.toLowerCase().replace(/[^a-z]/g, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dev-only: equipment tag audit — runs once at startup
+  // Logs every equipment entry whose tags don't resolve to a glossary entry,
+  // and every entry with no tags at all when similar weapons have them.
+  // ---------------------------------------------------------------------------
+
+  private auditEquipmentTags(): void {
+    const fails: string[] = [];
+    const noTags: string[] = [];
+    let pass = 0;
+
+    for (const eq of this.equipmentMap.values()) {
+      if (!eq.tags || eq.tags.length === 0) {
+        noTags.push(eq.name);
+        continue;
+      }
+      let itemFail = false;
+      for (const tag of eq.tags) {
+        if (!tag.val?.startsWith('gl_')) continue;          // skip non-glossary tags
+        if (!this.glossaryMap.has(tag.val)) {
+          fails.push(`${eq.name} — tag ${tag.val} not in glossary`);
+          itemFail = true;
+        }
+      }
+      if (!itemFail) pass++;
+    }
+
+    const total = this.equipmentMap.size;
+    console.log(
+      `[MusterRoll] Equipment audit — ${total} entries:` +
+      ` ${pass} PASS, ${fails.length} FAIL, ${noTags.length} no-tags`,
+    );
+    if (fails.length)  console.warn('[MusterRoll] Equipment tag FAILs:\n  ' + fails.join('\n  '));
+    if (noTags.length) console.warn('[MusterRoll] Equipment with no tags:\n  ' + noTags.join('\n  '));
   }
 }

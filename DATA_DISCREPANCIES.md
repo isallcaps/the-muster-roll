@@ -46,31 +46,36 @@ the remap, all four stat values (MOV/MEL/RNG/ARM) render as `?` on the model car
 ## Missing Glossary Entries
 
 Keyword IDs referenced by equipment tags or model keyword lists that have no
-corresponding entry in `data/references/glossary.json`. These keywords appear in
-bold on the card but no definition text is shown.
+corresponding entry in `data/references/glossary.json`. All entries from the
+original list have been added to the fork. The remaining gap is:
 
-| Keyword ID | Keyword Name | Found In |
-|------------|--------------|----------|
-| `gl_bayonetlug` | BAYONET LUG | Equipment tags (Bayonet) |
-| `gl_shieldcombo` | SHIELD COMBO | Equipment tags (Trench Shield) |
-| `gl_pistol` | PISTOL | Equipment tags (pistols) |
-| `gl_deadly` | DEADLY | Equipment tags |
-| `gl_reload` | RELOAD | Equipment tags (heavy weapons) |
-| `gl_scatter` | SCATTER | Equipment tags (blast weapons) |
-| `gl_blast3` | BLAST 3" | Equipment tags (grenades, infernal bomb) |
-| `gl_flamethrower` | FLAMETHROWER | Equipment tags (Flamethrower) |
-| `gl_automatic2` | AUTOMATIC 2 | Equipment tags (SMGs) |
-| `gl_injurymodifier-1` | INJURY MODIFIER -1 | Equipment tags |
-| `gl_injurymodifier-2` | INJURY MODIFIER -2 | Equipment tags |
-| `gl_injurymodifier2` | INJURY MODIFIER +2 | Equipment tags |
-| `gl_injurydice-1` | INJURY DICE -1 | Equipment tags |
-| `gl_injurydice1` | INJURY DICE +1 | Equipment tags |
-| `gl_ignoremodifiercover` | IGNORE MODIFIER (COVER) | Equipment tags |
-| `gl_ignoremodifierlong_range` | IGNORE MODIFIER (LONG RANGE) | Equipment tags |
-| `gl_ignoremodifierelevated_position` | IGNORE MODIFIER (ELEVATED POSITION) | Equipment tags |
-| `gl_ignorearmour` | IGNORE ARMOUR | Equipment tags |
-| `gl_ignoremodifierarmour` | IGNORE MODIFIER (ARMOUR) | Equipment tags |
-| `gl_minusdice1` | MINUS DICE 1 | Equipment tags (variant of `gl_minusdice`) |
+| Keyword ID | Keyword Name | Status | Notes |
+|------------|--------------|--------|-------|
+| `gl_automatic2` | AUTOMATIC 2 | Fork uses `gl_automatic` | Weapons tagged "Automatic 2" link to the generic AUTOMATIC (X) entry; a distinct `gl_automatic2` entry is not needed |
+
+---
+
+## Equipment Modifier to Keyword Gaps
+
+Several equipment entries have free-text `modifiers` values with no direct `gl_*`
+keyword mapping. These are shown on the card as plain text and do not link to
+glossary definitions. A fork PR should convert them to tagged glossary links.
+
+| Modifier String | Equipment | Notes |
+|-----------------|-----------|-------|
+| `+1D to Hit` | Shotgun, Heavy Shotgun, Automatic Shotgun, Punt Gun, Sniper Rifle, Gun Turret | Generic +DICE; ambiguous tag target |
+| `-1D to Hit` | Knife/Dagger, Unarmed | Generic −DICE; ambiguous tag target |
+| `-1D to Hit for Chargers` | Polearm, Lochaber Axe | Situational modifier, no direct keyword |
+| `-1D to Hit/Injuries` | Unarmed | Combined modifier, no direct keyword |
+| `+1D to Hit in Cover` | Silenced Pistol | Situational, inverse of IGNORE COVER |
+| `+2D to Hit` | Viscera Cannon | Would need `gl_plusdice2` (not yet in glossary) |
+| `+1 to Injury` | Two-Handed Hammer | Would need `gl_injurymodifier1` |
+| `1 Attack` | Mortar | May indicate RELOAD; verify against rulebook |
+| `3D6 Injury Roll` | Malebranche Sword | Close to DEADLY but not identical |
+| `Double Blood Marker` | Demonic Aura Grenade | No keyword; describe in rule text |
+| `Ignore Shield` | Shotel | No glossary entry; describe in rule text |
+| `Special` | Tormentor Chain | No keyword; rule text covers this |
+| `or` | Bow Of Lethe | Noise word in multi-option modifier array |
 
 ---
 
@@ -89,27 +94,21 @@ render with name only — no range, modifiers, blurb, or description.
 ## Missing Ability Definitions
 
 Ability IDs from warband exports that resolve to `source: 'unknown'` — not found
-in `addons.json` and not matchable as a variant rule slug.
+in `addons.json` and not matchable as a variant rule slug. All originally listed
+entries have been added to the fork. New entries appear in the live Validation
+Report in the dev toolbar.
 
 | Ability ID | Display Name | Affected Warband / Notes |
 |------------|--------------|--------------------------|
-| `ab_abioticlife` | Abiotic Life | Eris (The Wrecking Crew v2) |
-| `ab_artillerywitchbattery` | Artillery Witch Battery | Eris (The Wrecking Crew v2) |
-| `ab_hereticlegionnaire` | Heretic Legionnaire | Rum (The Wrecking Crew v2) |
-
 | *(populate from live Validation Report in the dev toolbar)* | | |
 
 ---
 
 ## Migrated to Fork
 
-Entries that were patched locally in `rulebook-override.json` and have since been
-committed to the [isallcaps/trenchcrusadedata](https://github.com/isallcaps/trenchcrusadedata)
-fork. The override file is now empty — these IDs are resolved by the submodule directly.
+### Commit `dfab215` — fix: add missing glossary entries, abilities and variant rules from rulebook v1.0.2
 
-### Commit: `dfab215` — fix: add missing glossary entries, abilities and variant rules from rulebook v1.0.2
-
-**Glossary (41 entries):** `gl_minusdice1`, `gl_injurydice`, `gl_injurydice1`, `gl_injurydice-1`,
+**Glossary (41):** `gl_minusdice1`, `gl_injurydice`, `gl_injurydice1`, `gl_injurydice-1`,
 `gl_injurymodifier`, `gl_injurymodifier2`, `gl_injurymodifier-1`, `gl_injurymodifier-2`,
 `gl_ammunition`, `gl_armourpiercing`, `gl_automatic`, `gl_bayonetlug`, `gl_blast3`,
 `gl_blessed`, `gl_block`, `gl_cleavex`, `gl_cover`, `gl_deadly`, `gl_flamethrower`,
@@ -119,8 +118,16 @@ fork. The override file is now empty — these IDs are resolved by the submodule
 `gl_negate_kw_fear`, `gl_negate_kw_heavy`, `gl_negate_kw_shrapnel`, `gl_pistol`,
 `gl_reload`, `gl_regenerate`, `gl_scatter`, `gl_shotgun`, `gl_shieldcombo`
 
-**Abilities (3 entries):** `ab_abioticlife` (Abiotic Life), `ab_artillerywitchbattery` (Artillery Witch Battery),
-`ab_hereticlegionnaire` (Heretic Legionnaires)
+**Abilities (3):** `ab_abioticlife`, `ab_artillerywitchbattery`, `ab_hereticlegionnaire`
 
-**Variant Rules (3 entries, added to `fv_navalraidingparty`):** `rl_closeassaultweapons` (Close Assault Weapons),
-`rl_letsleepingdogslie` (Let Sleeping Dogs Lie), `rl_lighttroops` (Light Troops)
+**Variant Rules (3, added to `fv_navalraidingparty`):** `rl_closeassaultweapons`, `rl_letsleepingdogslie`, `rl_lighttroops`
+
+### Commit `5d18354` — fix: add missing keyword tags to equipment entries from rulebook v1.0.2
+
+**Equipment tags (59 added across 178 entries):** `gl_ignorearmour`, `gl_injurydice-1`, `gl_injurydice1`,
+`gl_injurydice2`, `gl_injurymodifier2`, `gl_injurymodifier1`, `gl_ignoremodifiercover`,
+`gl_ignoremodifierlong_range`, `gl_automatic` (as Automatic 2 / Automatic 3) on all applicable weapons.
+Knowledge-based additions: `gl_flamethrower` on Flamethrower and Heavy Flamethrower;
+`gl_automatic` (Automatic 2) and `gl_injurydice-1` on Heavy Flamethrower.
+
+**New glossary entries (2):** `gl_injurymodifier1` (+1 Injury Modifier), `gl_injurydice2` (+2 Injury Dice)

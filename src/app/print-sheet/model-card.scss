@@ -176,6 +176,45 @@
   margin: 0 0 0.5mm;
 }
 
+// Keyword chip row — displayed between headline and blurb
+.item-block__kw-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5mm;
+  margin: 0 0 1mm;
+}
+
+.kw-chip {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 6pt;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: black;
+  background: white;
+  border: 0.5pt solid black;
+  padding: 0.3mm 1.5mm;
+  cursor: pointer;
+  line-height: 1.5;
+
+  &--active {
+    background: black;
+    color: white;
+  }
+
+  @media print {
+    cursor: default;
+    // Active chips invert on print so definitions are clearly linked
+    &--active {
+      background: black;
+      color: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+}
+
 .item-block__blurb {
   font-size: 7pt;
   font-style: italic;
