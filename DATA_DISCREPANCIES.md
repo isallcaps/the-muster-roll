@@ -133,6 +133,22 @@ armour, shields, grenades, and equipment with missing keyword coverage.
 
 ---
 
+### Commit `2230eb1` — fix: replace gl_blastx with gl_blast3 on Gas Grenades (eq_gasgrenades)
+
+Fork's `equipment.json` had `gl_blastx` on Gas Grenades; changed to `gl_blast3` to match the
+actual Blast 3" keyword. The `WEAPON_KEYWORD_OVERRIDES` entry for `eq_gasgrenades` was
+simplified to only the three keywords not provided by the fork data:
+`gl_ignoremodifiercover`, `gl_ignoremodifierlong_range`, `gl_ignorearmour`.
+
+The unreachable `eq_infernalbomb` entry in `WEAPON_KEYWORD_OVERRIDES` was also removed.
+The Infernal Bomb resolves as Addon `ab_infernalbomb` (not Equipment), so `effectiveEquipmentTags`
+never fires for it. Keywords are now injected via `ab_infernalbomb` in `rulebook-override.json`
+abilities, using clean glossary refs: `gl_blast3`, `gl_scatter`, `gl_reload`,
+`gl_ignoremodifiercover`, `gl_ignoremodifierlong_range`, `gl_ignoremodifierelevated_position`,
+`gl_shrapnel`. The existing `keywordsFromDescriptionBlocks` mechanism surfaces these as chips.
+
+---
+
 ### Commit `5d18354` — fix: add missing keyword tags to equipment entries from rulebook v1.0.2
 
 **Equipment tags (59 added across 178 entries):** `gl_ignorearmour`, `gl_injurydice-1`, `gl_injurydice1`,

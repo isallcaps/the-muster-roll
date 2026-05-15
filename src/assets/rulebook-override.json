@@ -41,6 +41,45 @@
     }
   },
   "equipment": {},
-  "abilities": {},
+  "abilities": {
+    "ab_infernalbomb": {
+      "id": "ab_infernalbomb",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_hereticlegion",
+      "name": "Infernal Bomb",
+      "eventtags": { "action": true, "include": ["category_ranged"] },
+      "description": [
+        {
+          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "content": " This wicked infernal weapon is treated as a one-handed Ranged weapon with the Keyword BLAST 3\". Specify a 1x1mm point on the battlefield within 36\" that you want to target that the Witch can see. Next, take a Ranged Attack ACTION. If the roll fails (i.e. you roll 6 or less with the two lowest Dice), the bomb lands 1\" away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the bomb lands 2\" away, as 7-5=2). The direction is decided by your opponent. Roll on the Injury Chart for each model within the BLAST radius. ",
+          "subcontent": [],
+          "glossary": [
+            { "val": "BLAST 3\"", "id": "gl_blast3" },
+            { "val": "SCATTER",   "id": "gl_scatter" },
+            { "val": "RELOAD",    "id": "gl_reload" },
+            { "val": "IGNORE COVER",             "id": "gl_ignoremodifiercover" },
+            { "val": "IGNORE LONG RANGE",         "id": "gl_ignoremodifierlong_range" },
+            { "val": "IGNORE ELEVATED POSITION",  "id": "gl_ignoremodifierelevated_position" }
+          ]
+        },
+        {
+          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "content": "If the bomb lands exactly on top of any model, roll with 3D6 on the Injury Chart and add the dice together! Other models hit by the Bomb roll on the Injury Chart as standard. Any model hit but not taken Out of Action by this attack is blown D3\" directly away from the point of impact (roll for each model separately), stopping if they hit other models/buildings/objects. This attack has the Keyword SHRAPNEL and therefore causes an additional +1 BLOOD MARKER.",
+          "subcontent": [],
+          "glossary": [
+            { "val": "SHRAPNEL", "id": "gl_shrapnel" }
+          ]
+        },
+        {
+          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "content": "Cover, range and higher position do not affect the attacks by the Infernal Bomb. Roll injuries for models in cover/behind intervening terrain with -1 DICE. The Activation of the Witch ends immediately after using the Infernal Bomb.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    }
+  },
   "variantRules": {}
 }

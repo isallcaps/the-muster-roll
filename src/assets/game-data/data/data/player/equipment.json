@@ -266,8 +266,8 @@
         "val": "gl_gas"
       },
       {
-        "tag_name": "BLAST 3\"",
-        "val": "gl_blastx"
+        "tag_name": "Blast 3\"",
+        "val": "gl_blast3"
       },
       {
         "tag_name": "Grenade",
