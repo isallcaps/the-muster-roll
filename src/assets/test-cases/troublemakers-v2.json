@@ -1,0 +1,401 @@
+{
+  "id": "troublemakers-v2",
+  "name": "Troublemakers v2",
+  "exportJson": {
+    "warband-id": 221951,
+    "warband-url": "https://trench-companion.com/warband/detail/221951",
+    "warband-name": "Troublemakers v2",
+    "ducat-bank": 5,
+    "glory-bank": 0,
+    "ducat-rating": 695,
+    "glory-rating": 0,
+    "models": [
+      {
+        "model-name": "Heretic Priest",
+        "model-id": "md_hereticpriest",
+        "name": "Father Problems",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "+2",
+        "stat-ranged": "+2",
+        "stat-armour": "-2",
+        "cost": {
+          "ducats": 173,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Sacrificial Blade",
+            "equipment-id": "eq_sacrificialknife",
+            "equipment-type": "melee weapon"
+          },
+          {
+            "equipment-name": "Gas Grenades",
+            "equipment-id": "eq_gasgrenades",
+            "equipment-type": "grenade"
+          },
+          {
+            "equipment-name": "Reinforced Armour",
+            "equipment-id": "eq_reinforcedarmour",
+            "equipment-type": "armour"
+          },
+          {
+            "equipment-name": "Semi-Automatic Rifle",
+            "equipment-id": "eq_semiautomaticrifle",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Combat Helmet",
+            "equipment-id": "eq_combathelmet",
+            "equipment-type": "equipment"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Puppet Master",
+            "ability-id": "ab_puppetmaster"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE SHRAPNEL",
+            "keyword-id": "kw_negate_kw_shrapnel"
+          },
+          {
+            "keyword-name": "ELITE",
+            "keyword-id": "kw_elite"
+          },
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          },
+          {
+            "keyword-name": "TOUGH",
+            "keyword-id": "kw_tough"
+          },
+          {
+            "keyword-name": "LEADER",
+            "keyword-id": "kw_leader"
+          }
+        ]
+      },
+      {
+        "model-name": "Artillery Witch",
+        "model-id": "md_artillerywitch",
+        "name": "Sister \"Oopsy\" Daisy",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "-1",
+        "stat-ranged": "0",
+        "stat-armour": "-1",
+        "cost": {
+          "ducats": 115,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Infernal Bomb",
+            "equipment-id": "eq_artillerywitchinfernalbomb",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Standard Armour",
+            "equipment-id": "eq_standardarmour",
+            "equipment-type": "armour"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Levitate",
+            "ability-id": "ab_levitate"
+          },
+          {
+            "ability-name": "Abiotic Life",
+            "ability-id": "ab_abioticlife"
+          },
+          {
+            "ability-name": "Artillery Witch Battery",
+            "ability-id": "ab_artillerywitchbattery"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "NEGATE FEAR",
+            "keyword-id": "kw_negate_kw_fear"
+          },
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          },
+          {
+            "keyword-name": "ARTIFICIAL",
+            "keyword-id": "kw_artificial"
+          }
+        ]
+      },
+      {
+        "model-name": "War Wolf Assault Beast",
+        "model-id": "md_warwolfassaultbeast",
+        "name": "Brother \"Good Boy\" Bear",
+        "stat-move": "8\"/Infantry",
+        "stat-melee": "+2",
+        "stat-ranged": "0",
+        "stat-armour": "-3",
+        "cost": {
+          "ducats": 145,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Chain Maw",
+            "equipment-id": "eq_warwolfchainmaw",
+            "equipment-type": "melee weapon"
+          },
+          {
+            "equipment-name": "Shredding Claws",
+            "equipment-id": "eq_warwolfshreddingclaws",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Loping Dash",
+            "ability-id": "ab_lopingdash"
+          },
+          {
+            "ability-name": "Assault Beast",
+            "ability-id": "ab_assaultbeast"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE DIFFICULT TERRAIN",
+            "keyword-id": "kw_negate_kw_difficultterrain"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          },
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          },
+          {
+            "keyword-name": "TOUGH",
+            "keyword-id": "kw_tough"
+          },
+          {
+            "keyword-name": "ARTIFICIAL",
+            "keyword-id": "kw_artificial"
+          }
+        ]
+      },
+      {
+        "model-name": "Anointed Heavy Infantry",
+        "model-id": "md_annointedheavyinfantry",
+        "name": "Brother Brick",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "+1",
+        "stat-ranged": "+1",
+        "stat-armour": "-2",
+        "cost": {
+          "ducats": 142,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Infernal Brand Mark",
+            "equipment-id": "eq_infernalbrandmark",
+            "equipment-type": "equipment"
+          },
+          {
+            "equipment-name": "Reinforced Armour",
+            "equipment-id": "eq_reinforcedarmour",
+            "equipment-type": "armour"
+          },
+          {
+            "equipment-name": "Greatsword / Greataxe",
+            "equipment-id": "eq_greatswordaxe",
+            "equipment-type": "melee weapon"
+          },
+          {
+            "equipment-name": "Grenade Launcher",
+            "equipment-id": "eq_grenadelauncher",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Combat Helmet",
+            "equipment-id": "eq_combathelmet",
+            "equipment-type": "equipment"
+          }
+        ],
+        "abilities": [],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE FIRE",
+            "keyword-id": "kw_negate_kw_fire"
+          },
+          {
+            "keyword-name": "NEGATE SHRAPNEL",
+            "keyword-id": "kw_negate_kw_shrapnel"
+          },
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          },
+          {
+            "keyword-name": "STRONG",
+            "keyword-id": "kw_strong"
+          },
+          {
+            "keyword-name": "NEGATE HEAVY",
+            "keyword-id": "kw_negate_kw_heavy"
+          }
+        ]
+      },
+      {
+        "model-name": "Heretic Trooper",
+        "model-id": "md_heretictrooper",
+        "name": "Diablo",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "0",
+        "stat-ranged": "+1",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 52,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Bolt-Action Rifle",
+            "equipment-id": "eq_boltactionrifle",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Bayonet",
+            "equipment-id": "eq_bayonet",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Heretic Legionnaire",
+            "ability-id": "ab_hereticlegionnaire"
+          }
+        ],
+        "upgrades": [
+          {
+            "upgrade-name": "Heretic Legionnaire",
+            "upgrade-id": "up_heretictrooper_hereticlegionnaire"
+          }
+        ],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          }
+        ]
+      },
+      {
+        "model-name": "Heretic Trooper",
+        "model-id": "md_heretictrooper",
+        "name": "Loki",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "0",
+        "stat-ranged": "0",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 42,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Bolt-Action Rifle",
+            "equipment-id": "eq_boltactionrifle",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Bayonet",
+            "equipment-id": "eq_bayonet",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Heretic Legionnaire",
+            "ability-id": "ab_hereticlegionnaire"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          }
+        ]
+      },
+      {
+        "model-name": "Wretched",
+        "model-id": "md_wretched",
+        "name": "Bob",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "-1",
+        "stat-ranged": "-1",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 26,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Trench Knife",
+            "equipment-id": "eq_knifedagger",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Law of Hell",
+            "ability-id": "ab_lawofhell"
+          },
+          {
+            "ability-name": "Dark Blessing",
+            "ability-id": "ab_darkblessing"
+          },
+          {
+            "ability-name": "Chattel",
+            "ability-id": "ab_chattel"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "HERETIC",
+            "keyword-id": "kw_heretic"
+          }
+        ]
+      }
+    ]
+  },
+  "trenchCompanionHtml": ""
+}
