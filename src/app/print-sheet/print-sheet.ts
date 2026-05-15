@@ -62,7 +62,7 @@ export class PrintSheetComponent {
   /** Warband ID of the currently-loaded test case, if any. */
   readonly loadedTestCaseWarbandId = signal<number | null>(null);
 
-  /** Feedback shown after a "Save Current" copy-to-clipboard action. */
+  /** Feedback shown after a "Save Current" download. */
   readonly saveFeedback = signal<string | null>(null);
 
   /** exportId of the item whose "Copy row" button was last clicked. */
@@ -297,21 +297,21 @@ export class PrintSheetComponent {
     };
     const payload = JSON.stringify(testCase, null, 2);
 
-    navigator.clipboard.writeText(payload).then(() => {
-      this.saveFeedback.set(
-        `JSON copied to clipboard!\n` +
-        `Run in terminal:\n` +
-        `  macOS:  pbpaste | node scripts/save-test-case.mjs\n` +
-        `  Linux:  xclip -selection clipboard -o | node scripts/save-test-case.mjs`
-      );
-    }).catch(() => {
-      this.saveFeedback.set(
-        `Clipboard unavailable — JSON logged to the browser console.\n` +
-        `Copy it, save to a .json file, then run:\n` +
-        `  cat <file>.json | node scripts/save-test-case.mjs`
-      );
-      console.log('Test case JSON:\n', payload);
-    });
+    // Trigger a browser file download — no clipboard or terminal step needed.
+    // (Terminal fallback for reference:
+    //   macOS:  pbpaste | node scripts/save-test-case.mjs
+    //   Linux:  xclip -selection clipboard -o | node scripts/save-test-case.mjs)
+    const blob = new Blob([payload], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `${id}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    this.saveFeedback.set(
+      `Downloaded ${id}.json — move it to src/assets/test-cases/ and add an entry to index.json to register it.`
+    );
   }
 
   // ---------------------------------------------------------------------------
