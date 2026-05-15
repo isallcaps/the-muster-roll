@@ -1,0 +1,47 @@
+<!-- ── HEADER ──────────────────────────────────────────────────────── -->
+<header class="fc-header">
+	<div class="fc-header__name-block">
+		<h2 class="fc-header__warband-name">{{ warbandName }}</h2>
+		@if (factionName) {
+			<p class="fc-header__faction-name">{{ factionName }}</p>
+		}
+	</div>
+	<div class="fc-header__totals">
+		<span class="fc-header__total-val">{{ totalModels }}</span>
+		<span class="fc-header__total-lbl">models</span>
+		<span class="fc-header__total-val">{{ totalDucats }}&nbsp;dc</span>
+		<span class="fc-header__total-lbl">total cost</span>
+	</div>
+</header>
+
+<!-- ── FACTION RULES ───────────────────────────────────────────────── -->
+@if (abilities.length) {
+	<section class="mc-section">
+		<h3 class="mc-section__title">Faction Rules</h3>
+		@for (ab of abilities; track ab.ref['ability-id']) {
+			<div class="item-block">
+				<p class="item-block__headline">
+					<strong>{{ ab.ref['ability-name'] }}</strong>
+					@if (isUnresolved(ab.variantRule)) {
+						<span class="item-block__tag--unresolved"> [?]</span>
+					}
+					@if (!ab.isGameplayRule) {
+						<span class="item-block__tag"> [roster]</span>
+					}
+				</p>
+				@if (isUnresolved(ab.variantRule)) {
+					<p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+				} @else if (ab.variantRule?.description?.length) {
+					<div class="item-block__desc">
+						<tc-desc-blocks [blocks]="ab.variantRule!.description"/>
+					</div>
+				}
+			</div>
+		}
+	</section>
+}
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+<footer class="mc-footer">
+	{{ warbandName }} · Faction Card
+</footer>

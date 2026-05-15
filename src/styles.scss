@@ -1,24 +1,36 @@
-*, *::before, *::after { box-sizing: border-box; }
+// MANUALLY EDITED — do not rewrite without checking with Kim first
 
-html, body {
-  margin: 0;
-  padding: 0;
-  // Dark by default — prevents white flash on dark-mode systems.
-  // Individual content areas (model cards, print surface) override to white.
-  background: #1a1a1a;
-  color: #e8e8e8;
+*, *::before, *::after {
+	box-sizing: border-box;
 }
 
+html, body {
+	margin: 0;
+	padding: 0;
+	// Dark by default — prevents white flash on dark-mode systems.
+	// Individual content areas (model cards, print surface) override to white.
+	background: #1a1a1a;
+	color: #e8e8e8;
+}
+
+app-nav {
+	display: block;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+
+
 @page {
-  size: landscape;
-  margin: 8mm;
+	size: landscape;
+	margin: 8mm;
 }
 
 @media print {
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: white;
-    color: black;
-  }
+	html, body {
+		margin: 0;
+		padding: 0;
+		background: white;
+		color: black;
+	}
 }

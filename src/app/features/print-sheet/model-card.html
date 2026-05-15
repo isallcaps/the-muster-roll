@@ -1,0 +1,211 @@
+<!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+<header class="mc-header">
+	<div class="mc-header__name-block">
+		<h2 class="mc-header__given-name">{{ model.export.name }}</h2>
+		<p class="mc-header__type">{{ model.export['model-name'] }}</p>
+	</div>
+	<div class="mc-header__cost">
+		<span class="mc-header__ducats">{{ model.export.cost.ducats }}&nbsp;dc</span>
+	</div>
+</header>
+
+<!-- ── STATS ──────────────────────────────────────────────────────────── -->
+<section class="mc-stats">
+	<table class="stats-tbl">
+		<thead>
+		<tr>
+			<th class="stats-tbl__h">MOVE</th>
+			<th class="stats-tbl__h">MELEE</th>
+			<th class="stats-tbl__h">RANGED</th>
+			<th class="stats-tbl__h">ARMOUR</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="stats-tbl__v">{{ model.export['stat-move'] }}</td>
+			<td class="stats-tbl__v">{{ model.export['stat-melee'] }}</td>
+			<td class="stats-tbl__v">{{ model.export['stat-ranged'] }}</td>
+			<td class="stats-tbl__v">{{ model.export['stat-armour'] }}</td>
+		</tr>
+		<tr>
+			<td class="stats-tbl__lbl">inches per activation</td>
+			<td class="stats-tbl__lbl">close combat modifier</td>
+			<td class="stats-tbl__lbl">shooting modifier</td>
+			<td class="stats-tbl__lbl">damage reduction</td>
+		</tr>
+		</tbody>
+	</table>
+</section>
+
+<!-- ── KEYWORDS ───────────────────────────────────────────────────────── -->
+@if (model.modelKeywords.length) {
+	<section class="mc-section">
+		<h3 class="mc-section__title">Keywords</h3>
+		@for (kw of model.modelKeywords; track kw.exportId) {
+			<p class="def-line">
+				<strong class="def-line__term">{{ kw.exportName }}</strong>
+				@if (isUnresolved(kw.glossaryEntry)) {
+					<span class="def-line__unresolved"> [?]</span>
+				} @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+					<span> — {{ kw.glossaryEntry.description[0].content }}</span>
+				}
+			</p>
+		}
+	</section>
+}
+
+<!-- ── EQUIPMENT ──────────────────────────────────────────────────────── -->
+@if (model.equipment.length) {
+	<section class="mc-section">
+		<h3 class="mc-section__title">Equipment</h3>
+		@for (eq of model.equipment; track eq.ref['equipment-id']) {
+			<div class="item-block">
+				<!-- Name · Range · equip_type on one line -->
+				<p class="item-block__headline">
+					<strong>{{ eq.ref['equipment-name'] }}</strong>
+					@if (isUnresolved(eq.item)) {
+						<span class="item-block__tag--unresolved"> [?]</span>
+					}
+					@if (eq.shortRange) {
+						<span class="item-block__meta"> · Short: {{ eq.shortRange }} / Long: {{ eq.longRange }}</span>
+						<span class="item-block__meta item-block__meta--note"> (beyond short range: −1 DICE to hit)</span>
+					} @else if (eq.longRange) {
+						<span class="item-block__meta"> · {{ eq.longRange }}</span>
+					}
+					@if (eq.item.equip_type) {
+						<span class="item-block__meta"> · {{ eq.item.equip_type }}</span>
+					}
+				</p>
+				<!-- Keyword label row — bold outlined chips, one per tag; click to toggle definition -->
+				@if (eq.keywords.length) {
+					<div class="item-block__kw-row">
+						@for (kw of eq.keywords; track kw.exportId) {
+							<button
+									class="kw-chip"
+									[class.kw-chip--active]="isDefVisible(kw.exportId)"
+									(click)="toggleDef(kw.exportId)"
+									[attr.aria-pressed]="isDefVisible(kw.exportId)"
+									[attr.aria-label]="'Toggle definition for ' + kw.exportName"
+							>{{ kw.exportName }}
+							</button>
+						}
+					</div>
+				}
+				<!-- Blurb — flavour text in italics; hidden when showBlurb is false -->
+				@if (eq.item.blurb && printSettings.settings().showBlurb) {
+					<p class="item-block__blurb">{{ eq.item.blurb }}</p>
+				}
+				<!-- Rule text -->
+				@if (isUnresolved(eq.item)) {
+					<p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+				} @else if (eq.item.description.length) {
+					<div class="item-block__desc">
+						<tc-desc-blocks [blocks]="eq.item!.description"/>
+					</div>
+				}
+				<!-- Keyword definitions — shown inline when chip is active -->
+				@for (kw of eq.keywords; track kw.exportId) {
+					@if (isDefVisible(kw.exportId)) {
+						<p class="def-line def-line--indent">
+							<strong class="def-line__term">{{ kw.exportName }}</strong>
+							@if (isUnresolved(kw.glossaryEntry)) {
+								<span class="def-line__unresolved"> [?]</span>
+							} @else if (kw.glossaryEntry.description[0]?.content) {
+								<span> — {{ kw.glossaryEntry.description[0].content }}</span>
+							}
+						</p>
+					}
+				}
+			</div>
+			<!-- Divider between equipment items, not after the last -->
+			@if (!$last) {
+				<hr class="item-divider">
+			}
+		}
+	</section>
+}
+
+<!-- ── ABILITIES ──────────────────────────────────────────────────────── -->
+@if (addonAbilities.length) {
+	<section class="mc-section">
+		<h3 class="mc-section__title">Abilities</h3>
+		@for (ab of addonAbilities; track ab.ref['ability-id']) {
+			<div class="item-block">
+				<p class="item-block__headline">
+					<strong>{{ ab.ref['ability-name'] }}</strong>
+					@if (isUnresolved(ab.addon)) {
+						<span class="item-block__tag--unresolved"> [?]</span>
+					}
+					@if (ab.addon?.eventtags?.['action']) {
+						<span class="item-block__tag"> [action]</span>
+					}
+					@if (ab.addon?.eventtags?.['trait']) {
+						<span class="item-block__tag"> [trait]</span>
+					}
+				</p>
+				@if (isUnresolved(ab.addon)) {
+					<p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+				} @else if (ab.addon?.description?.length) {
+					<div class="item-block__desc">
+						<tc-desc-blocks [blocks]="ab.addon!.description"/>
+					</div>
+				}
+				@for (kw of ab.keywords; track kw.exportId) {
+					<p class="def-line def-line--indent">
+						<strong class="def-line__term">{{ kw.exportName }}</strong>
+						@if (isUnresolved(kw.glossaryEntry)) {
+							<span class="def-line__unresolved"> [?]</span>
+						} @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+							<span> — {{ kw.glossaryEntry.description[0].content }}</span>
+						}
+					</p>
+				}
+			</div>
+		}
+	</section>
+}
+
+<!-- ── FACTION RULES ──────────────────────────────────────────────────── -->
+@if (variantAbilities.length) {
+	<section class="mc-section">
+		<h3 class="mc-section__title">
+			Faction Rules
+			<span class="mc-section__note"> — applies to all models in this warband</span>
+		</h3>
+		@for (ab of variantAbilities; track ab.ref['ability-id']) {
+			<div class="item-block">
+				<p class="item-block__headline">
+					<strong>{{ ab.ref['ability-name'] }}</strong>
+					@if (isUnresolved(ab.variantRule)) {
+						<span class="item-block__tag--unresolved"> [?]</span>
+					}
+					@if (ab.variantRule?.variantName) {
+						<span class="item-block__meta"> ({{ ab.variantRule!.variantName }})</span>
+					}
+				</p>
+				@if (isUnresolved(ab.variantRule)) {
+					<p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
+				} @else if (ab.variantRule?.description?.length) {
+					<div class="item-block__desc">
+						<tc-desc-blocks [blocks]="ab.variantRule!.description"/>
+					</div>
+				}
+				@for (kw of ab.keywords; track kw.exportId) {
+					<p class="def-line def-line--indent">
+						<strong class="def-line__term">{{ kw.exportName }}</strong>
+						@if (isUnresolved(kw.glossaryEntry)) {
+							<span class="def-line__unresolved"> [?]</span>
+						} @else if (isDefVisible(kw.exportId) && kw.glossaryEntry.description[0]?.content) {
+							<span> — {{ kw.glossaryEntry.description[0].content }}</span>
+						}
+					</p>
+				}
+			</div>
+		}
+	</section>
+}
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="mc-footer">
+	{{ warbandName }} · {{ model.export.name }}
+</footer>

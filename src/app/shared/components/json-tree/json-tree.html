@@ -1,0 +1,99 @@
+<!-- Controls bar -->
+<div class="jt-controls">
+	<div class="jt-controls__btns">
+		<button class="jt-btn" (click)="expandAll()">Expand All</button>
+		<button class="jt-btn" (click)="collapseAll()">Collapse All</button>
+	</div>
+	<input
+			class="jt-search"
+			type="text"
+			[value]="searchTerm()"
+			(input)="onSearchInput($event)"
+			placeholder="Search keys and values…"
+			aria-label="Search"
+	/>
+</div>
+
+<!-- Tree body -->
+<div class="jt-body" role="tree">
+	@if (visibleNodes().length === 0) {
+		<p class="jt-empty">No data</p>
+	}
+
+	@for (node of visibleNodes(); track node.path) {
+		<div
+				class="jt-row"
+				[class.jt-row--expandable]="node.type === 'object' || node.type === 'array'"
+				[class.jt-row--highlighted]="isHighlighted(node)"
+				[class.jt-row--search-match]="isSearchMatch(node)"
+				[style.padding-left.px]="node.depth * 18 + 6"
+				(click)="handleRowClick(node)"
+				role="treeitem"
+				[attr.aria-expanded]="(node.type === 'object' || node.type === 'array') ? isExpanded(node.path) : null"
+		>
+			<!-- Toggle arrow -->
+			<span class="jt-arrow" aria-hidden="true">
+        @if (node.type === 'object' || node.type === 'array') {
+			{{ isExpanded(node.path) ? '▾' : '▸' }}
+		}
+      </span>
+
+			<!-- Key -->
+			<span
+					class="jt-key"
+					[class.jt-key--search]="isSearchMatch(node) && searchTerm()"
+			>{{ formatKey(node.key) }}</span>
+
+			<!-- Separator -->
+			@if (node.key !== null) {
+				<span class="jt-sep">:</span>
+			}
+
+			<!-- Value -->
+			@switch (node.type) {
+				@case ('object') {
+					<span class="jt-meta">
+            &#123;&nbsp;{{ node.childCount }}&nbsp;{{ node.childCount === 1 ? 'field' : 'fields' }}&nbsp;&#125;
+          </span>
+				}
+				@case ('array') {
+					<span class="jt-meta">
+            [&nbsp;{{ node.childCount }}&nbsp;{{ node.childCount === 1 ? 'item' : 'items' }}&nbsp;]
+          </span>
+				}
+				@case ('null') {
+					<span class="jt-null">—</span>
+				}
+				@default {
+					<!-- Primitive value -->
+					@if (isUnresolvedValue(node)) {
+						<span
+								class="jt-val jt-val--warning jt-val--search"
+								[class.jt-val--search]="isSearchMatch(node) && searchTerm()"
+								title="This ID did not resolve — check DATA_DISCREPANCIES.md"
+								(click)="copyValue(node, $event)"
+						>{{ formatValue(node.rawValue) }}</span>
+						<span class="jt-warning-badge" title="Unresolved ID">⚠</span>
+					} @else if (isLongString(node) && !isStringExpanded(node.path)) {
+						<span
+								class="jt-val"
+								[class.jt-val--search]="isSearchMatch(node) && searchTerm()"
+								(click)="copyValue(node, $event)"
+						>{{ formatValue(node.rawValue).slice(0, 82) }}…</span>
+						<button class="jt-expand-str" (click)="expandString(node.path, $event)">more</button>
+					} @else {
+						<span
+								class="jt-val"
+								[class.jt-val--search]="isSearchMatch(node) && searchTerm()"
+								(click)="copyValue(node, $event)"
+						>{{ formatValue(node.rawValue) }}</span>
+					}
+
+					@if (copiedPath() === node.path) {
+						<span class="jt-copied">Copied</span>
+					}
+				}
+			}
+		</div>
+	}
+</div>

@@ -1,0 +1,269 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 7.5pt;
+	line-height: 1.45;
+	color: black;
+	background: white;
+	padding: 4mm;
+	overflow: hidden;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────
+
+.mc-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding-bottom: 2mm;
+	border-bottom: 1px solid black;
+	margin-bottom: 2mm;
+	flex-shrink: 0;
+	gap: 3mm;
+}
+
+.mc-header__name-block {
+	min-width: 0;
+}
+
+.mc-header__given-name {
+	font-size: 14pt;
+	font-weight: bold;
+	margin: 0;
+	line-height: 1.15;
+}
+
+.mc-header__type {
+	font-size: 7.5pt;
+	font-style: italic;
+	margin: 1px 0 0;
+}
+
+.mc-header__cost {
+	flex-shrink: 0;
+	text-align: right;
+	padding-top: 1mm;
+}
+
+.mc-header__ducats {
+	font-size: 11pt;
+	font-weight: bold;
+}
+
+// ── Stats table ───────────────────────────────────────────────────────────
+
+.mc-stats {
+	margin-bottom: 2.5mm;
+	flex-shrink: 0;
+}
+
+.stats-tbl {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.stats-tbl__h {
+	font-size: 6.5pt;
+	font-weight: bold;
+	letter-spacing: 0.05em;
+	text-align: center;
+	border: 1px solid black;
+	padding: 1mm 2mm;
+}
+
+.stats-tbl__v {
+	font-size: 13pt;
+	font-weight: bold;
+	text-align: center;
+	border: 1px solid black;
+	padding: 1mm;
+}
+
+.stats-tbl__lbl {
+	font-size: 5.5pt;
+	font-style: italic;
+	text-align: center;
+	padding: 0.5mm 1mm;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+// ── Sections ──────────────────────────────────────────────────────────────
+
+.mc-section {
+	margin-bottom: 2mm;
+	flex-shrink: 0;
+}
+
+.mc-section__title {
+	font-size: 7pt;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	margin: 0 0 1mm;
+	padding-bottom: 0.5mm;
+	border-bottom: 0.5pt solid black;
+}
+
+.mc-section__note {
+	font-size: 6pt;
+	font-weight: normal;
+	text-transform: none;
+	letter-spacing: 0;
+	font-style: italic;
+}
+
+// ── Definition lines ──────────────────────────────────────────────────────
+// Used for keywords and inline tag definitions inside equipment/abilities.
+
+.def-line {
+	font-size: 7pt;
+	line-height: 1.35;
+	margin: 0 0 1.5mm;
+	padding: 0;
+}
+
+.def-line--indent {
+	padding-left: 3mm;
+}
+
+.def-line__term {
+	font-weight: bold;
+}
+
+// ── Item blocks ───────────────────────────────────────────────────────────
+// Used for equipment, abilities, and faction rules.
+
+.item-block {
+	margin-bottom: 2mm;
+}
+
+.item-block:last-child {
+	margin-bottom: 0;
+}
+
+.item-block__headline {
+	margin: 0 0 0.5mm;
+	font-size: 7.5pt;
+	line-height: 1.3;
+}
+
+.item-block__meta {
+	font-style: italic;
+	font-weight: normal;
+}
+
+.item-block__meta--note {
+	font-size: 6pt;
+	font-style: italic;
+	opacity: 0.75;
+}
+
+.item-block__tag {
+	font-size: 6.5pt;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.item-block__modifiers {
+	font-size: 6.5pt;
+	font-style: italic;
+	margin: 0 0 0.5mm;
+}
+
+// Keyword chip row — displayed between headline and blurb
+.item-block__kw-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5mm;
+	margin: 0 0 1mm;
+}
+
+.kw-chip {
+	display: inline-block;
+	font-family: inherit;
+	font-size: 6pt;
+	font-weight: bold;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: black;
+	background: white;
+	border: 0.5pt solid black;
+	padding: 0.3mm 1.5mm;
+	cursor: pointer;
+	line-height: 1.5;
+
+	&--active {
+		background: black;
+		color: white;
+	}
+
+	@media print {
+		cursor: default;
+		// Active chips invert on print so definitions are clearly linked
+		&--active {
+			background: black;
+			color: white;
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+	}
+}
+
+.item-block__blurb {
+	font-size: 7pt;
+	font-style: italic;
+	line-height: 1.38;
+	margin: 0 0 0.5mm;
+}
+
+.item-block__desc {
+	font-size: 7pt;
+	line-height: 1.38;
+	margin-bottom: 0.5mm;
+}
+
+// ── Equipment item divider ─────────────────────────────────────────────────
+
+.item-divider {
+	border: none;
+	border-top: 1px solid black;
+	margin: 1.5mm 0;
+}
+
+// ── Unresolved fallback ───────────────────────────────────────────────────
+
+.item-block__unresolved {
+	font-size: 6.5pt;
+	font-style: italic;
+	margin: 0 0 0.5mm;
+	opacity: 0.7;
+}
+
+.item-block__tag--unresolved {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 6pt;
+}
+
+.def-line__unresolved {
+	font-size: 6pt;
+	font-style: italic;
+	opacity: 0.65;
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────
+
+.mc-footer {
+	margin-top: auto;
+	padding-top: 2mm;
+	border-top: 0.5pt solid black;
+	font-size: 6pt;
+	font-style: italic;
+	flex-shrink: 0;
+}

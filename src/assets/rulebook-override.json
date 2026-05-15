@@ -9,49 +9,108 @@
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [], "content": "Battlekit that is represented by a model or terrain piece that can be set up during the game.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [],
+          "content": "Battlekit that is represented by a model or terrain piece that can be set up during the game.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "gl_block": {
       "name": "Block",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [], "content": "Add -1 DICE for Melee Attacks targeting a model with this Keyword, or that has a Weapon with this Keyword, if the attacker made a Charge ACTION before making the attack this Turn.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [],
+          "content": "Add -1 DICE for Melee Attacks targeting a model with this Keyword, or that has a Weapon with this Keyword, if the attacker made a Charge ACTION before making the attack this Turn.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "gl_injurymodifier-3": {
       "name": "-3 Injury Modifier",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [], "content": "Subtract 3 from the final result of the Injury Roll for attacks against a model with this. A lower result means a less severe injury outcome on the Injury Table.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [],
+          "content": "Subtract 3 from the final result of the Injury Roll for attacks against a model with this. A lower result means a less severe injury outcome on the Injury Table.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "gl_negate_kw_mined": {
       "name": "Negate Mined",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [], "content": "This model is not affected by the MINED Keyword — it does not detonate mines when moving into contact with them.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [],
+          "content": "This model is not affected by the MINED Keyword — it does not detonate mines when moving into contact with them.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "gl_infectionmarkers": {
       "name": "Infection Markers",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [], "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [],
+          "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "kw_negate_kw_difficultterrain": {
       "name": "Negate Difficult Terrain",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "gl_negate_kw_difficultterrain": {
       "name": "Negate Difficult Terrain",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     }
   },
   "equipment": {},
@@ -63,13 +122,22 @@
       "source": "rulebook-override",
       "tags": [],
       "faction_id": "fc_hereticlegion",
-      "eventtags": { "trait": true },
-      "description": [{
-        "tags": [{ "tag_name": "desc_type", "val": "desc" }],
-        "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.",
-        "subcontent": [],
-        "glossary": []
-      }]
+      "eventtags": {
+        "trait": true
+      },
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "ab_lopingdash": {
       "id": "ab_lopingdash",
@@ -78,13 +146,22 @@
       "source": "rulebook-override",
       "tags": [],
       "faction_id": "fc_hereticlegion",
-      "eventtags": { "trait": true },
-      "description": [{
-        "tags": [{ "tag_name": "desc_type", "val": "desc" }],
-        "content": "Add +1 DICE to the Risky Success Roll for a War Wolf that is taking a Dash ACTION.",
-        "subcontent": [],
-        "glossary": []
-      }]
+      "eventtags": {
+        "trait": true
+      },
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add +1 DICE to the Risky Success Roll for a War Wolf that is taking a Dash ACTION.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     },
     "ab_infernalbomb": {
       "id": "ab_infernalbomb",
@@ -93,31 +170,72 @@
       "tags": [],
       "faction_id": "fc_hereticlegion",
       "name": "Infernal Bomb",
-      "eventtags": { "action": true, "include": ["category_ranged"] },
+      "eventtags": {
+        "action": true,
+        "include": [
+          "category_ranged"
+        ]
+      },
       "description": [
         {
-          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
           "content": " This wicked infernal weapon is treated as a one-handed Ranged weapon with the Keyword BLAST 3\". Specify a 1x1mm point on the battlefield within 36\" that you want to target that the Witch can see. Next, take a Ranged Attack ACTION. If the roll fails (i.e. you roll 6 or less with the two lowest Dice), the bomb lands 1\" away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the bomb lands 2\" away, as 7-5=2). The direction is decided by your opponent. Roll on the Injury Chart for each model within the BLAST radius. ",
           "subcontent": [],
           "glossary": [
-            { "val": "BLAST 3\"", "id": "gl_blast3" },
-            { "val": "SCATTER",   "id": "gl_scatter" },
-            { "val": "RELOAD",    "id": "gl_reload" },
-            { "val": "IGNORE COVER",             "id": "gl_ignoremodifiercover" },
-            { "val": "IGNORE LONG RANGE",         "id": "gl_ignoremodifierlong_range" },
-            { "val": "IGNORE ELEVATED POSITION",  "id": "gl_ignoremodifierelevated_position" }
+            {
+              "val": "BLAST 3\"",
+              "id": "gl_blast3"
+            },
+            {
+              "val": "SCATTER",
+              "id": "gl_scatter"
+            },
+            {
+              "val": "RELOAD",
+              "id": "gl_reload"
+            },
+            {
+              "val": "IGNORE COVER",
+              "id": "gl_ignoremodifiercover"
+            },
+            {
+              "val": "IGNORE LONG RANGE",
+              "id": "gl_ignoremodifierlong_range"
+            },
+            {
+              "val": "IGNORE ELEVATED POSITION",
+              "id": "gl_ignoremodifierelevated_position"
+            }
           ]
         },
         {
-          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
           "content": "If the bomb lands exactly on top of any model, roll with 3D6 on the Injury Chart and add the dice together! Other models hit by the Bomb roll on the Injury Chart as standard. Any model hit but not taken Out of Action by this attack is blown D3\" directly away from the point of impact (roll for each model separately), stopping if they hit other models/buildings/objects. This attack has the Keyword SHRAPNEL and therefore causes an additional +1 BLOOD MARKER.",
           "subcontent": [],
           "glossary": [
-            { "val": "SHRAPNEL", "id": "gl_shrapnel" }
+            {
+              "val": "SHRAPNEL",
+              "id": "gl_shrapnel"
+            }
           ]
         },
         {
-          "tags": [{ "tag_name": "desc_type", "val": "desc" }],
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
           "content": "Cover, range and higher position do not affect the attacks by the Infernal Bomb. Roll injuries for models in cover/behind intervening terrain with -1 DICE. The Activation of the Witch ends immediately after using the Infernal Bomb.",
           "subcontent": [],
           "glossary": []
