@@ -2,7 +2,7 @@
 
 The data responder is a utility class that can be called from external tools in order to search and filter data based on a flexible request system. This allows searching to be done reliably and safely, and exists as a possible vector for API integration.
 
-Usage of the *DataResponder.ts* class must be **static** and it only responds to being given a special data format, documentation for which can be read [here](Data_Responder.md).
+Usage of the *DataResponder.ts* class must be **static** and it only responds to being given a special data format, documentation for which can be read [here](./Data_Responder.md).
 
 Searching data directly is not prevented by the Data Responder, however it is reccomended to request improvements to the data responder rather than working directly with the data - that way we can all benefit from the collective needs of the community increasing the breadth of searches the data responder can handle.
 

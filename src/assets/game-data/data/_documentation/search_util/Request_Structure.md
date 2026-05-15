@@ -8,7 +8,7 @@ Different types of Data Responder requests use a different format for the necess
 type    : string
 id      : string
 ```
-- **type** - The [file type](Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
+- **type** - The [file type](./Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
 - **id** - The desired *id* value for the data object we want returned.
 
 ## Full Data
@@ -16,7 +16,7 @@ id      : string
 ```
 type    : string
 ```
-- **type** - The [file type](Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
+- **type** - The [file type](./Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
 
 ## All Of Key
 
@@ -24,7 +24,7 @@ type    : string
 type    : string
 id      : string
 ```
-- **type** - The [file type](Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
+- **type** - The [file type](./Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
 - **id** - The name of the *key* that is being searched.
 
 ## All Tags
@@ -32,14 +32,14 @@ id      : string
 ```
 type    : string
 ```
-- **type** - The [file type](Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
+- **type** - The [file type](./Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
 
 ## Complex Search
 ```
 type    : string
 request : IDataRequestSearchParam
 ```
-- **type** - The [file type](Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
+- **type** - The [file type](./Data_Responder.md#files-hooked-up-to-dataresponder) to be searched through.
 - **request** - The complex request (see below) for the search.
 
 ### IDataRequestSearchParam

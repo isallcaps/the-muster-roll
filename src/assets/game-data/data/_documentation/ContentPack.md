@@ -22,7 +22,7 @@ files       : { type : string, data : [] }[]
 - **description** - String summary of the content pack, used to help people quickly identify what the pack is about.
 - **tags** - Used to explain what kind of data is included in the pack. Each tag reflects a different kind of data and how many items are added (ie. { "name": "Models", "count": 7} for seven new models).
 - **isactive** - If the content is included in the compendium by default, which can be then manually turned on/off by the user at any time.
-- **files** - The actual compendium content. Each member of the array reflects a single file searched by the compendium, see [Data Responder](search_util/Data_Responder.md) for the names of each data file. The data of each file varies based on the kind of data used, see the individual documentation pages for examples.
+- **files** - The actual compendium content. Each member of the array reflects a single file searched by the compendium, see [Data Responder](./search_util/Data_Responder.md) for the names of each data file. The data of each file varies based on the kind of data used, see the individual documentation pages for examples.
 
 ## Content Pack Example
 

@@ -1983,5 +1983,45 @@
         "glossary": []
       }
     ]
+  },
+  {
+    "id": "gl_injurymodifier1",
+    "type": "Glossary",
+    "source": "core",
+    "tags": [],
+    "name": "+1 Injury Modifier",
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Add +1 to the final result of the Injury Roll for attacks made with this weapon. A higher result means a more severe injury outcome on the Injury Table.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "gl_injurydice2",
+    "type": "Glossary",
+    "source": "core",
+    "tags": [],
+    "name": "+2 Injury Dice",
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Add +2 dice to the Injury Roll for attacks made with this weapon. Roll 4D6 and pick the two highest results. A higher result means a more severe injury on the Injury Table.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
   }
 ]
