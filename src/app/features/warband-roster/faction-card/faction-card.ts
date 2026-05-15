@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {DescBlocksComponent} from './desc-blocks.component';
-import {isUnresolvedFallback} from '../../core/models/game-data.interfaces';
-import type {EnrichedAbility} from '../../core/models/warband.interfaces';
+import {DescBlocksComponent} from '../desc-blocks/desc-blocks.component';
+import {isUnresolvedFallback} from '../../../core/models/game-data.interfaces';
+import type {EnrichedAbility} from '../../../core/models/warband.interfaces';
 
 @Component({
 	selector: 'tc-faction-card',

@@ -1,14 +1,14 @@
 import {Component, computed, inject, isDevMode, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {WarbandService} from '../../core/services/warband.service';
-import {KeywordToggleService} from '../../core/services/keyword-toggle.service';
-import {PrintSettingsService} from '../../core/services/print-settings.service';
-import {TestCaseService} from '../../core/services/test-case.service';
-import {ModelCardComponent} from './model-card';
-import {FactionCardComponent} from './faction-card';
-import {isUnresolvedFallback} from '../../core/models/game-data.interfaces';
-import type {EnrichedWarbandModel, EnrichedAbility, ResolvedKeyword} from '../../core/models/warband.interfaces';
-import type {TestCase} from '../../core/models/test-case.interfaces';
+import {WarbandService} from '../../../core/services/warband.service';
+import {KeywordToggleService} from '../../../core/services/keyword-toggle.service';
+import {PrintSettingsService} from '../../../core/services/print-settings.service';
+import {TestCaseService} from '../../../core/services/test-case.service';
+import {ModelCardComponent} from '../model-card/model-card';
+import {FactionCardComponent} from '../faction-card/faction-card';
+import {isUnresolvedFallback} from '../../../core/models/game-data.interfaces';
+import type {EnrichedWarbandModel, EnrichedAbility, ResolvedKeyword} from '../../../core/models/warband.interfaces';
+import type {TestCase} from '../../../core/models/test-case.interfaces';
 
 type CardSlot =
 	| { kind:'model'; model:EnrichedWarbandModel }

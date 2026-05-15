@@ -4,7 +4,7 @@ import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {GameDataService} from '../../core/services/game-data.service';
-import {DescBlocksComponent} from '../print-sheet/desc-blocks.component';
+import {DescBlocksComponent} from '../warband-roster/desc-blocks/desc-blocks.component';
 import type {
 	AnyDataEntry,
 	Equipment,

@@ -1,9 +1,9 @@
 import {Component, Input, inject} from '@angular/core';
-import {DescBlocksComponent} from './desc-blocks.component';
-import {KeywordToggleService} from '../../core/services/keyword-toggle.service';
-import {PrintSettingsService} from '../../core/services/print-settings.service';
-import {isUnresolvedFallback} from '../../core/models/game-data.interfaces';
-import type {EnrichedWarbandModel, EnrichedAbility} from '../../core/models/warband.interfaces';
+import {DescBlocksComponent} from '../desc-blocks/desc-blocks.component';
+import {KeywordToggleService} from '../../../core/services/keyword-toggle.service';
+import {PrintSettingsService} from '../../../core/services/print-settings.service';
+import {isUnresolvedFallback} from '../../../core/models/game-data.interfaces';
+import type {EnrichedWarbandModel, EnrichedAbility} from '../../../core/models/warband.interfaces';
 
 @Component({
 	selector: 'tc-model-card',

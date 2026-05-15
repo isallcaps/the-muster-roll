@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import type {DescriptionBlock} from '../../core/models/game-data.interfaces';
+import type {DescriptionBlock} from '../../../core/models/game-data.interfaces';
 
 /**
  * Renders a flat array of DescriptionBlocks from the game data JSON.
