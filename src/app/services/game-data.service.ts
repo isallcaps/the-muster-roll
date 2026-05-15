@@ -10,12 +10,67 @@ import type {
   Addon,
   Skill,
   GameGlossaryEntry,
+  Tag,
   Variant,
   VariantRule,
   UnresolvedFallback,
 } from '../models/game-data.interfaces';
 
 const BASE = 'assets/game-data/data/data';
+
+// ---------------------------------------------------------------------------
+// Modifier-string → glossary ID mapping.
+// Keys are the uppercase form of modifier strings as they appear in the data.
+// Used when an equipment entry has no gl_* tags — the modifiers array is
+// parsed and each string is looked up here (case-insensitively).
+// ---------------------------------------------------------------------------
+
+const MODIFIER_TO_GLOSSARY_ID: Record<string, string> = {
+  'ASSAULT'                   : 'gl_assault',
+  'AUTOMATIC 2'               : 'gl_automatic',
+  'BAYONET LUG'               : 'gl_bayonetlug',
+  'BLAST 3"'                  : 'gl_blast3',
+  'CLEAVE 2'                  : 'gl_cleavex',
+  'CRITICAL'                  : 'gl_critical',
+  'CUMBERSOME'                : 'gl_cumbersome',
+  'DEADLY'                    : 'gl_deadly',
+  'FIRE'                      : 'gl_fire',
+  'FLAMETHROWER'              : 'gl_flamethrower',
+  'GAS'                       : 'gl_gas',
+  'GRENADE'                   : 'gl_grenade',
+  'HEAVY'                     : 'gl_heavy',
+  'IGNORE ARMOUR'             : 'gl_ignorearmour',
+  'IGNORE COVER'              : 'gl_ignoremodifiercover',
+  'IGNORE ELEVATED POSITION'  : 'gl_ignoremodifierelevated_position',
+  'IGNORE LONG RANGE'         : 'gl_ignoremodifierlong_range',
+  'PISTOL'                    : 'gl_pistol',
+  'RELOAD'                    : 'gl_reload',
+  'RISKY'                     : 'gl_riskyaction',
+  'SCATTER'                   : 'gl_scatter',
+  'SHIELD COMBO'              : 'gl_shieldcombo',
+  'SHRAPNEL'                  : 'gl_shrapnel',
+  'SHOTGUN'                   : 'gl_shotgun',
+  '-1 INJURY DICE'            : 'gl_injurydice-1',
+  '+1 INJURY DICE'            : 'gl_injurydice1',
+  '-1 INJURY MODIFIER'        : 'gl_injurymodifier-1',
+  '-2 INJURY MODIFIER'        : 'gl_injurymodifier-2',
+  '+2 INJURY MODIFIER'        : 'gl_injurymodifier2',
+  '-1 DICE'                   : 'gl_minusdice1',
+  '+1 DICE'                   : 'gl_plusdice',
+  'NEGATE FIRE'               : 'gl_negate_kw_fire',
+  'NEGATE HEAVY'              : 'gl_negate_kw_heavy',
+};
+
+// ---------------------------------------------------------------------------
+// Per-equipment keyword overrides — for keywords that are genuinely absent
+// from both the tags array and the modifiers array in the data.
+// These are MERGED with (not replacing) whatever the data provides.
+// ---------------------------------------------------------------------------
+
+const WEAPON_KEYWORD_OVERRIDES: Record<string, string[]> = {
+  'eq_pistol'  : ['gl_pistol'],
+};
+
 
 interface RulebookOverride {
   version     : string;
@@ -171,6 +226,54 @@ export class GameDataService {
   }
 
   // ---------------------------------------------------------------------------
+  // Effective keyword tags for an equipment entry.
+  //
+  // Resolution order:
+  //   1. gl_* tags already present in eq.tags (from the data file).
+  //   2. If none, synthesise from eq.modifiers via MODIFIER_TO_GLOSSARY_ID.
+  //      Unmapped modifier strings are logged in dev mode.
+  //   3. WEAPON_KEYWORD_OVERRIDES are merged on top of whatever steps 1/2 found.
+  //
+  // Returns a deduplicated Tag[] where every val is a gl_* glossary ID.
+  // ---------------------------------------------------------------------------
+
+  effectiveEquipmentTags(eq: Equipment): Tag[] {
+    const seen   = new Set<string>();
+    const result : Tag[] = [];
+
+    const add = (glId: string, label: string) => {
+      if (seen.has(glId)) return;
+      seen.add(glId);
+      result.push({ val: glId, tag_name: label });
+    };
+
+    // 1. gl_* tags from data file
+    for (const t of eq.tags) {
+      if (t.val?.startsWith('gl_')) add(t.val, t.tag_name);
+    }
+
+    // 2. If data has no gl_* tags, synthesise from modifier strings
+    if (result.length === 0 && eq.modifiers?.length) {
+      for (const mod of eq.modifiers) {
+        const glId = MODIFIER_TO_GLOSSARY_ID[mod.toUpperCase()];
+        if (glId) {
+          add(glId, mod);
+        } else if (isDevMode()) {
+          console.warn(`[MusterRoll] Unmapped modifier: '${mod}' on equipment '${eq.id}'`);
+        }
+      }
+    }
+
+    // 3. Merge per-equipment overrides (always, not conditional on steps 1/2)
+    for (const glId of WEAPON_KEYWORD_OVERRIDES[eq.id] ?? []) {
+      const label = this.glossaryMap.get(glId)?.name ?? glId;
+      add(glId, label);
+    }
+
+    return result;
+  }
+
+  // ---------------------------------------------------------------------------
   // Fallback factory — public so WarbandService can use it for edge cases.
   // ---------------------------------------------------------------------------
 
@@ -241,18 +344,30 @@ export class GameDataService {
   // ---------------------------------------------------------------------------
 
   private auditEquipmentTags(): void {
-    const fails: string[] = [];
-    const noTags: string[] = [];
+    const fails      : string[] = [];
+    const unmapped   : string[] = [];
+    const noKeywords : string[] = [];
     let pass = 0;
 
     for (const eq of this.equipmentMap.values()) {
-      if (!eq.tags || eq.tags.length === 0) {
-        noTags.push(eq.name);
+      // Collect unmapped modifier strings for this entry before resolving effective tags
+      if ((!eq.tags || eq.tags.length === 0) && eq.modifiers?.length) {
+        for (const mod of eq.modifiers) {
+          if (!MODIFIER_TO_GLOSSARY_ID[mod.toUpperCase()]) {
+            unmapped.push(`'${mod}' on ${eq.name} (${eq.id})`);
+          }
+        }
+      }
+
+      const effectiveTags = this.effectiveEquipmentTags(eq);
+
+      if (effectiveTags.length === 0) {
+        noKeywords.push(eq.name);
         continue;
       }
+
       let itemFail = false;
-      for (const tag of eq.tags) {
-        if (!tag.val?.startsWith('gl_')) continue;          // skip non-glossary tags
+      for (const tag of effectiveTags) {
         if (!this.glossaryMap.has(tag.val)) {
           fails.push(`${eq.name} — tag ${tag.val} not in glossary`);
           itemFail = true;
@@ -264,9 +379,10 @@ export class GameDataService {
     const total = this.equipmentMap.size;
     console.log(
       `[MusterRoll] Equipment audit — ${total} entries:` +
-      ` ${pass} PASS, ${fails.length} FAIL, ${noTags.length} no-tags`,
+      ` ${pass} PASS, ${fails.length} FAIL, ${noKeywords.length} no-keywords`,
     );
-    if (fails.length)  console.warn('[MusterRoll] Equipment tag FAILs:\n  ' + fails.join('\n  '));
-    if (noTags.length) console.warn('[MusterRoll] Equipment with no tags:\n  ' + noTags.join('\n  '));
+    if (fails.length)      console.warn('[MusterRoll] Equipment tag FAILs:\n  '      + fails.join('\n  '));
+    if (unmapped.length)   console.warn('[MusterRoll] Unmapped modifier strings:\n  ' + unmapped.join('\n  '));
+    if (noKeywords.length) console.info('[MusterRoll] Equipment with no keywords (expected for misc/armour/shield):\n  ' + noKeywords.join(', '));
   }
 }

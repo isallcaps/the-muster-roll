@@ -396,8 +396,7 @@ export class WarbandService {
       const eq = entry as Equipment;
       const { shortRange, longRange } = this.parseRange(eq.range);
       const keywords: ResolvedKeyword[] = [
-        ...eq.tags
-          .filter(t => t.val?.startsWith('gl_'))
+        ...this.gameData.effectiveEquipmentTags(eq)
           .map(t => this.kwFromGlId(t.val, t.tag_name)),
         ...(shortRange !== null
           ? [WarbandService.SHORT_RANGE_KW, WarbandService.LONG_RANGE_KW]
