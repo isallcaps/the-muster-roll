@@ -39,60 +39,22 @@
 	color: var(--fi-muted);
 }
 
-// ── Import bar ────────────────────────────────────────────────────────────────
+.fi-back-link {
+	display: inline-block;
+	font-size: 8pt;
+	font-style: italic;
+	color: var(--fi-muted);
+	text-decoration: none;
+	margin-bottom: 6px;
 
-.fi-import {
-	padding: 16px 24px;
-	border-bottom: 1px solid var(--fi-border);
-	flex-shrink: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.fi-label {
-	display: block;
-	font-size: 8.5pt;
-	font-weight: bold;
-}
-
-.fi-import__row {
-	display: flex;
-	gap: 12px;
-	align-items: flex-start;
-}
-
-.fi-textarea {
-	flex: 1;
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 7.5pt;
-	line-height: 1.5;
-	border: 1px solid var(--fi-border);
-	background: #2a2a2a;
-	color: var(--fi-fg);
-	padding: 6px 8px;
-	resize: vertical;
-	outline: none;
-	min-width: 0;
-
-	&::placeholder {
-		color: #555;
+	&:hover {
+		color: var(--fi-fg);
+		text-decoration: underline;
 	}
-
-	&:focus {
-		outline: 2px solid var(--fi-muted);
-		outline-offset: 1px;
-	}
-}
-
-.fi-import__actions {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	flex-shrink: 0;
 }
 
 .fi-btn {
+	display: inline-block;
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 9pt;
 	border: 1px solid var(--fi-border);
@@ -102,43 +64,19 @@
 	cursor: pointer;
 	line-height: 1;
 	white-space: nowrap;
+	text-decoration: none;
 	transition: background 0.1s, color 0.1s;
 
-	&:hover:not(:disabled) {
+	&:hover {
 		background: var(--fi-fg);
 		color: var(--fi-bg);
 	}
-
-	&:disabled {
-		opacity: 0.35;
-		cursor: default;
-	}
-}
-
-.fi-btn--primary {
-	font-weight: bold;
-}
-
-.fi-error {
-	font-size: 7.5pt;
-	line-height: 1.4;
-	margin: 0;
-	padding: 6px 8px;
-	border: 1px solid var(--fi-border);
-	font-style: italic;
-	color: var(--fi-error-fg);
-}
-
-.fi-status {
-	font-size: 7.5pt;
-	font-style: italic;
-	margin: 0;
-	color: var(--fi-muted);
 }
 
 .fi-unresolved-banner {
 	font-size: 7.5pt;
-	margin: 0;
+	flex-shrink: 0;
+	margin: 0 24px;
 	padding: 5px 8px;
 	border: 1px solid #d97706;
 	background: #1c1200;
