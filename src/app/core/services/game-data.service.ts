@@ -126,6 +126,7 @@ interface RulebookOverride {
 	equipment:Record<string, Equipment>;
 	abilities:Record<string, Addon>;
 	variantRules:Record<string, VariantRule>;
+	models?:Record<string, Model>;
 }
 
 @Injectable({providedIn: 'root'})
@@ -242,6 +243,12 @@ export class GameDataService {
 					this.overrideIds.add(id);
 					ovVariantRules++;
 				}
+				let ovModels = 0;
+				for (const [id, entry] of Object.entries(override?.models ?? {})) {
+					this.modelMap.set(id, {...entry, id, source: 'rulebook-override'} as Model);
+					this.overrideIds.add(id);
+					ovModels++;
+				}
 
 				const byName = (a:{ name:string }, b:{ name:string }) =>
 					a.name.localeCompare(b.name);
@@ -264,6 +271,12 @@ export class GameDataService {
 				this.addonMap.forEach(addToNameMap);
 				this.glossaryMap.forEach(addToNameMap);
 				this.variantRuleMap.forEach(addToNameMap);
+				// Only add override-defined models to avoid polluting the name map
+				// with all 200+ base game models (risk of name collisions).
+				for (const id of this.overrideIds) {
+					const m = this.modelMap.get(id);
+					if (m) addToNameMap(m);
+				}
 
 				this.loadState = true;
 				console.log(
@@ -274,7 +287,7 @@ export class GameDataService {
 				);
 				console.log(
 					`[MusterRoll] Rulebook overrides applied: ${ovGlossary} glossary,` +
-					` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules`,
+					` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules, ${ovModels} models`,
 				);
 				if (isDevMode()) {
 					this.auditEquipmentTags();
@@ -362,8 +375,8 @@ export class GameDataService {
 		return e.type === 'Equipment' ? e as Equipment : undefined;
 	}
 
-	getModel(id:string):Model | undefined {
-		const e = this.resolve(id);
+	getModel(id:string, displayName?:string):Model | undefined {
+		const e = this.resolve(id, displayName);
 		return e.type === 'Model' ? e as Model : undefined;
 	}
 

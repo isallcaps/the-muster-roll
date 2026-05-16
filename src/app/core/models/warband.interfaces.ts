@@ -95,6 +95,8 @@ export interface EnrichedAbility {
 	variantRule:VariantRule | UnresolvedFallback | undefined;
 	keywords:ResolvedKeyword[];
 	isGameplayRule:boolean;
+	/** Optional display badge shown next to the ability name, e.g. 'strain', 'rank'. */
+	badge?:string;
 }
 
 export interface EnrichedWarbandModel {

@@ -314,6 +314,7 @@
 
 	&--collapsed {
 		grid-template-rows: 0fr;
+		display: none;
 	}
 
 	&__inner {

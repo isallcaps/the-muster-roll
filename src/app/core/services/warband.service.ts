@@ -103,6 +103,14 @@ export class WarbandService {
 		'md_hauptmann': 'md_lieutenant',
 		'md_feldkaplan': 'md_trenchcleric',
 		'md_stosstruppen': 'md_shocktroopersstostruppenofthefreestateofprussia',
+		// Red Brigade variant — TC exporter sends faction-specific ID, submodule uses generic
+		'md_trenchdogredbrigade': 'md_trenchdog',
+	};
+
+	// Maps Plague Knight rank upgrade IDs (up_plagueknightrank*) to their
+	// corresponding variant rule IDs in the override file.
+	private static readonly PLAGUE_KNIGHT_RANK_REMAP:Record<string, string> = {
+		'up_plagueknightrankbutcherking': 'rl_butcherknights',
 	};
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {
@@ -202,7 +210,7 @@ export class WarbandService {
 
 		const enrichedModels:EnrichedWarbandModel[] = exported.models.map(m => {
 
-			const definition = this.gameData.getModel(m['model-id']);
+			const definition = this.gameData.getModel(m['model-id'], m['model-name']);
 			const modelKeywords = m.keywords.map(kw => this.resolveKeyword(kw));
 			const equipment:EnrichedEquipment[] = m.equipment.map(ref => this.resolveEquipment(ref));
 
@@ -504,6 +512,36 @@ export class WarbandService {
 
 	private resolveAbility(ref:WarbandAbilityRef):EnrichedAbility {
 		const id = ref['ability-id'];
+
+		// ── Hunger Strain upgrades: up_strain_{name} → ab_{name} ──────────────
+		// TC exporter sends strains as up_strain_* IDs rather than ab_* ability IDs.
+		// Strip the prefix, look up the corresponding addon, and surface it as an
+		// ability with a 'strain' badge so the model card can render it distinctly.
+		if (id.startsWith('up_strain_')) {
+			const abId = `ab_${id.slice('up_strain_'.length)}`;
+			const strainEntry = this.gameData.resolve(abId);
+			if (strainEntry.type === 'Addon') {
+				const addon = strainEntry as Addon;
+				const modifiedRef:WarbandAbilityRef = {...ref, 'ability-name': addon.name, 'ability-id': abId};
+				return {ref: modifiedRef, source: 'addon', addon, variantRule: undefined,
+					keywords: this.keywordsFromAddon(addon), isGameplayRule: true, badge: 'strain'};
+			}
+		}
+
+		// ── Plague Knight rank upgrades: up_plagueknightrank* → rl_* ──────────
+		// TC exporter sends rank upgrades as up_plagueknightrank* IDs. Map to the
+		// corresponding variant rule and surface with a 'rank' badge.
+		const rankRlId = WarbandService.PLAGUE_KNIGHT_RANK_REMAP[id];
+		if (rankRlId) {
+			const rankEntry = this.gameData.resolve(rankRlId);
+			if (rankEntry.type === 'VariantRule') {
+				const variantRule = rankEntry as VariantRule;
+				const modifiedRef:WarbandAbilityRef = {...ref, 'ability-name': variantRule.name, 'ability-id': rankRlId};
+				return {ref: modifiedRef, source: 'variant-rule', addon: undefined, variantRule,
+					keywords: this.keywordsFromVariantRule(variantRule), isGameplayRule: true, badge: 'rank'};
+			}
+		}
+
 		const entry = this.gameData.resolve(id, ref['ability-name']);
 
 		if (id.startsWith('rl_') || entry.type === 'VariantRule') {

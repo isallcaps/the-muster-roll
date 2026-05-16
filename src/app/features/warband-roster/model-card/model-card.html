@@ -136,6 +136,9 @@
 					@if (isUnresolved(ab.addon)) {
 						<span class="item-block__tag--unresolved"> [?]</span>
 					}
+					@if (ab.badge) {
+						<span class="item-block__tag"> [{{ ab.badge }}]</span>
+					}
 					@if (ab.addon?.eventtags?.['action']) {
 						<span class="item-block__tag"> [action]</span>
 					}
@@ -179,7 +182,10 @@
 					@if (isUnresolved(ab.variantRule)) {
 						<span class="item-block__tag--unresolved"> [?]</span>
 					}
-					@if (ab.variantRule?.variantName) {
+					@if (ab.badge) {
+						<span class="item-block__tag"> [{{ ab.badge }}]</span>
+					}
+					@if (!ab.badge && ab.variantRule?.variantName) {
 						<span class="item-block__meta"> ({{ ab.variantRule!.variantName }})</span>
 					}
 				</p>
