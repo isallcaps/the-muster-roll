@@ -98,6 +98,11 @@ export class WarbandService {
 	private static readonly MODEL_ID_REMAP:Record<string, string> = {
 		'md_annointedheavyinfantry': 'md_anointedheavyinfantry',  // TC exporter typo (double-n)
 		'md_deathcommando': 'md_hereticdeathcommando',   // TC exporter missing 'heretic' prefix
+		// Prussian Stosstruppen aliases — designer confirmed: Hauptmann = Lieutenant,
+		// Feldkaplan = Trench Cleric, Stosstruppen = Shock Troopers (Prussian variant)
+		'md_hauptmann': 'md_lieutenant',
+		'md_feldkaplan': 'md_trenchcleric',
+		'md_stosstruppen': 'md_shocktroopersstostruppenofthefreestateofprussia',
 	};
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {

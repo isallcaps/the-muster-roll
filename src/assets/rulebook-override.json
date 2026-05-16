@@ -1,7 +1,7 @@
 {
   "version": "1.0.2",
   "source": "Trench Crusade Core Rulebook PDF + Warbands of Trench Crusade PDF + Changelog 1.0.2",
-  "lastUpdated": "2026-05-14",
+  "lastUpdated": "2026-05-15",
   "notes": "All entries from this file have been migrated into the isallcaps/trenchcrusadedata fork. This file is kept in place for future patches. Add entries here only for gaps not yet fixed upstream.",
   "glossary": {
     "gl_deployable": {
@@ -9,111 +9,130 @@
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [],
-          "content": "Battlekit that is represented by a model or terrain piece that can be set up during the game.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [], "content": "Battlekit that is represented by a model or terrain piece that can be set up during the game.", "subcontent": [], "glossary": [] }]
     },
     "gl_block": {
       "name": "Block",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [],
-          "content": "Add -1 DICE for Melee Attacks targeting a model with this Keyword, or that has a Weapon with this Keyword, if the attacker made a Charge ACTION before making the attack this Turn.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [], "content": "Add -1 DICE for Melee Attacks targeting a model with this Keyword, or that has a Weapon with this Keyword, if the attacker made a Charge ACTION before making the attack this Turn.", "subcontent": [], "glossary": [] }]
     },
     "gl_injurymodifier-3": {
       "name": "-3 Injury Modifier",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [],
-          "content": "Subtract 3 from the final result of the Injury Roll for attacks against a model with this. A lower result means a less severe injury outcome on the Injury Table.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [], "content": "Subtract 3 from the final result of the Injury Roll for attacks against a model with this. A lower result means a less severe injury outcome on the Injury Table.", "subcontent": [], "glossary": [] }]
     },
     "gl_negate_kw_mined": {
       "name": "Negate Mined",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [],
-          "content": "This model is not affected by the MINED Keyword — it does not detonate mines when moving into contact with them.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [], "content": "This model is not affected by the MINED Keyword — it does not detonate mines when moving into contact with them.", "subcontent": [], "glossary": [] }]
     },
     "gl_infectionmarkers": {
       "name": "Infection Markers",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [],
-          "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [], "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.", "subcontent": [], "glossary": [] }]
     },
     "kw_negate_kw_difficultterrain": {
       "name": "Negate Difficult Terrain",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
-      "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
     },
     "gl_negate_kw_difficultterrain": {
       "name": "Negate Difficult Terrain",
       "source": "rulebook",
       "type": "Glossary",
       "tags": [],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
+    }
+  },
+  "equipment": {
+    "eq_bloodcloak": {
+      "id": "eq_bloodcloak",
+      "type": "Equipment",
+      "name": "Blood Cloak",
+      "source": "rulebook",
+      "category": "equipment",
+      "equip_type": null,
+      "range": null,
+      "blurb": "These cloaks are given to the veteran members of the Brigade in recognition for surviving enemy assaults. They make the outline of the warrior hidden in a blood-red haze.",
+      "modifiers": null,
+      "eventtags": {},
+      "tags": [{ "tag_name": "Skirmisher", "val": "gl_skirmisher" }],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "blurb" }], "content": "These cloaks are given to the veteran members of the Brigade in recognition for surviving enemy assaults. They make the outline of the warrior hidden in a blood-red haze.", "subcontent": [], "glossary": [] }]
+    },
+    "eq_redbanner": {
+      "id": "eq_redbanner",
+      "type": "Equipment",
+      "name": "Red Banner",
+      "source": "rulebook",
+      "category": "melee",
+      "equip_type": "1-handed",
+      "range": "Melee",
+      "blurb": "",
+      "modifiers": null,
+      "eventtags": {},
+      "tags": [{ "tag_name": "Block", "val": "gl_block" }, { "tag_name": "Held", "val": "gl_held" }],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Blood of Martyrs: Add +2 DICE to Morale checks for your Warband as long as the model carrying the Red Banner is not Down or Out of Action.", "subcontent": [], "glossary": [] }]
+    },
+    "eq_atonementbell": {
+      "id": "eq_atonementbell",
+      "type": "Equipment",
+      "name": "Atonement Bell",
+      "source": "rulebook",
+      "category": "melee",
+      "equip_type": "1-handed",
+      "range": "Melee",
+      "blurb": "",
+      "modifiers": null,
+      "eventtags": {},
+      "tags": [{ "tag_name": "Held", "val": "gl_held" }],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Channelled Sorrow: An Atonement Bell can only be used to make an off-hand attack, and moves the target model D3\" instead of making an Injury Roll. The move must be in a straight line but can be in any direction, and can be used to make the model Retreat, Climb, Jump across a gap, or Jump Down. An Atonement Bell cannot be used to attack a Retreating model.", "subcontent": [], "glossary": [] }]
+    },
+    "eq_holysmoke": {
+      "id": "eq_holysmoke",
+      "type": "Equipment",
+      "name": "Holy Smoke",
+      "source": "rulebook",
+      "category": "equipment",
+      "equip_type": null,
+      "range": null,
+      "blurb": "",
+      "modifiers": null,
+      "eventtags": {},
+      "tags": [{ "tag_name": "Consumable", "val": "gl_consumable" }],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Chemical Incense: When deployed, you can declare the model will consume it. If so, until the end of the game the model has NEGATE FEAR and -1 INJURY DICE is added to Injury Rolls for attacks that hit it.", "subcontent": [], "glossary": [] }]
+    },
+    "eq_vomitus": {
+      "id": "eq_vomitus",
+      "type": "Equipment",
+      "name": "Vomitus",
+      "source": "rulebook",
+      "category": "ranged",
+      "equip_type": "special",
+      "range": "8\"",
+      "blurb": "",
+      "modifiers": null,
+      "eventtags": {},
+      "tags": [
+        { "tag_name": "+1 Injury Modifier", "val": "gl_injurymodifier1" },
+        { "tag_name": "Assault", "val": "gl_assault" },
+        { "tag_name": "Infection Markers", "val": "gl_infectionmarkers" }
+      ],
       "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
-          "subcontent": [],
-          "glossary": []
-        }
+        { "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Torrent of Bile: When Vomitus is used to make a Ranged Attack, do not make a Success Roll. Instead, measure a straight line 1mm wide and up to 8\" long from the attacking model. The line stops if it reaches a terrain piece taller than the attacking model. Make an Injury Roll for every model (friend or foe) touched by the line, apart from the attacking model.", "subcontent": [], "glossary": [] },
+        { "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Vile Ferment: Before making Injury Rolls, you may remove 2 INFECTION MARKERS from the Gregori Gula. If you do, add +1 INJURY MODIFIER to Injury Rolls for each model hit.", "subcontent": [], "glossary": [] }
       ]
     }
   },
-  "equipment": {},
   "abilities": {
     "ab_assaultbeast": {
       "id": "ab_assaultbeast",
@@ -122,22 +141,8 @@
       "source": "rulebook-override",
       "tags": [],
       "faction_id": "fc_hereticlegion",
-      "eventtags": {
-        "trait": true
-      },
-      "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.", "subcontent": [], "glossary": [] }]
     },
     "ab_lopingdash": {
       "id": "ab_lopingdash",
@@ -146,22 +151,8 @@
       "source": "rulebook-override",
       "tags": [],
       "faction_id": "fc_hereticlegion",
-      "eventtags": {
-        "trait": true
-      },
-      "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "Add +1 DICE to the Risky Success Roll for a War Wolf that is taking a Dash ACTION.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 DICE to the Risky Success Roll for a War Wolf that is taking a Dash ACTION.", "subcontent": [], "glossary": [] }]
     },
     "ab_infernalbomb": {
       "id": "ab_infernalbomb",
@@ -170,78 +161,529 @@
       "tags": [],
       "faction_id": "fc_hereticlegion",
       "name": "Infernal Bomb",
-      "eventtags": {
-        "action": true,
-        "include": [
-          "category_ranged"
-        ]
-      },
+      "eventtags": { "action": true, "include": ["category_ranged"] },
       "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": " This wicked infernal weapon is treated as a one-handed Ranged weapon with the Keyword BLAST 3\". Specify a 1x1mm point on the battlefield within 36\" that you want to target that the Witch can see. Next, take a Ranged Attack ACTION. If the roll fails (i.e. you roll 6 or less with the two lowest Dice), the bomb lands 1\" away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the bomb lands 2\" away, as 7-5=2). The direction is decided by your opponent. Roll on the Injury Chart for each model within the BLAST radius. ",
-          "subcontent": [],
-          "glossary": [
-            {
-              "val": "BLAST 3\"",
-              "id": "gl_blast3"
-            },
-            {
-              "val": "SCATTER",
-              "id": "gl_scatter"
-            },
-            {
-              "val": "RELOAD",
-              "id": "gl_reload"
-            },
-            {
-              "val": "IGNORE COVER",
-              "id": "gl_ignoremodifiercover"
-            },
-            {
-              "val": "IGNORE LONG RANGE",
-              "id": "gl_ignoremodifierlong_range"
-            },
-            {
-              "val": "IGNORE ELEVATED POSITION",
-              "id": "gl_ignoremodifierelevated_position"
-            }
-          ]
-        },
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "If the bomb lands exactly on top of any model, roll with 3D6 on the Injury Chart and add the dice together! Other models hit by the Bomb roll on the Injury Chart as standard. Any model hit but not taken Out of Action by this attack is blown D3\" directly away from the point of impact (roll for each model separately), stopping if they hit other models/buildings/objects. This attack has the Keyword SHRAPNEL and therefore causes an additional +1 BLOOD MARKER.",
-          "subcontent": [],
-          "glossary": [
-            {
-              "val": "SHRAPNEL",
-              "id": "gl_shrapnel"
-            }
-          ]
-        },
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "Cover, range and higher position do not affect the attacks by the Infernal Bomb. Roll injuries for models in cover/behind intervening terrain with -1 DICE. The Activation of the Witch ends immediately after using the Infernal Bomb.",
-          "subcontent": [],
-          "glossary": []
-        }
+        { "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": " This wicked infernal weapon is treated as a one-handed Ranged weapon with the Keyword BLAST 3\". Specify a 1x1mm point on the battlefield within 36\" that you want to target that the Witch can see. Next, take a Ranged Attack ACTION. If the roll fails (i.e. you roll 6 or less with the two lowest Dice), the bomb lands 1\" away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the bomb lands 2\" away, as 7-5=2). The direction is decided by your opponent. Roll on the Injury Chart for each model within the BLAST radius. ", "subcontent": [], "glossary": [{ "val": "BLAST 3\"", "id": "gl_blast3" }, { "val": "SCATTER", "id": "gl_scatter" }, { "val": "RELOAD", "id": "gl_reload" }, { "val": "IGNORE COVER", "id": "gl_ignoremodifiercover" }, { "val": "IGNORE LONG RANGE", "id": "gl_ignoremodifierlong_range" }, { "val": "IGNORE ELEVATED POSITION", "id": "gl_ignoremodifierelevated_position" }] },
+        { "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "If the bomb lands exactly on top of any model, roll with 3D6 on the Injury Chart and add the dice together! Other models hit by the Bomb roll on the Injury Chart as standard. Any model hit but not taken Out of Action by this attack is blown D3\" directly away from the point of impact (roll for each model separately), stopping if they hit other models/buildings/objects. This attack has the Keyword SHRAPNEL and therefore causes an additional +1 BLOOD MARKER.", "subcontent": [], "glossary": [{ "val": "SHRAPNEL", "id": "gl_shrapnel" }] },
+        { "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Cover, range and higher position do not affect the attacks by the Infernal Bomb. Roll injuries for models in cover/behind intervening terrain with -1 DICE. The Activation of the Witch ends immediately after using the Infernal Bomb.", "subcontent": [], "glossary": [] }
       ]
+    },
+    "ab_shockcharge": {
+      "id": "ab_shockcharge",
+      "name": "Shock Charge",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "When you roll the Charge Bonus for a Stosstruppen, roll 1 extra D6 and use the single highest die to determine the bonus.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_forwardpositions": {
+      "id": "ab_forwardpositions",
+      "name": "Forward Positions",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": {},
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Up to 2 Stosstruppen in a Stosstruppen of the Free State of Prussia Warband can have the INFILTRATOR Keyword at a cost of +10 Ducats each.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_athleticism": {
+      "id": "ab_athleticism",
+      "name": "Athleticism",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": {},
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "The Stosstruppen or Hauptmann in a Stosstruppen of the Free State of Prussia Warband can have the Rapid Assault ability at a cost of +5 Ducats each.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_rapidassault": {
+      "id": "ab_rapidassault",
+      "name": "Rapid Assault",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 DICE to the Risky Success Roll when a model with this ability takes a Dash ACTION.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_absolutefaith": {
+      "id": "ab_absolutefaith",
+      "name": "Absolute Faith",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Sniper Priests do not use their eyesight to aim at their enemies. The opposing player cannot spend BLOOD MARKERS to add -DICE to a Ranged Attack by a Sniper Priest.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_aimaction": {
+      "id": "ab_aimaction",
+      "name": "Aim ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Sniper Priest can take an Aim ACTION. If they do so, take a Risky Success Roll for the model and add +2 DICE to the roll. If the roll is a Failure, nothing happens and the Sniper Priest's Activation ends. If the roll is a Success or Critical Success, for the rest of the Activation, add +2 DICE to the Success Rolls for Ranged Attacks made by the Sniper Priest.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_holdyourfire": {
+      "id": "ab_holdyourfire",
+      "name": "Hold Your Fire! ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "The Hauptmann orders their warband to stop shooting, forcing the enemy to move first. Pick 1 enemy model in the Hauptmann's Line of Sight that the opponent is allowed to Activate. The Hauptmann's Activation ends, and the opponent must Activate the chosen model next.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_godwithus": {
+      "id": "ab_godwithus",
+      "name": "God is With Us! ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Take a Risky Success Roll. On Failure, nothing happens and the Feldkaplan's Activation ends. On Success or Critical Success, place 1 BLESSING MARKER next to the Feldkaplan or a friendly model within 6\".", "subcontent": [], "glossary": [] }]
+    },
+    "ab_onwardchristiansoldiers": {
+      "id": "ab_onwardchristiansoldiers",
+      "name": "Onward Christian Soldiers!",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Friendly NEW ANTIOCH models within 8\" of a Feldkaplan have the NEGATE FEAR Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_expertmedic": {
+      "id": "ab_expertmedic",
+      "name": "Expert Medic",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +2 DICE to the Risky Success Roll when a Combat Medic uses a Medi-kit for a Treat ACTION.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_finishthefallen": {
+      "id": "ab_finishthefallen",
+      "name": "Finish the Fallen",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 INJURY DICE to Injury Rolls for Melee Attacks made by the Combat Medic if the target is Down and does not have the BLACK GRAIL or DEMONIC Keywords.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_battlefielddemolition": {
+      "id": "ab_battlefielddemolition",
+      "name": "Battlefield Demolition",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Ignore the HEAVY Keyword effect for 1 Satchel Charge the Combat Engineer carries. The model still cannot have more than 1 weapon with the HEAVY Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_fortifyaction": {
+      "id": "ab_fortifyaction",
+      "name": "Fortify ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Take a Risky Success Roll. On Success or Critical Success, the Combat Engineer has the COVER Keyword until they move from their current position.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_thedogsofwar": {
+      "id": "ab_thedogsofwar",
+      "name": "The Dogs of War",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Trench Dog of the Red Brigade cannot be Promoted. Trench Dogs of the Red Brigade are counted as part of the Warband for the purposes of Morale Checks.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_fourpaws": {
+      "id": "ab_fourpaws",
+      "name": "Four Paws",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 DICE to rolls for a Trench Dog of the Red Brigade when they Climb, Jump, Fall or take a Dash ACTION.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_grenadeharness": {
+      "id": "ab_grenadeharness",
+      "name": "Grenade Harness",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Trench Dogs of the Red Brigade equipped with Frag Grenades or Molotov Cocktails cannot use them to take a Shoot ACTION. However any friendly non-Trench Dog model can use them to take a Shoot ACTION if they were within 1\" of the Trench Dog at any point during their own Activation.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_loyalhound": {
+      "id": "ab_loyalhound",
+      "name": "Loyal Hound",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Up to 2 Trench Dogs of the Red Brigade and an equal number of non-Trench Dog models can have the FIRETEAM Keyword at a cost of 5 Ducats each. Each Trench Dog forms a FIRETEAM with one of the non-Trench Dog models. These two FIRETEAMS are in addition to the 2 FIRETEAMS allowed in a New Antioch Warband.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_specialtraining": {
+      "id": "ab_specialtraining",
+      "name": "Special Training",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "You may give each Trench Dog of the Red Brigade one of the following Abilities at a cost of 5 Ducats: Attack Dog (add +1 DICE to Melee Characteristic); Guard Dog — Limit 1 (models cannot use INFILTRATOR to deploy within 16\" of this dog, and it can charge enemy models it cannot see); Mercy Dog — Limit 2 (has and can use a Medi-kit; can drag a friendly Down model within 1\" that is more than 1\" from any enemy models, halving its Movement Characteristic — cannot drag when retreating or charging).", "subcontent": [], "glossary": [] }]
+    },
+    "ab_teethandclaws": {
+      "id": "ab_teethandclaws",
+      "name": "Teeth and Claws",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Trench Dog of the Red Brigade can make a Melee Attack even though it does not have any Melee Weapons.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_strengththroughpain": {
+      "id": "ab_strengththroughpain",
+      "name": "Strength through Pain",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_newantioch",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 DICE to the Crimson Communicant's Melee characteristic for each BLOOD MARKER currently placed next to it. In addition, your opponent cannot spend a Crimson Communicant's BLOOD MARKERS to add -DICE to a Success Roll for a Fight ACTION.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_cadreofflesh": {
+      "id": "ab_cadreofflesh",
+      "name": "Cadre of Flesh",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "If a friendly Matagot Hag within 3\" of a friendly Ravenous model is hit by a Ranged Attack or Melee Attack, you can say that the Ravenous will take the hit. If you do so, make an Injury Roll for the Ravenous instead of the Matagot Hag. If the Ranged Attack had the BLAST Keyword, make the Injury Roll for the Matagot Hag before any other models hit by the blast.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_frenziedfollowers": {
+      "id": "ab_frenziedfollowers",
+      "name": "Frenzied Followers",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add +1 DICE to Risky Success Rolls for friendly models that are taking a Dash ACTION and are within 8\" of the Matagot Hag.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_motherscall": {
+      "id": "ab_motherscall",
+      "name": "Mother's Call ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Matagot Hag can take a Mother's Call ACTION. If it does so, you can remove any number of INFECTION MARKERS from any models (friend or foe) within 18\" of the Matagot Hag. For each INFECTION MARKER you remove, you can carry out one of the following Commands with a Ravenous within 8\" of the Matagot Hag. A model cannot be given more than 1 Command each Turn, but carrying out a Command does not stop it from also being Activated in the same Turn. Feast Command: the model carries out a Ravenous Infection ACTION and places an additional INFECTION MARKER next to the target on success. Fight Command: the model makes a Melee Attack with +1 DICE to the Success Roll. Follow Command: the model carries out a Move (cannot Charge or Retreat).", "subcontent": [], "glossary": [] }]
+    },
+    "ab_pestilent": {
+      "id": "ab_pestilent",
+      "name": "Pestilent",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Matagot Hag can make a Melee Attack with the INFECTION MARKERS and CRITICAL Keywords even though she does not have a Melee Weapon. In addition, whenever a Melee Attack made by a Matagot Hag causes any INFECTION MARKERS to be placed on the target, place 1 extra INFECTION MARKER next to the target model.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_undeadfortitude": {
+      "id": "ab_undeadfortitude",
+      "name": "Undead Fortitude",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add -1 INJURY DICE to Injury Rolls for this model unless the attack has the FIRE Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_gluttonoushorde": {
+      "id": "ab_gluttonoushorde",
+      "name": "Gluttonous Horde",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Ravenous can make a Melee Attack with the CRITICAL Keyword even though it does not have a Melee Weapon. In addition, add +1 DICE to the Success Roll for a Melee Attack made by a Ravenous for each other friendly model within 3\" of the attacking model (not including the attacking model itself).", "subcontent": [], "glossary": [] }]
+    },
+    "ab_ravenousinfection": {
+      "id": "ab_ravenousinfection",
+      "name": "Ravenous Infection ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Ravenous can take a Ravenous Infection ACTION. If they do so, take a Risky Success Roll for the model. If the roll is a Failure, the model's Activation ends immediately. If the roll is a Success or a Critical Success, you can place 1 INFECTION MARKER next to any other model within 1\" of the model taking the Ravenous Infection ACTION. Then the model's Activation ends immediately.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_dormanthunger": {
+      "id": "ab_dormanthunger",
+      "name": "Dormant Hunger",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Once per Turn, when a Gregori Gula would be taken Out of Action, it instead goes dormant. Remove all INFECTION MARKERS from it and replace the model with a 60mm piece of Impassable terrain. The Marker cannot be attacked or targeted by Abilities that interact with Terrain, and does not count as a model. If a friendly Ravenous model finishes a move within 1\" of this Marker, remove both the Marker and the Ravenous, and set up the Gregori Gula where the Marker was — it is Down but can be Activated this Turn if it has not already. A dormant Gregori Gula counts as Out of Action for Morale and in the Trauma Step if still dormant at end of battle. The Ravenous that revived it is removed from the Warband Roster.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_gnashingandtearing": {
+      "id": "ab_gnashingandtearing",
+      "name": "Gnashing and Tearing",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Gregori Gula can make a Melee Attack with the +1 INJURY DICE, INFECTION MARKERS and CLEAVE 2 Keywords even though it does not have a Melee Weapon. In addition, if a Gregori Gula made a charge move earlier in the same Activation, replace the CLEAVE 2 Keyword with the CLEAVE 3 Keyword for any Melee Attacks it makes during that Activation.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_plagueriddenflesh": {
+      "id": "ab_plagueriddenflesh",
+      "name": "Plague-Ridden Flesh",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add -2 INJURY DICE to Injury Rolls for a Gregori Gula unless the attack has the FIRE Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_unholygut": {
+      "id": "ab_unholygut",
+      "name": "Unholy Gut",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Gregori Gula can have the Vomitus Ranged Weapon at a cost of 40 Ducats. This weapon cannot be lost or removed during the campaign for any reason.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_devouringjaws": {
+      "id": "ab_devouringjaws",
+      "name": "Devouring Jaws",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A model with Devouring Jaws can take a Devour ACTION. If it does so, it can make a Melee Attack against an enemy model within 1\". A Devour Melee Attack does not use a Melee Weapon and has the CRITICAL Keyword. If the Devour Melee Attack does not take the targeted model Out of Action, place 1 BLOOD MARKER next to the model taking the Devour ACTION.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_graspingmaw": {
+      "id": "ab_graspingmaw",
+      "name": "Grasping Maw",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "action": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A model with Grasping Maw can take a Grasp ACTION. Take a Risky Success Roll. On Failure the model's Activation ends immediately. On Success or Critical Success, pick 1 enemy model within 12\" and in Line of Sight. You can move the model 3\" in a straight line directly towards the model taking the Grasp ACTION. The move can be used to make the model Jump Down, move within 1\" of an enemy or retreat. The model stops if it moves into contact with another model, Difficult, Dangerous or Impassable Terrain, or terrain it cannot cross without Climbing or Jumping.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_hellflyhoststr": {
+      "id": "ab_hellflyhoststr",
+      "name": "Hellfly Host",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Ravenous only. A model with the Hellfly Host Strain replaces their Movement Characteristic with 6\"/Flying and gains the FLYING Keyword. In addition, a model with the Hellfly Host Strain loses the Undead Fortitude ability.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_lockjawbite": {
+      "id": "ab_lockjawbite",
+      "name": "Lockjaw Bite",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "When an enemy model takes a Retreat ACTION within 1\" of a model with the Lockjaw Bite Strain, place 1 INFECTION MARKER next to the model taking the retreat, before any melee attacks are made against the retreating model.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_papillalhide": {
+      "id": "ab_papillalhide",
+      "name": "Papillal Hide",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Ravenous and Hounds of the Black Grail only. A model with the Papillal Hide Strain does not need to have Line of Sight to a target when it takes a Charge ACTION. Other charge restrictions still apply.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_rottencutters": {
+      "id": "ab_rottencutters",
+      "name": "Rotten Cutters",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Matagot Hag and Ravenous only. A model with the Rotten Cutters Strain adds the CLEAVE 2 Keyword to Melee Attacks it makes.", "subcontent": [], "glossary": [] }]
+    },
+    "ab_unendingstarvation": {
+      "id": "ab_unendingstarvation",
+      "name": "Unending Starvation",
+      "type": "Addon",
+      "source": "rulebook",
+      "tags": [],
+      "faction_id": "fc_blackgrail",
+      "eventtags": { "trait": true },
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Matagot Hag, Great Maw, Desiccated Husks and Ravenous only. A model with the Unending Starvation Strain adds +1\" to their Movement Characteristic.", "subcontent": [], "glossary": [] }]
     }
   },
-  "variantRules": {}
+  "variantRules": {
+    "rl_expertfireteams": {
+      "id": "rl_expertfireteams",
+      "type": "VariantRule",
+      "name": "Expert Fireteams",
+      "title": "Expert Fireteams",
+      "variantId": "fv_prussianapplied",
+      "variantName": "Prussian Stosstruppen",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Stosstruppen Warband can include up to 3 Fireteams. Each Fireteam consists of any two models from the Warband. All models in Fireteams are given the FIRETEAM Keyword at no additional cost. If a model from a Fireteam hits a target that had been hit by the other Fireteam member earlier in the same joint Activation, you can spend 3 BLOOD MARKERS to convert the Injury Roll for the second attack to a Bloodbath Roll, even if the target is not Down.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_mastersofthegrenade": {
+      "id": "rl_mastersofthegrenade",
+      "type": "VariantRule",
+      "name": "Masters of the Grenade",
+      "title": "Masters of the Grenade",
+      "variantId": "fv_prussianapplied",
+      "variantName": "Prussian Stosstruppen",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Add 4\" to the Range of all Grenades used by models from a Stosstruppen Warband.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_displeasureofthechurch": {
+      "id": "rl_displeasureofthechurch",
+      "type": "VariantRule",
+      "name": "Displeasure of the Church",
+      "title": "Displeasure of the Church",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Red Brigade Warband can include either up to 1 Trench Cleric and up to 1 Sniper Priest, or up to 2 Sniper Priests and no Trench Clerics.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_furyofsaintErnest": {
+      "id": "rl_furyofsaintErnest",
+      "type": "VariantRule",
+      "name": "Fury of Saint Ernest",
+      "title": "Fury of Saint Ernest",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "The Lieutenant in a Red Brigade Warband can have the Gunslinger Skill at a cost of 5 Ducats. Models in a Red Brigade Warband can have Molotov Cocktails at a cost of 5 Ducats each and cannot have a Troop Flag.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_gloryhounds": {
+      "id": "rl_gloryhounds",
+      "type": "VariantRule",
+      "name": "Glory Hounds",
+      "title": "Glory Hounds",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Red Brigade Warband can include Trench Dogs of the Red Brigade. The number of Trench Dogs cannot exceed the number of other models in the Warband. The first two Glorious Deeds each battle performed by a Trench Dog that is part of a Red Brigade Warband earns 2 Glory instead of 1 Glory.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_noretreat": {
+      "id": "rl_noretreat",
+      "type": "VariantRule",
+      "name": "No Retreat",
+      "title": "No Retreat",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A model in a Red Brigade Warband cannot take a Retreat ACTION unless a special rule forces them to do so.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_rememberthefallen": {
+      "id": "rl_rememberthefallen",
+      "type": "VariantRule",
+      "name": "Remember the Fallen",
+      "title": "Remember the Fallen",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Red Brigade Warband can skip both the Reinforcement and Exploration Steps in the Campaign Phase in order to recover all the possessions of their models with the NEW ANTIOCH Keyword who died in the Trauma Step of the previous battle. Transfer the Battlekit and Glory Items from these dead models to your Armoury.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_wearandtear": {
+      "id": "rl_wearandtear",
+      "type": "VariantRule",
+      "name": "Wear and Tear",
+      "title": "Wear and Tear",
+      "variantId": "fv_redbrigade",
+      "variantName": "The Red Brigade",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Red Brigade Warband starts each game with 1 BLOOD MARKER for each 200 Ducats of the total Cost of the Warband including Battlekit and upgrades. The opposing player distributes the BLOOD MARKERS between the models after deployment, but cannot give a model 2 BLOOD MARKERS unless all other models have at least 1 BLOOD MARKER each.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_eternalappetence": {
+      "id": "rl_eternalappetence",
+      "type": "VariantRule",
+      "name": "Eternal Appetence",
+      "title": "Eternal Appetence",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "At the start of each Turn, choose one of the following effects for your Warband until the end of the Turn. Agonised Churning: when Activating a friendly model within 8\" of a Matagot Hag with 2+ INFECTION MARKERS, you can remove 2 INFECTION MARKERS and place them on any enemy within 1\" without ARTIFICIAL or DEMONIC. Ruinous Masticating: place 1 INFECTION MARKER on each friendly model within 8\" of a Matagot Hag (excluding the Hag); your opponent cannot spend INFECTION MARKERS to add -DICE to Melee Attacks by friendly models with 2+ INFECTION MARKERS. Spasmodic Wretching: place 1 INFECTION MARKER on each friendly model within 8\" of a Matagot Hag (excluding the Hag); add -1 DICE to Success Rolls for Ranged Attacks targeting friendly models with 2+ INFECTION MARKERS. Vile Craving: when Activating a friendly model within 8\" of a Matagot Hag with 2+ INFECTION MARKERS, you can remove 2 INFECTION MARKERS and move the model up to half its Movement (max 4\") directly towards the nearest enemy.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_butcherknights": {
+      "id": "rl_butcherknights",
+      "type": "VariantRule",
+      "name": "Butcher Knights",
+      "title": "Butcher Knights",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Great Hunger Warband can have 0-2 Plague Knights on 32mm or 40mm bases with the Ravenous Infection Ability at no extra cost. They can be given one Plague Knight Rank: Butcher King (10 Ducats) — if not Out of Action and has taken at least one enemy Out of Action with a Melee Attack at battle end, gain 1 Glory; Knight Companion of the Feast (5 Ducats) — add +1 DICE to Risky Success Roll for Ravenous Infection ACTION for friendly models within 3\"; Knight of Twin Cleavers (5 Ducats) — has IGNORE OFF-HAND Keyword and Melee Attacks have SHRAPNEL Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_cradleoffilth": {
+      "id": "rl_cradleoffilth",
+      "type": "VariantRule",
+      "name": "Cradle of Filth",
+      "title": "Cradle of Filth",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Great Hunger Warband can include 0-3 Cradle Thralls. Cradle Thralls use the Ravenous Warband Entry, do not count towards Maximum Field Strength, have the INFILTRATOR Keyword, and cost 2 Glory to recruit (they do not cost any Ducats).", "subcontent": [], "glossary": [] }]
+    },
+    "rl_desiccatedhusks": {
+      "id": "rl_desiccatedhusks",
+      "type": "VariantRule",
+      "name": "Desiccated Husks",
+      "title": "Desiccated Husks",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Great Hunger Warband can include 0-2 Desiccated Husks. They use the Corpse Guard Warband Entry but their Melee Attacks gain the CRITICAL Keyword, and they replace the Bodyguard Ability with More Worm Than Man: your opponent cannot spend a Desiccated Husk's INFECTION MARKERS unless they are converting an Injury Roll into a Bloodbath Roll.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_excruciatinghunger": {
+      "id": "rl_excruciatinghunger",
+      "type": "VariantRule",
+      "name": "Excruciating Hunger",
+      "title": "Excruciating Hunger",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "Models in a Great Hunger Warband cannot have: Beelzebub's Axe, Black Grail Shields, Bolt-Action Rifles, Blunderbusses, Compound Eyes Helmets, Corruption Belchers, Gas Grenades, Infested Rifles, Machine Guns, Musical Instruments, Muskets, Pistols, Troop Flags or Viscera Cannons.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_thegreatmaw": {
+      "id": "rl_thegreatmaw",
+      "type": "VariantRule",
+      "name": "The Great Maw",
+      "title": "The Great Maw",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "If the total cost of all other models in the Warband adds up to 1,000 Ducats or higher, a Great Hunger Warband may recruit 0-1 Great Maws. A Great Maw uses the Lord of Tumours Warband Entry but does not have the LEADER Keyword.", "subcontent": [], "glossary": [] }]
+    },
+    "rl_spawnofgluttony": {
+      "id": "rl_spawnofgluttony",
+      "type": "VariantRule",
+      "name": "Spawn of Gluttony",
+      "title": "Spawn of Gluttony",
+      "variantId": "fv_greathunger",
+      "variantName": "The Great Hunger",
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "A Great Hunger Warband must include 1 Matagot Hag. It cannot include a Lord of Tumours, Corpse Guards, Grail Thralls, Heralds of Beelzebub or an Amalgam.", "subcontent": [], "glossary": [] }]
+    }
+  }
 }
