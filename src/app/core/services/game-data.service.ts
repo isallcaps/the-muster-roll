@@ -47,6 +47,8 @@ const MODIFIER_TO_GLOSSARY_ID:Record<string, string> = {
 	'IGNORE ARMOUR': 'gl_ignorearmour',
 	'IGNORES ARMOUR': 'gl_ignorearmour',
 	'IGNORE COVER': 'gl_ignoremodifiercover',
+	'IGNORE OFF-HAND WEAPON': 'gl_ignoremodifieroffhand',
+	'IGNORE OFF-HAND': 'gl_ignoremodifieroffhand',
 	'IGNORES COVER': 'gl_ignoremodifiercover',
 	'IGNORE ELEVATED POSITION': 'gl_ignoremodifierelevated_position',
 	'IGNORE LONG RANGE': 'gl_ignoremodifierlong_range',

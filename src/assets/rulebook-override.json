@@ -46,6 +46,22 @@
       "tags": [],
       "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.", "subcontent": [], "glossary": [] }]
     },
+    "kw_ignoremodifieroff-hand_weapon": {
+      "id": "kw_ignoremodifieroff-hand_weapon",
+      "name": "Ignore Off-Hand Weapon",
+      "source": "rulebook",
+      "type": "Glossary",
+      "tags": [],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model ignores the -1 DICE modifier that normally applies when making an attack with an Off-Hand Weapon. The Off-Hand Weapon penalty applies when a model makes a second Melee Attack using Multiple Melee Weapons.", "subcontent": [], "glossary": [] }]
+    },
+    "gl_ignoremodifieroffhand": {
+      "id": "gl_ignoremodifieroffhand",
+      "name": "Ignore Off-Hand Weapon",
+      "source": "rulebook",
+      "type": "Glossary",
+      "tags": [],
+      "description": [{ "tags": [{ "tag_name": "desc_type", "val": "desc" }], "content": "This model ignores the -1 DICE modifier that normally applies when making an attack with an Off-Hand Weapon. The Off-Hand Weapon penalty applies when a model makes a second Melee Attack using Multiple Melee Weapons.", "subcontent": [], "glossary": [] }]
+    },
     "gl_negate_kw_difficultterrain": {
       "name": "Negate Difficult Terrain",
       "source": "rulebook",

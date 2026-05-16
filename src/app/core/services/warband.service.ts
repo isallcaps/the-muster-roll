@@ -115,6 +115,7 @@ export class WarbandService {
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {
 		'eq_silenecedpistol': 'eq_silencedpistol',
+		'eq_foetidpalaquin': 'eq_foetidpalanquin',   // typo in TC exporter
 		'eq_artillerywitchinfernalbomb': 'ab_infernalbomb',
 		'eq_sacrificialknife': 'eq_sacrificialblade',
 		'eq_greatswordaxe': 'eq_greataxe',

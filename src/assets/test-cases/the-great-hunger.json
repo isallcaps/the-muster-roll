@@ -1,0 +1,360 @@
+{
+  "id": "the-great-hunger",
+  "name": "The Great Hunger",
+  "exportJson": {
+    "warband-id": 308744,
+    "warband-url": "https://trench-companion.com/warband/detail/308744",
+    "warband-name": "The Great Hunger",
+    "ducat-bank": 1.23e+36,
+    "glory-bank": 90,
+    "ducat-rating": 585,
+    "glory-rating": 10,
+    "models": [
+      {
+        "model-name": "Matagot Hag",
+        "model-id": "md_matagothag",
+        "name": "Matagot Hag",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "+2",
+        "stat-ranged": "0",
+        "stat-armour": "-1",
+        "cost": {
+          "ducats": 160,
+          "glory": 10
+        },
+        "equipment": [
+          {
+            "equipment-name": "Grail Devotee",
+            "equipment-id": "eq_graildevotee",
+            "equipment-type": "equipment"
+          },
+          {
+            "equipment-name": "Foetid Palaquin",
+            "equipment-id": "eq_foetidpalaquin",
+            "equipment-type": "armour"
+          },
+          {
+            "equipment-name": "Cup of Filth",
+            "equipment-id": "eq_cupoffilth",
+            "equipment-type": "equipment"
+          },
+          {
+            "equipment-name": "Grail Devotee",
+            "equipment-id": "eq_graildevotee",
+            "equipment-type": "equipment"
+          },
+          {
+            "equipment-name": "Unarmed",
+            "equipment-id": "eq_unarmed_nopenalty",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Undead Fortitude",
+            "ability-id": "ab_undeadfortitude"
+          },
+          {
+            "ability-name": "Pestilent",
+            "ability-id": "ab_pestilent"
+          },
+          {
+            "ability-name": "Frenzied Followers",
+            "ability-id": "ab_frenziedfollowers"
+          },
+          {
+            "ability-name": "Cadre of Flesh",
+            "ability-id": "ab_cadreofflesh"
+          },
+          {
+            "ability-name": "Mother's Call",
+            "ability-id": "ab_motherscall"
+          }
+        ],
+        "upgrades": [
+          {
+            "upgrade-name": "Rotten Cutters",
+            "upgrade-id": "up_strain_rottencutters"
+          }
+        ],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "BLACK GRAIL",
+            "keyword-id": "kw_blackgrail"
+          },
+          {
+            "keyword-name": "ELITE",
+            "keyword-id": "kw_elite"
+          },
+          {
+            "keyword-name": "LEADER",
+            "keyword-id": "kw_leader"
+          },
+          {
+            "keyword-name": "TOUGH",
+            "keyword-id": "kw_tough"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          }
+        ]
+      },
+      {
+        "model-name": "Dessicated Husk",
+        "model-id": "md_corpseguard_husk",
+        "name": "Dessicated Husk",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "+1",
+        "stat-ranged": "0",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 75,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Putrid Shotgun",
+            "equipment-id": "eq_putridshotgun",
+            "equipment-type": "ranged weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Undead Fortitude",
+            "ability-id": "ab_undeadfortitude"
+          },
+          {
+            "ability-name": "Parasite Host",
+            "ability-id": "ab_parasitictick"
+          },
+          {
+            "ability-name": "More Worm than Man",
+            "ability-id": "ab_morewormthanman"
+          }
+        ],
+        "upgrades": [],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          },
+          {
+            "keyword-name": "ELITE",
+            "keyword-id": "kw_elite"
+          },
+          {
+            "keyword-name": "BLACK GRAIL",
+            "keyword-id": "kw_blackgrail"
+          }
+        ]
+      },
+      {
+        "model-name": "Butcher Knight",
+        "model-id": "md_plagueknight_butcherknight",
+        "name": "Butcher Knight",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "+2",
+        "stat-ranged": "0",
+        "stat-armour": "-2",
+        "cost": {
+          "ducats": 150,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Black Spot Rifle",
+            "equipment-id": "eq_blackspotrifle",
+            "equipment-type": "ranged weapon"
+          },
+          {
+            "equipment-name": "Reinforced Armour",
+            "equipment-id": "eq_reinforcedarmour",
+            "equipment-type": "armour"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Undead Fortitude",
+            "ability-id": "ab_undeadfortitude"
+          },
+          {
+            "ability-name": "Ravenous Infection",
+            "ability-id": "ab_ravenousinfection"
+          }
+        ],
+        "upgrades": [
+          {
+            "upgrade-name": "Grasping Maw",
+            "upgrade-id": "up_strain_graspingmaw"
+          },
+          {
+            "upgrade-name": "Butcher King",
+            "upgrade-id": "up_plagueknightrankbutcherking"
+          }
+        ],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "STRONG",
+            "keyword-id": "kw_strong"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          },
+          {
+            "keyword-name": "ELITE",
+            "keyword-id": "kw_elite"
+          },
+          {
+            "keyword-name": "BLACK GRAIL",
+            "keyword-id": "kw_blackgrail"
+          },
+          {
+            "keyword-name": "NEGATE HEAVY",
+            "keyword-id": "kw_negate_kw_heavy"
+          }
+        ]
+      },
+      {
+        "model-name": "Gregori Gula",
+        "model-id": "md_gergorigula",
+        "name": "Gregori Gula",
+        "stat-move": "9\"/Flying",
+        "stat-melee": "+2",
+        "stat-ranged": "0",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 155,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Unarmed",
+            "equipment-id": "eq_unarmed_nopenalty",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Plague-Ridden Flesh",
+            "ability-id": "ab_plagueriddenflesh"
+          },
+          {
+            "ability-name": "Dormant Hunger",
+            "ability-id": "ab_dormanthunger"
+          },
+          {
+            "ability-name": "Gnashing and Tearing",
+            "ability-id": "ab_gnashingandwailing"
+          }
+        ],
+        "upgrades": [
+          {
+            "upgrade-name": "Lockjaw Bite",
+            "upgrade-id": "up_strain_lockjawbite"
+          }
+        ],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "IGNORE OFF-HAND WEAPON",
+            "keyword-id": "kw_ignoremodifieroff-hand_weapon"
+          },
+          {
+            "keyword-name": "BLACK GRAIL",
+            "keyword-id": "kw_blackgrail"
+          },
+          {
+            "keyword-name": "INFILTRATOR",
+            "keyword-id": "kw_infiltrator"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          }
+        ]
+      },
+      {
+        "model-name": "Ravenous",
+        "model-id": "md_grailthrall_hunger",
+        "name": "Ravenous",
+        "stat-move": "6\"/Infantry",
+        "stat-melee": "0",
+        "stat-ranged": "0",
+        "stat-armour": "0",
+        "cost": {
+          "ducats": 45,
+          "glory": 0
+        },
+        "equipment": [
+          {
+            "equipment-name": "Unarmed",
+            "equipment-id": "eq_unarmed_nopenalty",
+            "equipment-type": "melee weapon"
+          }
+        ],
+        "abilities": [
+          {
+            "ability-name": "Undead Fortitude",
+            "ability-id": "ab_undeadfortitude"
+          },
+          {
+            "ability-name": "Ravenous Infection",
+            "ability-id": "ab_ravenousinfection"
+          },
+          {
+            "ability-name": "Gluttonous Horde",
+            "ability-id": "ab_gluttonoushorde"
+          }
+        ],
+        "upgrades": [
+          {
+            "upgrade-name": "Unending Starvation",
+            "upgrade-id": "up_unendingstarvation"
+          }
+        ],
+        "advancements": [],
+        "injuries": [],
+        "keywords": [
+          {
+            "keyword-name": "NEGATE GAS",
+            "keyword-id": "kw_negate_kw_gas"
+          },
+          {
+            "keyword-name": "FEAR",
+            "keyword-id": "kw_fear"
+          },
+          {
+            "keyword-name": "BLACK GRAIL",
+            "keyword-id": "kw_blackgrail"
+          }
+        ]
+      }
+    ]
+  },
+  "trenchCompanionHtml": ""
+}
