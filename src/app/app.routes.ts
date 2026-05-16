@@ -1,8 +1,13 @@
-import {Routes} from '@angular/router';
+import {inject, isDevMode} from '@angular/core';
+import {CanActivateFn, Router, Routes} from '@angular/router';
 import {FieldIntelligenceView} from './features/field-intelligence/field-intelligence';
 import {ArmouryView} from './features/armoury/armoury';
 import {AboutView} from './features/about/about';
 import {PrintSheetComponent} from './features/warband-roster/print-sheet/print-sheet';
+
+/** Redirects to / in production; allows access only during development. */
+const devOnlyGuard:CanActivateFn = () =>
+	isDevMode() ? true : inject(Router).createUrlTree(['/']);
 
 export const routes:Routes = [
 	{
@@ -12,6 +17,7 @@ export const routes:Routes = [
 	{
 		path: 'viewer',
 		component: FieldIntelligenceView,
+		canActivate: [devOnlyGuard],
 	},
 	{
 		path: 'game-data',
@@ -21,6 +27,7 @@ export const routes:Routes = [
 	{
 		path: 'game-data/:category',
 		component: ArmouryView,
+		canActivate: [devOnlyGuard],
 	},
 	{
 		path: 'about',
