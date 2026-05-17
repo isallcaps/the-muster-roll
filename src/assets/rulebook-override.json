@@ -625,6 +625,52 @@
         }
       ],
       "category": "ranged"
+    },
+    "eq_foetidpalanquin": {
+      "id": "eq_foetidpalanquin",
+      "name": "Foetid Palanquin",
+      "type": "Equipment",
+      "source": "rulebook",
+      "category": "armour",
+      "equip_type": null,
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Great Hunger only. The Matagot Hag is carried on a rotting palanquin borne by her servants. Refer to the Cult of the Black Grail supplement for full rule text.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_blackspotrifle": {
+      "id": "eq_blackspotrifle",
+      "name": "Black Spot Rifle",
+      "type": "Equipment",
+      "source": "rulebook",
+      "category": "ranged",
+      "equip_type": "2-Handed",
+      "range": "24\"",
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Great Hunger only. Range: 24\". Keywords: DEADLY, RELOAD. A weapon that marks its target — if the target is not taken Out of Action, they gain a Black Spot Marker. Models with a Black Spot Marker that are later taken Out of Action cannot make a Will to Live roll.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     }
   },
   "abilities": {
