@@ -40,6 +40,7 @@ export type WarbandFormat = 'api' | 'full' | 'simplified';
 interface TcApiSubproperty {
 	object_id:string;
 	tags:Record<string, boolean>;
+	selections?:Array<{ selection_ID:string }>;
 }
 
 interface TcApiEquipmentItem {
@@ -142,6 +143,17 @@ export class WarbandService {
 		'fv_dirgeofthegreathegemon': 'Dirge of the Great Hegemon',
 		'fv_warpilgrimageofsaintmethodius': 'War Pilgrimage of Saint Methodius',
 	};
+
+	// Models whose armour stat already has mandatory armour equipment baked into
+	// the game-data profile. Do NOT apply an additional armour modifier from the
+	// TC API equipment list for these — it would double-count the penalty.
+	private static readonly ARMOUR_INCLUDED_IN_PROFILE = new Set([
+		'md_anchoriteshrine',                   // -3 built in (standard profile)
+		'md_anchoriteshrine_saintmethodius',    // -3 built in (Saint Methodius variant)
+		'md_desecreatedsaint',                  // -3 built in (if found in submodule)
+		'md_mechanizedheavyinfantry',            // -2/-3 built in (if found)
+		'md_combatengineer_prussian',            // -2 built in (if variant exists)
+	]);
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {
 		'eq_silenecedpistol': 'eq_silencedpistol',
@@ -358,9 +370,46 @@ export class WarbandService {
 			const movDist = def ? def.movement[0] : null;
 			const movType = def?.eventtags['flying'] ? 'Flying' : 'Infantry';
 			const statMove = movDist != null ? `${movDist}"/${movType}` : '?';
-			const statMelee = def ? def.melee.join('/') : '?';
-			const statRanged = def ? def.ranged.join('/') : '?';
-			const statArmour = def ? def.armour.join('/') : '?';
+			let statMelee = def ? def.melee.join('/') : '?';
+			let statRanged = def ? def.ranged.join('/') : '?';
+
+			// ── Bug 1 — Armour modifier from mandatory equipment ─────────────────
+			// Most models have armour 0 in game data; the actual modifier comes from
+			// the equipment they carry (Standard Armour = -1, Reinforced = -2, etc.).
+			// Models in ARMOUR_INCLUDED_IN_PROFILE already have it baked in — skip
+			// them to avoid double-counting.
+			let armourBase:number | null = def ? (def.armour[0] ?? 0) : null;
+			if (armourBase !== null && !WarbandService.ARMOUR_INCLUDED_IN_PROFILE.has(modelId)) {
+				for (const eq of m.equipment) {
+					if (!eq.equipment.tags['armour']) continue;
+					const rawEqId = eq.equipment.equipment_id.object_id;
+					const resolvedEqId = WarbandService.EQUIPMENT_ID_REMAP[rawEqId] ?? rawEqId;
+					const eqEntry = this.gameData.resolve(resolvedEqId);
+					if (eqEntry.type === 'Equipment') {
+						const mod = (eqEntry as Equipment).eventtags?.['armour'];
+						if (typeof mod === 'number') armourBase += mod;
+					}
+				}
+			}
+			const statArmour = armourBase !== null
+				? (def && def.armour.length > 1 ? def.armour.join('/') : String(armourBase))
+				: '?';
+
+			// ── Bug 2 — Heretic Legionnaire upgrade: +1 to melee or ranged ───────
+			// TC sends this as a subproperty with a selection indicating which stat
+			// the player chose to upgrade. Mark modified stats with '*' so the card
+			// can indicate the stat has been upgraded from the base profile.
+			for (const sub of m.subproperties) {
+				if (sub.object_id !== 'up_heretictrooper_hereticlegionnaire') continue;
+				const sel = sub.selections?.[0]?.selection_ID;
+				if (sel === 'up_heretictrooper_hereticlegionnaire_ranged' && statRanged !== '?') {
+					const base = parseInt(statRanged, 10);
+					statRanged = `${isNaN(base) ? statRanged : base + 1}*`;
+				} else if (sel === 'up_heretictrooper_hereticlegionnaire_melee' && statMelee !== '?') {
+					const base = parseInt(statMelee, 10);
+					statMelee = `${isNaN(base) ? statMelee : base + 1}*`;
+				}
+			}
 
 			return {
 				'model-name': def?.name ?? m.model,

@@ -356,22 +356,29 @@
 	color: #666;
 }
 
-// ── Card page — one landscape sheet, two cards side by side ───────────────
+// ── Card page ─────────────────────────────────────────────────────────────
 
 .card-page {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	// Approximate A4 landscape height minus 16mm of @page margins, for the
-	// on-screen preview. In print, height:100vh takes over.
-	min-height: 190mm;
+	border: 1px solid #555;
 }
 
-// ── Individual card ───────────────────────────────────────────────────────
+// Portrait page (faction overview) — A4 portrait proportions on screen
+.card-page--portrait {
+	min-height: 257mm; // A4 height approximation
+	max-width: 182mm;  // A4 width minus margins
+}
+
+// Landscape page (model + cheat sheet) — A4 landscape proportions on screen
+.card-page--landscape {
+	min-height: 182mm; // A4 landscape height approx
+}
+
+// ── Individual card panels ────────────────────────────────────────────────
 
 .card {
-	flex: 1;
-	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 	// Explicitly white — must never invert in dark mode because these cards print.
@@ -380,43 +387,94 @@
 	color-scheme: light;
 	overflow: hidden;
 	min-width: 0;
+	break-inside: avoid;
 }
 
-.card--empty {
-	border-style: dashed;
-	opacity: 0.25;
+.card--left {
+	flex: 0 0 50%;
+	width: 50%;
+	border-right: 0.5pt solid #aaa;
 }
 
-// ── Vertical cut line between the two cards ───────────────────────────────
-
-.cut-line {
-	width: 10mm;
-	flex-shrink: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-top: 3mm;
-	position: relative;
-
-	// Full-height dashed rule
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		border-left: 1px dashed black;
-	}
+.card--right {
+	flex: 1;
 }
 
-.cut-line__scissors {
-	position: relative;
-	z-index: 1;
-	background: #2a2a2a; // matches .print-content dark surround
-	font-size: 13px;
-	line-height: 1;
-	padding: 1px 0;
+// Portrait page has a single full-width card
+.card-page--portrait .card {
+	flex: 1;
+	border: 1px solid black;
+}
+
+// ── Keyword cheat sheet (right panel) ────────────────────────────────────
+
+.kw-sheet {
+	padding: 6mm 6mm 4mm;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	color: black;
+	height: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.kw-sheet__header {
+	font-size: 9pt;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin: 0 0 4mm;
+	padding-bottom: 2mm;
+	border-bottom: 1pt solid black;
+	line-height: 1.3;
+}
+
+.kw-sheet__nickname {
+	font-weight: normal;
+	font-style: italic;
+	text-transform: none;
+}
+
+.kw-sheet__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.kw-sheet__entry {
+	// no margin — dividers provide spacing
+}
+
+.kw-sheet__name {
+	font-size: 7.5pt;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin: 2.5mm 0 0.5mm;
+}
+
+.kw-sheet__def {
+	font-size: 7pt;
+	line-height: 1.4;
+	margin: 0 0 2mm;
+	color: #111;
+}
+
+.kw-sheet__def--missing {
+	font-style: italic;
+	color: #777;
+}
+
+.kw-sheet__divider {
+	border: none;
+	border-top: 0.25pt solid #bbb;
+	margin: 0;
+}
+
+.kw-sheet__empty {
+	font-size: 7pt;
+	font-style: italic;
+	color: #888;
+	margin: 4mm 0 0;
 }
 
 // ── Keyword toggle panel ──────────────────────────────────────────────────
@@ -651,6 +709,11 @@
 // ── Print overrides ───────────────────────────────────────────────────────
 
 @media print {
+	@page {
+		size: A4 landscape;
+		margin: 8mm;
+	}
+
 	.no-print {
 		display: none !important;
 	}
@@ -672,6 +735,7 @@
 		width: 100%;
 		height: 100vh;
 		min-height: unset;
+		border: none;
 		page-break-after: always;
 		break-after: page;
 
@@ -681,12 +745,40 @@
 		}
 	}
 
+	// Portrait faction page: override landscape for that one page
+	.card-page--portrait {
+		@page {
+			size: A4 portrait;
+		}
+		max-width: 100%;
+		min-height: unset;
+		height: 100vh;
+	}
+
 	.card {
-		flex: 1;
 		overflow: hidden;
+		break-inside: avoid;
+	}
+
+	.card--left {
+		flex: 0 0 50%;
+		width: 50%;
+	}
+
+	.card--right {
+		flex: 1;
+	}
+
+	.card-page--portrait .card {
+		flex: 1;
+		width: 100%;
 	}
 
 	.empty-state {
 		display: none !important;
+	}
+
+	.kw-sheet {
+		height: 100%;
 	}
 }

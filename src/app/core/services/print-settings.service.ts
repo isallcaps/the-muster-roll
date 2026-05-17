@@ -14,11 +14,17 @@ export interface PrintSettings {
 	 * Applies to both screen preview and print.
 	 */
 	showBlurb:boolean;
+	/**
+	 * When true (default), a keyword cheat sheet panel is shown on the right
+	 * side of each model's landscape page.
+	 */
+	showKeywordSheet:boolean;
 }
 
 const DEFAULTS:PrintSettings = {
 	showVariantRulesOnModels: true,
 	showBlurb: true,
+	showKeywordSheet: true,
 };
 
 @Injectable({providedIn: 'root'})

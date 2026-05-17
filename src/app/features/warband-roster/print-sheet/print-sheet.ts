@@ -7,7 +7,7 @@ import {TestCaseService} from '../../../core/services/test-case.service';
 import {ModelCardComponent} from '../model-card/model-card';
 import {FactionCardComponent} from '../faction-card/faction-card';
 import {isUnresolvedFallback} from '../../../core/models/game-data.interfaces';
-import type {EnrichedWarbandModel, EnrichedAbility, ResolvedKeyword} from '../../../core/models/warband.interfaces';
+import type {EnrichedWarbandModel, EnrichedAbility, ResolvedKeyword, EnrichedEquipment} from '../../../core/models/warband.interfaces';
 import type {TestCase} from '../../../core/models/test-case.interfaces';
 
 type CardSlot =
@@ -127,6 +127,28 @@ export class PrintSheetComponent {
 		() => this.warband()?.allWarbandKeywords ?? []
 	);
 
+	/**
+	 * Returns a sorted, deduplicated keyword list for a single model's cheat sheet.
+	 * Collects from modelKeywords, equipment[].keywords, and abilities[].keywords.
+	 */
+	keywordsForModel(model:EnrichedWarbandModel):ResolvedKeyword[] {
+		const seen = new Map<string, ResolvedKeyword>();
+		for (const kw of model.modelKeywords) {
+			if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
+		}
+		for (const eq of model.equipment) {
+			for (const kw of eq.keywords) {
+				if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
+			}
+		}
+		for (const ab of model.abilities) {
+			for (const kw of ab.keywords) {
+				if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
+			}
+		}
+		return [...seen.values()].sort((a, b) => a.exportName.localeCompare(b.exportName));
+	}
+
 	// ---------------------------------------------------------------------------
 	// Dev-only: live validation report
 	// ---------------------------------------------------------------------------
@@ -243,8 +265,14 @@ export class PrintSheetComponent {
 		this.kwToggle.showAll();
 	}
 
+	readonly isUnresolvedFallback = isUnresolvedFallback;
+
 	toggleBlurb(event:Event):void {
 		this.printSettings.update({showBlurb: (event.target as HTMLInputElement).checked});
+	}
+
+	toggleKeywordSheet(event:Event):void {
+		this.printSettings.update({showKeywordSheet: (event.target as HTMLInputElement).checked});
 	}
 
 	// ---------------------------------------------------------------------------

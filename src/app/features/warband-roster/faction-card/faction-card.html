@@ -16,27 +16,25 @@
 
 <!-- ── FACTION RULES ───────────────────────────────────────────────── -->
 @if (abilities.length) {
-	<section class="mc-section">
-		<h3 class="mc-section__title">Faction Rules</h3>
+	<section class="fc-rules">
+		<h3 class="fc-rules__title">Faction Rules</h3>
 		@for (ab of abilities; track ab.ref['ability-id']) {
-			<div class="item-block">
-				<p class="item-block__headline">
+			<div class="fc-rules__entry">
+				<p class="fc-rules__name">
 					<strong>{{ ab.ref['ability-name'] }}</strong>
-					@if (isUnresolved(ab.variantRule)) {
-						<span class="item-block__tag--unresolved"> [?]</span>
-					}
 					@if (!ab.isGameplayRule) {
-						<span class="item-block__tag"> [roster]</span>
+						<span class="fc-rules__tag"> [roster]</span>
 					}
 				</p>
 				@if (isUnresolved(ab.variantRule)) {
-					<p class="item-block__unresolved">Full rule text not yet available — refer to your rulebook.</p>
-				} @else if (ab.variantRule?.description?.length) {
-					<div class="item-block__desc">
-						<tc-desc-blocks [blocks]="ab.variantRule!.description"/>
-					</div>
+					<p class="fc-rules__def fc-rules__def--missing">— no definition available</p>
+				} @else if (ab.variantRule?.description?.[0]?.content) {
+					<p class="fc-rules__def">{{ ab.variantRule!.description[0].content }}</p>
 				}
 			</div>
+			@if (!$last) {
+				<hr class="fc-rules__divider" aria-hidden="true"/>
+			}
 		}
 	</section>
 }

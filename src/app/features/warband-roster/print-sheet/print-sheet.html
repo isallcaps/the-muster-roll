@@ -223,6 +223,15 @@
 				>
 				Show flavour text
 			</label>
+			<label class="toolbar__toggle-label">
+				<input
+						type="checkbox"
+						class="toolbar__toggle-checkbox"
+						(change)="toggleKeywordSheet($event)"
+						[checked]="printSettings.settings().showKeywordSheet"
+				>
+				Show Keyword Cheat Sheet
+			</label>
 		</div>
 	}
 
@@ -263,46 +272,67 @@
      ═══════════════════════════════════════════════════════════════════ -->
 @if (warband(); as wb) {
 	<main class="print-content">
-		@for (page of cardPages(); track $index) {
-			<div class="card-page">
 
-				<!-- Left card -->
+		<!-- ── Faction overview page (portrait, unchanged) ──────────────── -->
+		@if (factionAbilities().length) {
+			<div class="card-page card-page--portrait">
 				<div class="card">
-					@if (page[0].kind === 'faction') {
-						<tc-faction-card
-								[abilities]="factionAbilities()"
-								[factionName]="factionName()"
-								[totalDucats]="totalDucats()"
-								[totalModels]="wb.models.length"
-								[warbandName]="wb.name"
-						/>
-					} @else if (page[0].kind === 'model') {
-						<tc-model-card [model]="page[0].model" [warbandName]="wb.name"/>
-					}
+					<tc-faction-card
+							[abilities]="factionAbilities()"
+							[factionName]="factionName()"
+							[totalDucats]="totalDucats()"
+							[totalModels]="wb.models.length"
+							[warbandName]="wb.name"
+					/>
+				</div>
+			</div>
+		}
+
+		<!-- ── One landscape page per model ─────────────────────────────── -->
+		@for (model of wb.models; track model.export['model-id']) {
+			<div class="card-page card-page--landscape">
+
+				<!-- Left panel: model card -->
+				<div class="card card--left">
+					<tc-model-card [model]="model" [warbandName]="wb.name"/>
 				</div>
 
-				<!-- Vertical cut line -->
-				<div class="cut-line" aria-hidden="true">
-					<span class="cut-line__scissors">✂</span>
-				</div>
-
-				<!-- Right card -->
-				<div class="card" [class.card--empty]="page[1].kind === 'empty'">
-					@if (page[1].kind === 'faction') {
-						<tc-faction-card
-								[abilities]="factionAbilities()"
-								[factionName]="factionName()"
-								[totalDucats]="totalDucats()"
-								[totalModels]="wb.models.length"
-								[warbandName]="wb.name"
-						/>
-					} @else if (page[1].kind === 'model') {
-						<tc-model-card [model]="page[1].model" [warbandName]="wb.name"/>
-					}
-				</div>
+				<!-- Right panel: keyword cheat sheet -->
+				@if (printSettings.settings().showKeywordSheet) {
+					<div class="card card--right">
+						<div class="kw-sheet">
+							<h2 class="kw-sheet__header">
+								{{ model.export['model-name'] }}
+								@if (model.export.name) {
+									<span class="kw-sheet__nickname"> — {{ model.export.name }}</span>
+								}
+							</h2>
+							@if (keywordsForModel(model).length) {
+								<ul class="kw-sheet__list">
+									@for (kw of keywordsForModel(model); track kw.exportId; let last = $last) {
+										<li class="kw-sheet__entry">
+											<p class="kw-sheet__name">{{ kw.exportName }}</p>
+											@if (isUnresolvedFallback(kw.glossaryEntry) || !kw.glossaryEntry.description[0]?.content) {
+												<p class="kw-sheet__def kw-sheet__def--missing">— no definition available</p>
+											} @else {
+												<p class="kw-sheet__def">{{ kw.glossaryEntry.description[0].content }}</p>
+											}
+											@if (!last) {
+												<hr class="kw-sheet__divider" aria-hidden="true"/>
+											}
+										</li>
+									}
+								</ul>
+							} @else {
+								<p class="kw-sheet__empty">No keywords for this model.</p>
+							}
+						</div>
+					</div>
+				}
 
 			</div>
 		}
+
 	</main>
 
 } @else {
