@@ -105,12 +105,34 @@ export class WarbandService {
 		'md_stosstruppen': 'md_shocktroopersstostruppenofthefreestateofprussia',
 		// Red Brigade variant — TC exporter sends faction-specific ID, submodule uses generic
 		'md_trenchdogredbrigade': 'md_trenchdog',
+		// Great Hunger — TC exporter typo (missing 'o') and Ravenous/Cradle variants
+		'md_gergorigula': 'md_gregorigula',
+		'md_grailthrall_hunger': 'md_ravenous',
+		'md_grailthrall_cradle_hunger': 'md_cradleravenous',
 	};
 
 	// Maps Plague Knight rank upgrade IDs (up_plagueknightrank*) to their
 	// corresponding variant rule IDs in the override file.
 	private static readonly PLAGUE_KNIGHT_RANK_REMAP:Record<string, string> = {
 		'up_plagueknightrankbutcherking': 'rl_butcherknights',
+		'up_plagueknightrankofthefeast':  'rl_butcherknights',
+		'up_plagueknightrankofferocity':  'rl_butcherknights',
+	};
+
+	// Maps bare upgrade IDs that do NOT follow the up_strain_ pattern to their
+	// corresponding ability IDs. Rendered with a 'strain' badge on the model card.
+	private static readonly UPGRADE_ABILITY_REMAP:Record<string, string> = {
+		'up_unendingstarvation': 'ab_unendingstarvation',
+	};
+
+	// Maps the fv_ suffix of a TC faction property ID to the human-readable
+	// variant name shown on the faction card. Keyed by normalised fv_ id.
+	private static readonly FACTION_VARIANT_NAMES:Record<string, string> = {
+		'fv_thegreathunger': 'The Great Hunger',
+		'fv_greathunger': 'The Great Hunger',
+		'fv_redbrigade': 'The Red Brigade',
+		'fv_prussianapplied': 'Prussian Stosstruppen',
+		'fv_dirgeofthegreathegemon': 'Dirge of the Great Hegemon',
 	};
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {
@@ -170,6 +192,7 @@ export class WarbandService {
 		}
 
 		let exported:WarbandExport;
+		let tcData:TcApiWarbandData | undefined;
 		const rec = parsed as Record<string, unknown>;
 
 		// ── Format 1: full API wrapper ─────────────────────────────────────────
@@ -185,7 +208,8 @@ export class WarbandService {
 				this.detectedFormat.set(null);
 				return;
 			}
-			exported = this.translateTcInternal(inner as TcApiWarbandData);
+			tcData = inner as TcApiWarbandData;
+			exported = this.translateTcInternal(tcData);
 
 			// ── Format 2: pre-parsed TC internal object ────────────────────────────
 			// Detected by: faction object + models array where models[0].model is an object
@@ -193,7 +217,8 @@ export class WarbandService {
 		}
 		else if (this.isTcInternalFormat(rec)) {
 			this.detectedFormat.set('full');
-			exported = this.translateTcInternal(rec as unknown as TcApiWarbandData);
+			tcData = rec as unknown as TcApiWarbandData;
+			exported = this.translateTcInternal(tcData);
 
 			// ── Format 3: simplified warband export ────────────────────────────────
 			// Detected by: warband-name + flat model objects with stat-move etc.
@@ -259,6 +284,7 @@ export class WarbandService {
 			gloryRating: exported['glory-rating'],
 			models: enrichedModels,
 			allWarbandKeywords,
+			variantName: tcData ? this.detectVariantName(tcData) : undefined,
 		});
 	}
 
@@ -274,7 +300,10 @@ export class WarbandService {
 	// ---------------------------------------------------------------------------
 
 	private translateTcInternal(data:TcApiWarbandData):WarbandExport {
-		const factionRules = data.faction?.faction_rules ?? [];
+		// Filter out faction identifier subproperties (fc_* IDs) — these are property
+		// IDs encoding the faction/variant combination, not resolvable ability refs.
+		const factionRules = (data.faction?.faction_rules ?? [])
+			.filter(r => !r.object_id.startsWith('fc_'));
 		const factionRuleIds = factionRules.map(r => r.object_id);
 
 		const models:WarbandModelExport[] = (data.models ?? []).map(entry => {
@@ -351,6 +380,18 @@ export class WarbandService {
 			'glory-rating': 0,
 			models,
 		};
+	}
+
+	// Extract the human-readable variant name from a TC API warband object.
+	// The TC exporter stores the faction/variant identity as a fc_*_fv_* subproperty
+	// in faction_rules. Parse the fv_ suffix and look it up in FACTION_VARIANT_NAMES.
+	private detectVariantName(data:TcApiWarbandData):string | undefined {
+		const fcRule = (data.faction?.faction_rules ?? [])
+			.find(r => r.object_id.startsWith('fc_'));
+		if (!fcRule) return undefined;
+		const match = fcRule.object_id.match(/_fv_(.+)$/);
+		if (!match) return undefined;
+		return WarbandService.FACTION_VARIANT_NAMES[`fv_${match[1]}`];
 	}
 
 	// Detect the TC internal format (inner warband_data object, already parsed).
@@ -524,6 +565,19 @@ export class WarbandService {
 			if (strainEntry.type === 'Addon') {
 				const addon = strainEntry as Addon;
 				const modifiedRef:WarbandAbilityRef = {...ref, 'ability-name': addon.name, 'ability-id': abId};
+				return {ref: modifiedRef, source: 'addon', addon, variantRule: undefined,
+					keywords: this.keywordsFromAddon(addon), isGameplayRule: true, badge: 'strain'};
+			}
+		}
+
+		// ── Bare upgrade IDs without up_strain_ prefix ────────────────────────
+		// e.g. up_unendingstarvation → ab_unendingstarvation
+		const bareAbId = WarbandService.UPGRADE_ABILITY_REMAP[id];
+		if (bareAbId) {
+			const bareEntry = this.gameData.resolve(bareAbId);
+			if (bareEntry.type === 'Addon') {
+				const addon = bareEntry as Addon;
+				const modifiedRef:WarbandAbilityRef = {...ref, 'ability-name': addon.name, 'ability-id': bareAbId};
 				return {ref: modifiedRef, source: 'addon', addon, variantRule: undefined,
 					keywords: this.keywordsFromAddon(addon), isGameplayRule: true, badge: 'strain'};
 			}

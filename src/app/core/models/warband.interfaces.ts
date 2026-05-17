@@ -118,4 +118,10 @@ export interface EnrichedWarband {
 	gloryRating:number;
 	models:EnrichedWarbandModel[];
 	allWarbandKeywords:ResolvedKeyword[];
+	/**
+	 * Faction variant name detected from the TC API faction object ID
+	 * (e.g. 'fc_cultoftheblackgrail_fv_thegreathunger' → 'The Great Hunger').
+	 * Falls back to the variantName of the first resolved variant rule if absent.
+	 */
+	variantName?:string;
 }

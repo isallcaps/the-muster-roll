@@ -94,6 +94,11 @@ export class PrintSheetComponent {
 	});
 
 	readonly factionName = computed<string | null>(() => {
+		// Prefer the variant name detected from the TC faction property ID — this
+		// works even when all faction_rules are filtered out (e.g. Great Hunger).
+		const wb = this.warband();
+		if (wb?.variantName) return wb.variantName;
+		// Fallback: derive from the first resolved variant rule's variantName.
 		const ab = this.factionAbilities()[0];
 		if (!ab?.variantRule || isUnresolvedFallback(ab.variantRule)) return null;
 		return (ab.variantRule as { variantName?:string }).variantName ?? null;
