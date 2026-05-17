@@ -462,6 +462,162 @@
           "glossary": []
         }
       ]
+    },
+    "eq_incendiaryammunition": {
+      "id": "eq_incendiaryammunition",
+      "name": "Incendiary Ammunition",
+      "source": "rulebook",
+      "type": "equipment",
+      "equip_type": null,
+      "range": null,
+      "tags": [
+        {
+          "tag_name": "Consumable",
+          "val": "gl_consumable"
+        }
+      ],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Developed by Aym, the great duke of Hell, this unholy ammunition burns with supernatural fire. Keywords: AMMUNITION (FIRE), CONSUMABLE. Limit: 1.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_greathammer": {
+      "id": "eq_greathammer",
+      "name": "Great Hammer/Maul",
+      "source": "rulebook",
+      "type": "melee",
+      "equip_type": "2-Handed",
+      "range": "Melee",
+      "tags": [
+        {
+          "tag_name": "+1 Injury Modifier",
+          "val": "gl_injurymodifier1"
+        },
+        {
+          "tag_name": "Heavy",
+          "val": "gl_heavy"
+        }
+      ],
+      "description": []
+    },
+    "eq_gasfilter": {
+      "id": "eq_gasfilter",
+      "name": "Gas Filter",
+      "source": "rulebook",
+      "type": "Equipment",
+      "equip_type": null,
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Shrine only. Installs a holy incense system that cleanses and purifies the air inside the Anchorite. 5 Ducats.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_hallowedanchorite": {
+      "id": "eq_hallowedanchorite",
+      "name": "Hallowed Anchorite",
+      "source": "rulebook",
+      "type": "Equipment",
+      "equip_type": null,
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Shrine only, Limit 1. Refer to the War Pilgrimage of Saint Methodius Armoury for full rule text. 10 Ducats.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_sacredgeometry": {
+      "id": "eq_sacredgeometry",
+      "name": "Sacred Geometry",
+      "source": "rulebook",
+      "type": "Equipment",
+      "equip_type": null,
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Shrine only, Limit 1. Refer to the War Pilgrimage of Saint Methodius Armoury for full rule text. 10 Ducats.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_puntgun": {
+      "id": "eq_puntgun",
+      "name": "Punt Gun",
+      "source": "rulebook",
+      "type": "2-Handed",
+      "equip_type": "2-Handed",
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Ranged Weapon. When used by an Anchorite Shrine this weapon is counted as 1-Handed. 10 Ducats — refer to the War Pilgrimage of Saint Methodius Armoury for full rule text.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "eq_antimaterialrifle": {
+      "id": "eq_antimaterialrifle",
+      "name": "Anti-Materiel Rifle",
+      "source": "rulebook",
+      "type": "2-Handed",
+      "equip_type": "2-Handed",
+      "range": null,
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Ranged Weapon. When used by an Anchorite Shrine this weapon is counted as 1-Handed. 40 Ducats — refer to the War Pilgrimage of Saint Methodius Armoury for full rule text.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     }
   },
   "abilities": {
@@ -2819,6 +2975,30 @@
           "glossary": []
         }
       ]
+    },
+    "ab_zealotstrength": {
+      "id": "ab_zealotstrength",
+      "name": "Zealot Strength",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "This model has the STRONG Keyword. For Trench Pilgrims and Martyr Penitents, change the base size to 32mm. Up to 1 Trench Pilgrim or Martyr Penitent per Warband can have Zealot Strength at a cost of +5 Ducats. Castigators can also purchase Zealot Strength at a cost of +5 Ducats.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     }
   },
   "variantRules": {
@@ -3268,6 +3448,190 @@
           "glossary": []
         }
       ]
+    },
+    "rl_followersofsaintmethodius": {
+      "id": "rl_followersofsaintmethodius",
+      "name": "Followers of Saint Methodius",
+      "title": "Followers of Saint Methodius",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "The War Pilgrimage of Saint Methodius must include the Learned Saint as a Patron. The Warband must spend at least 2 Glory Points on upgrades for the Learned Saint before purchasing any upgrades for other models. The Warband has access to the Anchorite Armoury and Anchorite Cloister upgrades. The Chaste Order rule applies: no model in the Warband may have the DEMONIC or HERETIC Keywords. The Communicant Heresy rule applies: if any model in the Warband gains the HERETIC Keyword for any reason, that model is immediately removed from the Warband. The Mortal Sin rule applies: models in the Warband may not use weapons or abilities with the GAS or FIRE Keywords. The Treasure in Heaven rule applies: the Warband may not use the Ducat Bank to purchase upgrades for models; all upgrades must be paid for with Glory Points.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_treasureinheaven": {
+      "id": "rl_treasureinheaven",
+      "name": "Treasure in Heaven",
+      "title": "Treasure in Heaven",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Trench Pilgrims in a War Pilgrimage of Saint Methodius Warband cannot be resurrected as Martyr Penitents.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_mortalsin": {
+      "id": "rl_mortalsin",
+      "name": "Mortal Sin",
+      "title": "Mortal Sin",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Ecclesiastic Prisoners in a War Pilgrimage of Saint Methodius Warband cannot have a Martyrdom Device, and models in the Warband cannot be Broken on the Wheel of an Anchorite Shrine.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_gunsmithmonks": {
+      "id": "rl_gunsmithmonks",
+      "name": "Gunsmith Monks",
+      "title": "Gunsmith Monks",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Refer to the War Pilgrimage of Saint Methodius Armoury for special weapons and Battlekit available to this warband, including Anchorite Ranged Weapons and Anchorite Battlekit.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_communicantheresy": {
+      "id": "rl_communicantheresy",
+      "name": "Communicant Heresy",
+      "title": "Communicant Heresy",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Ammo Monks, Communicants and Communicant Anti-Tank Hunters cannot be included in a War Pilgrimage of Saint Methodius Warband.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_chasteorder": {
+      "id": "rl_chasteorder",
+      "name": "Chaste Order",
+      "title": "Chaste Order",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "All Stigmatic Nuns in a War Pilgrimage of Saint Methodius Warband must have Standard Armour and cannot be used in a battle if they are not wearing Standard Armour. The Warband cannot include more than 3 Stigmatic Nuns.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_anchoritecloister": {
+      "id": "rl_anchoritecloister",
+      "name": "Anchorite Cloister",
+      "title": "Anchorite Cloister",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A War Pilgrimage of Saint Methodius Warband may include up to two Anchorite Shrines.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_anchoritearmoury": {
+      "id": "rl_anchoritearmoury",
+      "name": "Anchorite Armoury",
+      "title": "Anchorite Armoury",
+      "type": "VariantRule",
+      "source": "rulebook",
+      "variantId": "fv_warpilgrimageofsaintmethodius",
+      "variantName": "War Pilgrimage of Saint Methodius",
+      "isGameplayRule": false,
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Anchorite Shrines in a War Pilgrimage of Saint Methodius Warband have a Ranged Characteristic of +0 DICE instead of -, and can have Anchorite Ranged Weapons and Anchorite Battlekit from the War Pilgrimage of Saint Methodius Armoury.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
     }
   },
   "models": {
@@ -3494,6 +3858,66 @@
       "faction_id": "fc_mercenary",
       "team": "order",
       "variant_id": "fv_basic",
+      "eventtags": {},
+      "blurb": [],
+      "equipment": [],
+      "abilities": []
+    },
+    "md_stigmaticnun_saintmethodius": {
+      "id": "md_stigmaticnun_saintmethodius",
+      "type": "Model",
+      "name": "Stigmatic Nun",
+      "source": "rulebook",
+      "tags": [],
+      "promotion": 0,
+      "movement": [
+        8
+      ],
+      "ranged": [
+        1
+      ],
+      "melee": [
+        1
+      ],
+      "armour": [
+        0
+      ],
+      "base": [
+        25
+      ],
+      "faction_id": "fc_trenchpilgrim",
+      "team": "heaven",
+      "variant_id": "fv_warpilgrimageofsaintmethodius",
+      "eventtags": {},
+      "blurb": [],
+      "equipment": [],
+      "abilities": []
+    },
+    "md_anchoriteshrine_saintmethodius": {
+      "id": "md_anchoriteshrine_saintmethodius",
+      "type": "Model",
+      "name": "Anchorite Shrine",
+      "source": "rulebook",
+      "tags": [],
+      "promotion": 0,
+      "movement": [
+        6
+      ],
+      "ranged": [
+        0
+      ],
+      "melee": [
+        2
+      ],
+      "armour": [
+        -3
+      ],
+      "base": [
+        60
+      ],
+      "faction_id": "fc_trenchpilgrim",
+      "team": "heaven",
+      "variant_id": "fv_warpilgrimageofsaintmethodius",
       "eventtags": {},
       "blurb": [],
       "equipment": [],

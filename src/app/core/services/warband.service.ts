@@ -123,6 +123,13 @@ export class WarbandService {
 	// corresponding ability IDs. Rendered with a 'strain' badge on the model card.
 	private static readonly UPGRADE_ABILITY_REMAP:Record<string, string> = {
 		'up_unendingstarvation': 'ab_unendingstarvation',
+		'up_zealotstrength':     'ab_zealotstrength',
+	};
+
+	// Maps TC-exporter ability IDs that differ from canonical data IDs.
+	// Applied before the general resolve() call in resolveAbility().
+	private static readonly ABILITY_ID_REMAP:Record<string, string> = {
+		'ab_layingonhands': 'ab_layingonofhands',   // TC exporter drops 'of'
 	};
 
 	// Maps the fv_ suffix of a TC faction property ID to the human-readable
@@ -133,6 +140,7 @@ export class WarbandService {
 		'fv_redbrigade': 'The Red Brigade',
 		'fv_prussianapplied': 'Prussian Stosstruppen',
 		'fv_dirgeofthegreathegemon': 'Dirge of the Great Hegemon',
+		'fv_warpilgrimageofsaintmethodius': 'War Pilgrimage of Saint Methodius',
 	};
 
 	private static readonly EQUIPMENT_ID_REMAP:Record<string, string> = {
@@ -142,6 +150,8 @@ export class WarbandService {
 		'eq_sacrificialknife': 'eq_sacrificialblade',
 		'eq_greatswordaxe': 'eq_greataxe',
 		'eq_knifedagger': 'eq_trenchknife',
+		'eq_pistolrevolver': 'eq_pistol',
+		'eq_doublehandedbluntweapon': 'eq_greathammer',
 	};
 
 	private static readonly SHORT_RANGE_KW:ResolvedKeyword = {
@@ -597,9 +607,13 @@ export class WarbandService {
 			}
 		}
 
-		const entry = this.gameData.resolve(id, ref['ability-name']);
+		// ── Ability ID aliases: TC exporter IDs that differ from canonical IDs ──
+		const remappedAbId = WarbandService.ABILITY_ID_REMAP[id];
+		const resolvedId = remappedAbId ?? id;
 
-		if (id.startsWith('rl_') || entry.type === 'VariantRule') {
+		const entry = this.gameData.resolve(resolvedId, ref['ability-name']);
+
+		if (resolvedId.startsWith('rl_') || entry.type === 'VariantRule') {
 			const variantRule = entry.type === 'VariantRule'
 				? entry as VariantRule
 				: entry as UnresolvedFallback;
