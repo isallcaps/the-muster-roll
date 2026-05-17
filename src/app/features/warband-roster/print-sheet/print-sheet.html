@@ -38,8 +38,8 @@
 					@if (loadedTestCaseWarbandId()) {
 						<button
 								class="toolbar__btn"
-								(click)="openApiUrl(loadedTestCaseWarbandId())"
 								title="Open this test case's warband JSON in a new tab"
+								(click)="openApiUrl(loadedTestCaseWarbandId())"
 						>Open API URL
 						</button>
 					}
@@ -54,16 +54,16 @@
 							id="warband-id-input"
 							class="toolbar__id-input"
 							type="text"
-							inputmode="numeric"
 							placeholder="e.g. 278648"
 							[(ngModel)]="warbandIdDraft"
 							(keydown.enter)="openApiUrl()"
+							inputmode="numeric"
 							aria-label="Trench Companion warband ID"
 					/>
 					<button
 							class="toolbar__btn toolbar__btn--primary"
-							[disabled]="!warbandIdDraft.trim()"
 							(click)="openApiUrl()"
+							[disabled]="!warbandIdDraft.trim()"
 					>Open API URL
 					</button>
 				</div>
@@ -84,10 +84,10 @@
 						id="json-paste"
 						class="toolbar__textarea"
 						rows="6"
-						spellcheck="false"
-						autocomplete="off"
 						placeholder='Paste your warband JSON here — supports both Trench Companion API format and Export Data format'
 						[(ngModel)]="jsonDraft"
+						spellcheck="false"
+						autocomplete="off"
 				></textarea>
 
 				@if (formatLabel(); as label) {
@@ -110,10 +110,10 @@
 							id="html-paste"
 							class="toolbar__textarea toolbar__textarea--html"
 							rows="4"
-							spellcheck="false"
-							autocomplete="off"
 							placeholder="Paste the full HTML from trench-companion.com print view…"
 							[(ngModel)]="htmlDraft"
+							spellcheck="false"
+							autocomplete="off"
 					></textarea>
 				</div>
 			}
@@ -124,9 +124,9 @@
 				@if (devMode) {
 					<button
 							class="toolbar__btn"
+							title="Save current inputs as a test case"
 							(click)="saveCurrentHandler()"
 							[disabled]="!jsonDraft.trim()"
-							title="Save current inputs as a test case"
 					>Save Current
 					</button>
 				}
@@ -151,9 +151,9 @@
 	<div class="toolbar__print-row">
 		<button
 				class="toolbar__btn"
+				title="Render a warband first"
 				(click)="print()"
 				[disabled]="!warband()"
-				title="Render a warband first"
 		>Print
 		</button>
 	</div>
@@ -169,8 +169,8 @@
 			<div class="val-report__header-actions">
 				<button
 						class="toolbar__btn toolbar__btn--primary val-report__copy-all"
-						(click)="copyAllTableRows()"
 						title="Copy every issue as markdown table rows grouped by section"
+						(click)="copyAllTableRows()"
 				>{{ copiedAll() ? 'Copied!' : 'Copy All as Table Rows' }}
 				</button>
 				<p class="val-report__hint">
@@ -181,23 +181,28 @@
 			<ul class="val-report__list">
 				@for (d of validationReport(); track $index) {
 					<li class="val-report__item val-report__item--{{ d.severity }}">
-            <span class="val-report__badge val-report__badge--{{ d.severity }}">
-              {{ d.severity.toUpperCase() }}
-            </span>
-						<div class="val-report__body">
-							<p class="val-report__model">{{ d.modelName }}</p>
-							<p class="val-report__id"><code>{{ d.exportId }}</code> — {{ d.exportName }}</p>
-							<p class="val-report__notes">{{ d.notes }}</p>
+
+						<span class="val-report__badge val-report__badge--{{ d.severity }}">
+							{{ d.severity.toUpperCase() }}
+						</span>
+
+						<div>
+							<div class="val-report__body">
+								<p class="val-report__model">{{ d.modelName }}</p>
+								<p class="val-report__id"><code>{{ d.exportId }}</code> — {{ d.exportName }}</p>
+								<p class="val-report__notes">{{ d.notes }}</p>
+							</div>
+							<div class="val-report__actions">
+								<span class="val-report__fix-hint">Add to <code>rulebook-override.json</code> or fix in fork</span>
+								<button
+										class="toolbar__btn toolbar__btn--primary val-report__copy"
+										(click)="copyTableRow(d)"
+										[title]="'Copy md row for ' + tableRowLabel(d.type)"
+								>{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}
+								</button>
+							</div>
 						</div>
-						<div class="val-report__actions">
-							<span class="val-report__fix-hint">Add to <code>rulebook-override.json</code> or fix in fork</span>
-							<button
-									class="toolbar__btn toolbar__btn--primary val-report__copy"
-									(click)="copyTableRow(d)"
-									[title]="'Copy md row for ' + tableRowLabel(d.type)"
-							>{{ copiedRowId() === d.exportId ? 'Copied!' : 'Copy row for ' + tableRowLabel(d.type) }}
-							</button>
-						</div>
+
 					</li>
 				}
 			</ul>
@@ -213,8 +218,8 @@
 				<input
 						type="checkbox"
 						class="toolbar__toggle-checkbox"
-						[checked]="printSettings.settings().showBlurb"
 						(change)="toggleBlurb($event)"
+						[checked]="printSettings.settings().showBlurb"
 				>
 				Show flavour text
 			</label>
@@ -240,8 +245,8 @@
 							<input
 									class="kw-panel__checkbox"
 									type="checkbox"
-									[checked]="kwToggle.isVisible(kw.exportId)"
 									(change)="kwToggle.toggle(kw.exportId)"
+									[checked]="kwToggle.isVisible(kw.exportId)"
 							>
 							{{ kw.exportName }}
 						</label>
@@ -265,11 +270,11 @@
 				<div class="card">
 					@if (page[0].kind === 'faction') {
 						<tc-faction-card
-								[warbandName]="wb.name"
-								[factionName]="factionName()"
 								[abilities]="factionAbilities()"
-								[totalModels]="wb.models.length"
+								[factionName]="factionName()"
 								[totalDucats]="totalDucats()"
+								[totalModels]="wb.models.length"
+								[warbandName]="wb.name"
 						/>
 					} @else if (page[0].kind === 'model') {
 						<tc-model-card [model]="page[0].model" [warbandName]="wb.name"/>
@@ -285,11 +290,11 @@
 				<div class="card" [class.card--empty]="page[1].kind === 'empty'">
 					@if (page[1].kind === 'faction') {
 						<tc-faction-card
-								[warbandName]="wb.name"
-								[factionName]="factionName()"
 								[abilities]="factionAbilities()"
-								[totalModels]="wb.models.length"
+								[factionName]="factionName()"
 								[totalDucats]="totalDucats()"
+								[totalModels]="wb.models.length"
+								[warbandName]="wb.name"
 						/>
 					} @else if (page[1].kind === 'model') {
 						<tc-model-card [model]="page[1].model" [warbandName]="wb.name"/>
