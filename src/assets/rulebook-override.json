@@ -467,7 +467,7 @@
       "id": "eq_incendiaryammunition",
       "name": "Incendiary Ammunition",
       "source": "rulebook",
-      "type": "equipment",
+      "type": "Equipment",
       "equip_type": null,
       "range": null,
       "tags": [
@@ -488,13 +488,14 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "equipment"
     },
     "eq_greathammer": {
       "id": "eq_greathammer",
       "name": "Great Hammer/Maul",
       "source": "rulebook",
-      "type": "melee",
+      "type": "Equipment",
       "equip_type": "2-Handed",
       "range": "Melee",
       "tags": [
@@ -507,7 +508,8 @@
           "val": "gl_heavy"
         }
       ],
-      "description": []
+      "description": [],
+      "category": "melee"
     },
     "eq_gasfilter": {
       "id": "eq_gasfilter",
@@ -529,7 +531,8 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "equipment"
     },
     "eq_hallowedanchorite": {
       "id": "eq_hallowedanchorite",
@@ -551,7 +554,8 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "equipment"
     },
     "eq_sacredgeometry": {
       "id": "eq_sacredgeometry",
@@ -573,13 +577,14 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "equipment"
     },
     "eq_puntgun": {
       "id": "eq_puntgun",
       "name": "Punt Gun",
       "source": "rulebook",
-      "type": "2-Handed",
+      "type": "Equipment",
       "equip_type": "2-Handed",
       "range": null,
       "tags": [],
@@ -595,13 +600,14 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "ranged"
     },
     "eq_antimaterialrifle": {
       "id": "eq_antimaterialrifle",
       "name": "Anti-Materiel Rifle",
       "source": "rulebook",
-      "type": "2-Handed",
+      "type": "Equipment",
       "equip_type": "2-Handed",
       "range": null,
       "tags": [],
@@ -617,7 +623,8 @@
           "subcontent": [],
           "glossary": []
         }
-      ]
+      ],
+      "category": "ranged"
     }
   },
   "abilities": {

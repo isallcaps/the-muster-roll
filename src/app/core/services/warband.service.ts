@@ -281,7 +281,7 @@ export class WarbandService {
 				}
 			}
 
-			const allEquipment = [...equipment, ...weaponEquipment];
+			const allEquipment = this.sortEquipment([...equipment, ...weaponEquipment]);
 
 			const allKeywords = this.mergeKeywords([
 				...modelKeywords,
@@ -511,6 +511,36 @@ export class WarbandService {
 	// ---------------------------------------------------------------------------
 	// Equipment resolution
 	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// Equipment sort order: ranged → melee → everything else.
+	// Within each group the original export order is preserved (stable sort).
+	// ---------------------------------------------------------------------------
+
+	private static equipSortKey(eq:EnrichedEquipment):number {
+		if (!isUnresolvedFallback(eq.item)) {
+			const cat = (eq.item as Equipment).category ?? '';
+			if (cat === 'ranged') return 0;
+			if (cat === 'melee') return 1;
+			// grenade stays with other, shield/armour/field/equipment → 2
+		}
+		// Fallback for unresolved items: use range info derived during resolution
+		if (eq.longRange !== null && eq.longRange !== 'Melee') return 0; // has distance = ranged
+		if (eq.longRange === 'Melee') return 1;
+		return 2;
+	}
+
+	private sortEquipment(items:EnrichedEquipment[]):EnrichedEquipment[] {
+		// Stable sort — items at the same priority keep their original relative order.
+		return items
+			.map((item, i) => ({item, i}))
+			.sort((a, b) => {
+				const ka = WarbandService.equipSortKey(a.item);
+				const kb = WarbandService.equipSortKey(b.item);
+				return ka !== kb ? ka - kb : a.i - b.i;
+			})
+			.map(({item}) => item);
+	}
 
 	private resolveEquipment(ref:WarbandEquipmentRef):EnrichedEquipment {
 		const rawId = ref['equipment-id'];

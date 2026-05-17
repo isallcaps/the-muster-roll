@@ -132,20 +132,21 @@ export class PrintSheetComponent {
 	 * Collects from modelKeywords, equipment[].keywords, and abilities[].keywords.
 	 */
 	keywordsForModel(model:EnrichedWarbandModel):ResolvedKeyword[] {
+		// Deduplicate by normalised uppercase name so that the same keyword
+		// arriving from different sources (e.g. kw_elite from modelKeywords and
+		// gl_elite from an ability glossary ref) collapses to a single entry.
+		// When two entries share a name, prefer the one with a resolved definition.
 		const seen = new Map<string, ResolvedKeyword>();
-		for (const kw of model.modelKeywords) {
-			if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
-		}
-		for (const eq of model.equipment) {
-			for (const kw of eq.keywords) {
-				if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
+		const add = (kw:ResolvedKeyword) => {
+			const key = kw.exportName.toUpperCase().trim();
+			const existing = seen.get(key);
+			if (!existing || (isUnresolvedFallback(existing.glossaryEntry) && !isUnresolvedFallback(kw.glossaryEntry))) {
+				seen.set(key, kw);
 			}
-		}
-		for (const ab of model.abilities) {
-			for (const kw of ab.keywords) {
-				if (!seen.has(kw.exportId)) seen.set(kw.exportId, kw);
-			}
-		}
+		};
+		for (const kw of model.modelKeywords) add(kw);
+		for (const eq of model.equipment) for (const kw of eq.keywords) add(kw);
+		for (const ab of model.abilities) for (const kw of ab.keywords) add(kw);
 		return [...seen.values()].sort((a, b) => a.exportName.localeCompare(b.exportName));
 	}
 
