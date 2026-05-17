@@ -483,7 +483,7 @@
               "val": "desc"
             }
           ],
-          "content": "A War Wolf is armed with two Melee Weapons (its Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack, it can attack once using either its Chainsaw Mouth or Shredding Claws, or twice — first with the Chainsaw Mouth and second with its Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword, which means the War Wolf's Activation ends immediately if the Success Roll for an attack made with either weapon is a Failure.",
+          "content": "A War Wolf is armed with two Melee Weapons (Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack it can attack once using either weapon, or twice — first with the Chainsaw Mouth and second with the Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword so the War Wolf's Activation ends immediately if the Success Roll for either attack is a Failure.",
           "subcontent": [],
           "glossary": []
         }
@@ -1639,6 +1639,1182 @@
             }
           ],
           "content": "A Sin Eater can take a Devour the Guilty ACTION. Pick 1 model (friend or foe) within 1\" mounted on a base 40mm or smaller. Against an enemy take a Risky Success Roll; against a friendly take a Success Roll with +1 DICE. On Failure, Activation ends if Risky or nothing happens if normal. On Success or Critical Success the model is devoured: place it aside — it cannot act except to Fight the Sin Eater with -3 DICE when Activated. Each time the Sin Eater Activates, place 1 BLOOD MARKER on the devoured model. At 6 BLOOD MARKERS it is taken Out of Action. If the Sin Eater is taken Out of Action, deploy the devoured model within 1\" placed Down, or take it Out of Action if impossible. The Sin Eater can take a Purge ACTION (Success Roll +4 DICE) to release the devoured model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_trenchmoles": {
+      "id": "ab_trenchmoles",
+      "name": "Trench Moles",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_newantioch",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Up to 2 Yeomen can be upgraded to Trench Moles with the INFILTRATOR Keyword at a cost of +10 Ducats each. You can include a 3rd Trench Mole if the total cost of all other models in the Warband adds up to 1,000 Ducats or more.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_assaultdrill": {
+      "id": "ab_assaultdrill",
+      "name": "Assault Drill",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_newantioch",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "You can ignore the Effect of the HEAVY Keyword for 1 Melee Weapon that a Shock Trooper has. A Shock Trooper still cannot have more than 1 Weapon of any type with the HEAVY Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_setmine": {
+      "id": "ab_setmine",
+      "name": "Set Mine ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_newantioch",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Combat Engineer can take a Set Mine ACTION if they are in contact with a terrain piece that measures up to 8\" by 8\" that doesn't have the MINED Keyword. Take a Success Roll with +2 DICE. On Failure nothing happens. On Success or Critical Success the terrain piece gains the MINED Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_defusemine": {
+      "id": "ab_defusemine",
+      "name": "Defuse Mine",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_newantioch",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "When you move a Combat Engineer into contact with a Marker or terrain piece with the MINED Keyword, you can say the Combat Engineer will try to defuse the mine. Take a Risky Success Roll. On Failure the mine detonates. On Success or Critical Success the mine does not detonate and the MINED Keyword is removed. A model that set a mine defuses it automatically.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_loudspeakers": {
+      "id": "ab_loudspeakers",
+      "name": "Loudspeakers ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A War Prophet can take a Loudspeakers ACTION. Take a Risky Success Roll with +2 DICE. On Failure the War Prophet's Activation ends immediately. On Success or Critical Success, move all friendly models within 8\" of the War Prophet up to 3\" — they must end as close as possible to the nearest enemy model visible at the start of the move. This move can bring a model within 1\" of an enemy (counting as charging). If no enemy models are visible they can move normally.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_layingonofhands": {
+      "id": "ab_layingonofhands",
+      "name": "Laying on of Hands ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A War Prophet can take a Laying on of Hands ACTION. Take a Success Roll. On Failure nothing happens. On Success remove 1 BLOOD MARKER from a friendly model within 6\". On Critical Success remove 3 BLOOD MARKERS instead. The War Prophet can use this ACTION on themselves.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_mementomori": {
+      "id": "ab_mementomori",
+      "name": "Memento Mori",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "The first time the War Prophet suffers an Out of Action result on the Injury Table, it is treated as a No Effect result instead. A War Prophet cannot have the TOUGH Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_bodyguard": {
+      "id": "ab_bodyguard",
+      "name": "Bodyguard",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If a friendly PILGRIM model within 1\" of a Communicant is hit by a Ranged Attack or Melee Attack, you can say that the Communicant will take the hit. Make an Injury Roll for the Communicant instead of the original target. This ability cannot be used against attacks with the BLAST Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_enforcedorthodoxy": {
+      "id": "ab_enforcedorthodoxy",
+      "name": "Enforced Orthodoxy ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Castigator can take an Enforced Orthodoxy ACTION. Take a Risky Success Roll with +1 DICE. On Failure the Castigator's Activation ends immediately. On Success or Critical Success all friendly models within 8\" of the Castigator that are Down immediately stand back up at no cost to their movement.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_whipofgod": {
+      "id": "ab_whipofgod",
+      "name": "Whip of God",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "When a Castigator makes a Melee Attack they can target a friendly model within 1\" instead of an enemy. Set aside a D6 each time a Castigator attacks a friendly model and takes them Out of Action. The next time the Castigator's Warband takes a Morale Check, each D6 set aside adds +1 DICE to the roll and is then discarded.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_resurrection": {
+      "id": "ab_resurrection",
+      "name": "Resurrection",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If a Trench Pilgrim is killed after a game, they can be resurrected in the following Quartermaster Step as a Martyr Penitent with the Martyr Penitent Profile for a cost of 45 Ducats. Add -1 INJURY DICE to Injury Rolls for a Martyr Penitent. A Martyr Penitent keeps their Battlekit and Zealot Strength if purchased, but loses any Scars, Experience, and Advancements.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_agile": {
+      "id": "ab_agile",
+      "name": "Agile",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add +1 DICE to Risky Success Roll when this model Climbs, Jumps, makes a Diving Charge, or takes a Dash ACTION.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_blessedstigmata": {
+      "id": "ab_blessedstigmata",
+      "name": "Blessed Stigmata",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Each time you remove a BLOOD MARKER from a Stigmatic Nun because of the REGENERATE 1 Keyword, place 1 BLESSING MARKER next to the Stigmatic Nun.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_awaited": {
+      "id": "ab_awaited",
+      "name": "Awaited",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "An Ecclesiastic Prisoner that is taken Out of Action when their Martyrdom Device is triggered does not count towards the number of models taken Out of Action for Morale Checks.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_feeblyflailing": {
+      "id": "ab_feeblyflailing",
+      "name": "Feeble Flailing",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "An Ecclesiastic Prisoner can make a Melee Attack even though it doesn't have a melee weapon. If it does so, add -1 DICE to the Success Roll for the attack.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_maddash": {
+      "id": "ab_maddash",
+      "name": "Mad Dash",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add +1 DICE to the Risky Success Roll for an Ecclesiastic Prisoner that is taking a Dash ACTION.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_brokenonthewheel": {
+      "id": "ab_brokenonthewheel",
+      "name": "Broken on the Wheel",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "At the start of each game before deployment, you can say that one Trench Pilgrim or Ecclesiastic Prisoner will be broken on the wheel. The model is permanently removed from your Warband (Battlekit can be redistributed). Injuries that would be inflicted on the Anchorite Shrine are instead inflicted on the victim until they pass away — the Anchorite has Armour 0 and treats Down results as Minor Hit results until the victim dies, after which it gains -3 Armour and the NEGATE SHRAPNEL and TOUGH Keywords.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_symphonyofslaughter": {
+      "id": "ab_symphonyofslaughter",
+      "name": "Symphony of Slaughter",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_trenchpilgrim",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "An Anchorite Shrine is armed with two 1-Handed Melee Weapons (the Catherine Wheel and Bonebreaker Mace). When it makes a Melee Attack it can attack once using either weapon, or twice — first with the Catherine Wheel and second with the Bonebreaker Mace (the Off-Hand Weapon modifier applies to the Bonebreaker Mace attack).",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_janissaryveteran": {
+      "id": "ab_janissaryveteran",
+      "name": "Janissary Veteran",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "You can make the Yüzbaşı a Janissary Veteran with the STRONG Keyword and the Counter-Charge ability at a cost of +10 Ducats.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_countercharge": {
+      "id": "ab_countercharge",
+      "name": "Counter-Charge",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If the first ACTION a model makes during their Activation is a Charge, add +1 DICE to Melee Attacks made by the model for the rest of the Activation.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_mubarizun": {
+      "id": "ab_mubarizun",
+      "name": "Mubarizun",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add +1 INJURY DICE for attacks made by a Yüzbaşı if the target model has the TOUGH Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_masteryoftheelements": {
+      "id": "ab_masteryoftheelements",
+      "name": "Mastery of the Elements",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "When the Jabirean Alchemist is deployed for the first time in a game, give one of the following Keywords to all of its Ranged and Melee Weapons: FIRE, GAS, or SHRAPNEL. All Weapons have the same Keyword. If a Weapon already has the Keyword it does not receive it a second time.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_elementalchange": {
+      "id": "ab_elementalchange",
+      "name": "Elemental Change ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Jabirean Alchemist can take an Elemental Change ACTION. Take a Risky Success Roll. On Failure nothing happens and the Activation ends. On Success or Critical Success you can change the Mastery of the Elements Keyword on all of the Alchemist's Weapons to one of the other two choices.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_temporalassassin": {
+      "id": "ab_temporalassassin",
+      "name": "Temporal Assassin",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "After determining the Charge Bonus for a Sultanate Assassin that has not yet made a Fight ACTION this Activation, you can say the Assassin will split itself through time. Choose an additional enemy model as a Charge target (normal rules apply). Make the Charge move to within 1\" of the first target and Fight it. After resolving that Fight, immediately remove the Assassin from the battlefield and redeploy it within 1\" of the second model, then Fight it. The same Melee Weapon must be used for both attacks. The Assassin cannot take a Fight ACTION later in the same Activation.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_timeslip": {
+      "id": "ab_timeslip",
+      "name": "Time Slip",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If your opponent fails their Success Roll for an attack targeting a Sultanate Assassin, you can say the Assassin will slip into the future. Redeploy it anywhere within 6\" of its original location and more than 1\" away from any enemy models. If the failed attack took place during a Retreat, the retreat move ends after you redeploy the model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_lightskirmishers": {
+      "id": "ab_lightskirmishers",
+      "name": "Light Skirmishers",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Any number of Azebs can have the SKIRMISHER Keyword at a cost of +5 Ducats each.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_artificiallife": {
+      "id": "ab_artificiallife",
+      "name": "Artificial Life",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add -1 INJURY DICE to Injury Rolls for this model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_pin": {
+      "id": "ab_pin",
+      "name": "Pin",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Enemy models that are Down and mounted on a base of 40mm or less are not allowed to stand up if a Lion of Jabir is within 1\" of them, even if the Lion of Jabir is also Down.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_trampleaction": {
+      "id": "ab_trampleaction",
+      "name": "Trample ACTION",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "action": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "This model can take a Trample ACTION. If it does so, it can make a Melee Attack that must target an enemy model that is Down. A Trample Melee Attack does not use a Melee Weapon and has the IGNORE ARMOUR Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_pummellingblows": {
+      "id": "ab_pummellingblows",
+      "name": "Pummelling Blows",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Takwin Homunculus can make a Melee Attack even though it does not have any Melee Weapons.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_recreation": {
+      "id": "ab_recreation",
+      "name": "Re-creation",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_ironsultanate",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If a Takwin Homunculus is killed in the post-battle sequence, you do not have to remove it from your roster. Instead you can spend 40 Ducats in the following Quartermaster Step to leave it on the Roster.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_unholyhymns": {
+      "id": "ab_unholyhymns",
+      "name": "Unholy Hymns",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_hereticlegion",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add -1 DICE to Success Rolls taken for enemy models that are within 8\" of one or more Choristers.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_beelzebubstouch": {
+      "id": "ab_beelzebubstouch",
+      "name": "Beelzebub's Touch",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Whenever a Melee Attack made by a Lord of Tumours causes any BLOOD MARKERS or INFECTION MARKERS to be placed on the target, place 1 extra INFECTION MARKER next to the target model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_crushingblows": {
+      "id": "ab_crushingblows",
+      "name": "Crushing Blows",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Lord of Tumours can make a Crushing Blows Melee Attack even if it does not have any Melee Weapons, or instead of using any Melee Weapons it has. If it does so this Melee Attack has the CLEAVE 2 Keyword.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_plagueknightranks": {
+      "id": "ab_plagueknightranks",
+      "name": "Plague Knight Ranks",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Plague Knights can be given one of the following Ranks — refer to the Cult of the Black Grail special rules in the Warbands of Trench Crusade supplement for the full list of available Ranks and their effects.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_overwhelminghorde": {
+      "id": "ab_overwhelminghorde",
+      "name": "Overwhelming Horde",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Grail Thrall or Fly Thrall can make a Melee Attack even though it does not have a Melee Weapon. In addition, add +1 DICE to the Success Roll for a Melee Attack made by a Grail Thrall or Fly Thrall for each other friendly model within 3\" of the attacking model (not including the attacking model itself).",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_diseasecarrier": {
+      "id": "ab_diseasecarrier",
+      "name": "Disease Carrier",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "If an enemy model is Activated while it is within 1\" of a Hound of the Black Grail, place 1 INFECTION MARKER next to the enemy model before it carries out any Actions.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_frighteningspeed": {
+      "id": "ab_frighteningspeed",
+      "name": "Frightening Speed",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add +1 DICE to the Risky Success Roll for a Hound of the Black Grail that is taking a Dash ACTION. In addition, do not halve the Movement Characteristic of a Hound of the Black Grail when it stands up at the start of an Activation.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_infestedcarcasses": {
+      "id": "ab_infestedcarcasses",
+      "name": "Infested Carcasses",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Hounds of the Black Grail models can add the INFECTION MARKERS Keyword to their melee attacks at a cost of +5 Ducats each.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_infectedproboscis": {
+      "id": "ab_infectedproboscis",
+      "name": "Infected Proboscis",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Herald of Beelzebub can make a Melee Attack with the INFECTION MARKERS Keyword even though it does not have a Melee Weapon. If a Melee Attack by a Herald causes any INFECTION MARKERS to be placed on the target, you can remove up to 1 BLOOD MARKER from the attacking Herald.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_maddeningbuzzing": {
+      "id": "ab_maddeningbuzzing",
+      "name": "Maddening Buzzing",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Up to 1 Herald of Beelzebub can have the Maddening Buzzing ability at a cost of +10 Ducats. Success Rolls taken for enemy models within 8\" of a model with this ability become Risky Success Rolls (there is no additional effect if they are already Risky Success Rolls).",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_sixarmedmonstrosity": {
+      "id": "ab_sixarmedmonstrosity",
+      "name": "Six-armed Monstrosity",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "An Amalgam can take 1 Shoot ACTION per Activation with each Ranged Weapon it is equipped with, and can take 1 Fight ACTION per Activation with each Melee Weapon it is equipped with. The Off-Hand Weapon modifier does not apply to any of its Melee Attacks.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_corpulent": {
+      "id": "ab_corpulent",
+      "name": "Corpulent",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Add -2 INJURY DICE to Injury Rolls for any attacks that target an Amalgam model.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_unstoppable": {
+      "id": "ab_unstoppable",
+      "name": "Unstoppable",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_blackgrail",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Enemy models mounted on a base of 32mm or less are not allowed to make a Melee Attack when an Amalgam within 1\" of them retreats. In addition an Amalgam can take a Move or Charge ACTION if all enemy models within 1\" of it are mounted on bases of 32mm or less.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_annihilator": {
+      "id": "ab_annihilator",
+      "name": "Annihilator",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_courtofthesevenserpent",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Desecrated Saint can take 1 Fight ACTION per Activation with each Melee Weapon it is equipped with.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_demonicaura": {
+      "id": "ab_demonicaura",
+      "name": "Demonic Aura",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_courtofthesevenserpent",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Desecrated Saint has one of the following auras determined by the Deadly Sin its Warband is dedicated to: Aura of Wrath (+1 DICE to Melee Attacks and Dash rolls for friendly models within 8\"); Aura of Envy (enemy models within 12\" cannot charge a friendly model within 1\" of another friendly model); Aura of Lust (negate Armour Keywords for enemy models within 4\"); Aura of Pride (place 1 BLOOD MARKER next to each enemy within 8\" when Activated); Aura of Sloth (enemy models within 8\" treat Minor Hit results as Down results); Aura of Gluttony (-1 DICE to enemy models within 8\" without BLACK GRAIL or ARTIFICIAL Keywords); Aura of Greed (enemy models within 12\" must charge this Desecrated Saint if able).",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_poisonstingers": {
+      "id": "ab_poisonstingers",
+      "name": "Poison Stingers",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_courtofthesevenserpent",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "A Pit Locust can make a Melee Attack with the CLEAVE 2 and SHRAPNEL Keywords even though it does not have a Melee Weapon.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_hateful": {
+      "id": "ab_hateful",
+      "name": "Hateful",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_courtofthesevenserpent",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "When a Yoke Fiend is Activated, if it is more than 1\" from any enemy models and there is an enemy model within 12\" in its Line of Sight without the BLACK GRAIL or DEMONIC Keywords, it must take a Charge ACTION targeting the closest such enemy. If the Yoke Fiend was Down it will stand up if it can and must then attempt the charge.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "ab_torturer": {
+      "id": "ab_torturer",
+      "name": "Torturer",
+      "type": "Addon",
+      "source": "rulebook",
+      "faction_id": "fc_courtofthesevenserpent",
+      "eventtags": {
+        "trait": true
+      },
+      "tags": [],
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "When a Yoke Fiend makes a Melee Attack it can target a friendly model that does not have the DEMONIC Keyword. If it does so it cannot attack again during the same Activation.",
           "subcontent": [],
           "glossary": []
         }
