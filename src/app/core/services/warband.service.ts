@@ -130,7 +130,8 @@ export class WarbandService {
 	// Maps TC-exporter ability IDs that differ from canonical data IDs.
 	// Applied before the general resolve() call in resolveAbility().
 	private static readonly ABILITY_ID_REMAP:Record<string, string> = {
-		'ab_layingonhands': 'ab_layingonofhands',   // TC exporter drops 'of'
+		'ab_layingonhands':  'ab_layingonofhands',   // TC exporter drops 'of'
+		'ab_feebleflailing': 'ab_feeblyflailing',    // TC exporter missing 'ly'
 	};
 
 	// Maps the fv_ suffix of a TC faction property ID to the human-readable
@@ -164,6 +165,7 @@ export class WarbandService {
 		'eq_knifedagger': 'eq_trenchknife',
 		'eq_pistolrevolver': 'eq_pistol',
 		'eq_doublehandedbluntweapon': 'eq_greathammer',
+		'eq_ironcapriote': 'eq_ironcapirote',        // TC exporter typo (capriote vs capirote)
 	};
 
 	private static readonly SHORT_RANGE_KW:ResolvedKeyword = {

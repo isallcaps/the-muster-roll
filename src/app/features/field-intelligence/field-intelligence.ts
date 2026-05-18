@@ -27,8 +27,14 @@ export class FieldIntelligenceView {
 	readonly rawExport = this.warbandSvc.rawExport;
 
 	/** Session-wide unresolved IDs tracked by GameDataService. */
-	readonly unresolvedIds   = this.gameDataSvc.unresolvedIds;
-	readonly unresolvedCount = computed(() => this.unresolvedIds().size);
+	readonly unresolvedIds = this.gameDataSvc.unresolvedIds;
+
+	/**
+	 * Count derived from the detail list so the banner and table are always in sync.
+	 * (unresolvedIds can over-count: an ID resolved via name-based fallback on the
+	 * second lookup is still recorded from the first lookup without a displayName.)
+	 */
+	readonly unresolvedCount = computed(() => this.unresolvedDetail().length);
 
 	/** Detailed breakdown of every unresolved ID — which model, what type, display name. */
 	readonly unresolvedDetail = computed<UnresolvedDetail[]>(() => {
