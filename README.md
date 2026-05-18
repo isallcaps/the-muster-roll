@@ -6,8 +6,9 @@ A warband print sheet tool for Trench Crusade. Paste your warband export from Tr
 
 Built by a new player, for new players.
 
-> ⚠️ **Work in progress.** The live site isn't publicly available yet. The repo is open for reference, contributions, and feedback — but expect rough edges while development continues. A public URL will be posted here when it's ready.
+Since the site is now live, update it to:
 
+> ⚠️ **Work in progress.** The site is live at [musterroll.isallcaps.com](https://musterroll.isallcaps.com) but expect rough edges while development continues. Feedback and contributions welcome.
 ---
 
 ## What It Does
