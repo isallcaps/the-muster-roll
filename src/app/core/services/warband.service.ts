@@ -495,12 +495,19 @@ export class WarbandService {
 
 		if (def) {
 			for (const tag of def.tags) {
-				if (tag.val?.startsWith('kw_') && !seen.has(tag.val)) {
+				// Submodule model tags use gl_* vals (e.g. gl_tough, gl_leader).
+				// Convert to kw_* so resolveKeyword() can map back to the glossary entry.
+				// Also support the kw_* format for forward compatibility.
+				let kwId:string | undefined;
+				if (tag.val?.startsWith('kw_')) kwId = tag.val;
+				else if (tag.val?.startsWith('gl_')) kwId = `kw_${tag.val.slice(3)}`;
+
+				if (kwId && !seen.has(kwId)) {
 					keywords.push({
 						'keyword-name': tag.tag_name.toUpperCase(),
-						'keyword-id': tag.val,
+						'keyword-id': kwId,
 					});
-					seen.add(tag.val);
+					seen.add(kwId);
 				}
 			}
 		}
