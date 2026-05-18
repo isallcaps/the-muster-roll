@@ -13,11 +13,35 @@ html, body {
 	color: #e8e8e8;
 }
 
+$wip-height: 36px;
+
 app-nav {
 	display: block;
 	position: sticky;
-	top: 0;
+	top: $wip-height;
 	z-index: 1000;
+}
+
+.wip-banner {
+	position: sticky;
+	z-index: 1000;
+	top: 0;
+	background: #1c1200; //#111;
+	border: 1px solid #d97706;
+	color: #fbbf24;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 8pt;
+	font-style: italic;
+	text-align: center;
+	line-height: 36px;
+	height: $wip-height;
+	flex-shrink: 0;
+}
+
+@media print {
+	.wip-banner {
+		display: none;
+	}
 }
 
 
@@ -34,3 +58,5 @@ app-nav {
 		color: black;
 	}
 }
+
+
