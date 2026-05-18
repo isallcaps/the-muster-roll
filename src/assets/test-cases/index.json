@@ -1,22 +1,37 @@
 [
   {
-    "id": "wrecking-crew-v2",
-    "name": "The Wrecking Crew v2",
-    "warbandId": 278648
+    "id": "luce-eternal",
+    "name": "Luce's Eternal Journey Of Storms",
+    "warbandId": 223608,
+    "modelCount": 7,
+    "factionId": "fc_trenchpilgrim_fv_warpilgimageofsaintmethodius"
   },
   {
-    "id": "the-troublemakers",
-    "name": "The Troublemakers",
-    "warbandId": 221951
+    "id": "oops-all-mechs",
+    "name": "Oops All Mechs",
+    "warbandId": 206590,
+    "modelCount": 6,
+    "factionId": "fc_trenchpilgrim_fv_warpilgimageofsaintmethodius"
   },
   {
     "id": "the-great-hunger",
     "name": "The Great Hunger",
-    "warbandId": 308744
+    "warbandId": 308744,
+    "modelCount": 8,
+    "factionId": "fc_cultoftheblackgrail_fv_thegreathunger"
   },
   {
-    "id": "luce-eternal",
-    "name": "luce-eternal",
-    "warbandId": 223608
+    "id": "the-troublemakers",
+    "name": "The Troublemakers",
+    "warbandId": 221951,
+    "modelCount": 7,
+    "factionId": "fc_hereticlegion"
+  },
+  {
+    "id": "wrecking-crew-v2",
+    "name": "The Wrecking Crew v2",
+    "warbandId": 278648,
+    "modelCount": 7,
+    "factionId": "fc_hereticlegion_fv_hereticnavalraidingparty"
   }
 ]

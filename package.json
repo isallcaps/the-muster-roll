@@ -7,7 +7,8 @@
     "start-prod": "ng serve --configuration production",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "update-test-index": "node scripts/update-test-index.js"
   },
   "private": true,
   "packageManager": "npm@11.8.0",

@@ -13,9 +13,32 @@
 @if (warband()) {
 
 	@if (unresolvedCount() > 0) {
-		<p class="fi-unresolved-banner" role="alert">
-			⚠ {{ unresolvedCount() }} unresolved {{ unresolvedCount() === 1 ? 'ID' : 'IDs' }} — items render with name only.
-		</p>
+		<details class="fi-unresolved-banner" role="alert">
+			<summary class="fi-unresolved-banner__summary">
+				⚠ {{ unresolvedCount() }} unresolved {{ unresolvedCount() === 1 ? 'ID' : 'IDs' }} — items render with name only.
+				<span class="fi-unresolved-banner__hint">Click to expand</span>
+			</summary>
+			<table class="fi-unresolved-table">
+				<thead>
+					<tr>
+						<th>Model</th>
+						<th>Type</th>
+						<th>ID</th>
+						<th>Display Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for (item of unresolvedDetail(); track item.id + item.modelName) {
+						<tr>
+							<td>{{ item.modelName }}</td>
+							<td><span class="fi-unresolved-table__type fi-unresolved-table__type--{{ item.type }}">{{ item.type }}</span></td>
+							<td><code class="fi-unresolved-table__id">{{ item.id }}</code></td>
+							<td>{{ item.displayName }}</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</details>
 	}
 
 	<div class="fi-panels">
