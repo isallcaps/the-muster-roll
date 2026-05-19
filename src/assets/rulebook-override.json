@@ -671,20 +671,6 @@
           "glossary": []
         }
       ]
-    },
-    "eq_bonebreakermace": {
-      "id": "eq_bonebreakermace",
-      "name": "Bonebreaker Mace",
-      "source": "rulebook",
-      "type": "Equipment",
-      "equip_type": "2-Handed",
-      "range": "Melee",
-      "tags": [
-        { "tag_name": "+1 Injury Modifier", "val": "gl_injurymodifier1" },
-        { "tag_name": "Heavy", "val": "gl_heavy" }
-      ],
-      "description": [],
-      "category": "melee"
     }
   },
   "abilities": {

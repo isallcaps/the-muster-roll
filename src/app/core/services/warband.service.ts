@@ -166,6 +166,11 @@ export class WarbandService {
 		'eq_pistolrevolver': 'eq_pistol',
 		'eq_doublehandedbluntweapon': 'eq_greathammer',
 		'eq_ironcapriote': 'eq_ironcapirote',        // TC exporter typo (capriote vs capirote)
+		// Mandatory model weapons — TC API sends eq_ IDs; submodule stores them as ab_ Addon entries.
+		'eq_bonebreakermace':       'ab_bonebreakermace',   // Anchorite Shrine mandatory weapon
+		'eq_catherinewheel':        'ab_catherinewheel',     // Anchorite Shrine mandatory weapon
+		'eq_warwolfchainmaw':       'ab_chainmaw',           // War Wolf mandatory weapon
+		'eq_warwolfshreddingclaws': 'ab_shreddingclaws',     // War Wolf mandatory weapon
 	};
 
 	private static readonly SHORT_RANGE_KW:ResolvedKeyword = {
@@ -348,18 +353,24 @@ export class WarbandService {
 			const modelSubpropIds = new Set(m.subproperties.map(s => s.object_id));
 
 			const abilities:WarbandAbilityRef[] = [
-				...m.subproperties.map(s => ({
-					'ability-name': this.gameData.resolve(s.object_id).name,
-					'ability-id': s.object_id,
-					'ability-tags': s.tags,
-				})),
+				...m.subproperties.map(s => {
+					const remappedId = WarbandService.ABILITY_ID_REMAP[s.object_id] ?? s.object_id;
+					return {
+						'ability-name': this.gameData.resolve(remappedId).name,
+						'ability-id': s.object_id,
+						'ability-tags': s.tags,
+					};
+				}),
 				...factionRules
 					.filter(r => !modelSubpropIds.has(r.object_id))
-					.map(r => ({
-						'ability-name': this.gameData.resolve(r.object_id).name,
-						'ability-id': r.object_id,
-						'ability-tags': r.tags,
-					})),
+					.map(r => {
+						const remappedId = WarbandService.ABILITY_ID_REMAP[r.object_id] ?? r.object_id;
+						return {
+							'ability-name': this.gameData.resolve(remappedId).name,
+							'ability-id': r.object_id,
+							'ability-tags': r.tags,
+						};
+					}),
 			];
 
 			// Keywords: elite flag + any kw_* tags on the game-data model definition.
