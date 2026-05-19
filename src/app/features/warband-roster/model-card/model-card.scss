@@ -11,6 +11,12 @@
 	background: white;
 	padding: 4mm;
 	overflow: hidden;
+
+	// In print, allow content to flow past page bottom rather than clip silently.
+	@media print {
+		overflow: visible;
+		height: auto;
+	}
 }
 
 // ── Header ────────────────────────────────────────────────────────────────
@@ -203,12 +209,42 @@
 		color: white;
 	}
 
+	// ── Injury dice / modifier keywords ──────────────────────────────────────
+	// Distinguished from action/hit dice using a dashed border + skull prefix.
+	// Print-safe: shape and symbol, no colour-only distinction.
+	&--injury {
+		border-style: dashed;
+		border-width: 1pt;
+		padding-left: 1mm; // tighter — skull takes some space
+
+		&::before {
+			content: '☠';
+			font-size: 5pt;
+			margin-right: 1mm;
+			vertical-align: middle;
+			line-height: 1;
+		}
+
+		// Inverted state keeps dashed border visible
+		&.kw-chip--active {
+			background: black;
+			color: white;
+		}
+	}
+
 	@media print {
 		cursor: default;
 		// Active chips invert on print so definitions are clearly linked
 		&--active {
 			background: black;
 			color: white;
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+
+		&--injury {
+			border-style: dashed;
+			border-width: 1pt;
 			-webkit-print-color-adjust: exact;
 			print-color-adjust: exact;
 		}

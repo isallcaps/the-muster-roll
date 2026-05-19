@@ -127,6 +127,18 @@ export class PrintSheetComponent {
 		() => this.warband()?.allWarbandKeywords ?? []
 	);
 
+	/** Models grouped into pairs for the two-per-page portrait layout (no cheat sheet). */
+	readonly modelPairs = computed<[EnrichedWarbandModel, EnrichedWarbandModel | null][]>(() => {
+		const wb = this.warband();
+		if (!wb) return [];
+		const models = wb.models;
+		const pairs:[EnrichedWarbandModel, EnrichedWarbandModel | null][] = [];
+		for (let i = 0; i < models.length; i += 2) {
+			pairs.push([models[i], models[i + 1] ?? null]);
+		}
+		return pairs;
+	});
+
 	/**
 	 * Returns a sorted, deduplicated keyword list for a single model's cheat sheet.
 	 * Collects from modelKeywords, equipment[].keywords, and abilities[].keywords.
@@ -251,7 +263,12 @@ export class PrintSheetComponent {
 	render():void {
 		this.warbandSvc.load(this.jsonDraft);
 		if (this.warbandSvc.warband()) this.inputCollapsed.set(true);
-		this.kwToggle.showAll();
+		const {showKeywordSheet, autoHideDefsWithSheet} = this.printSettings.settings();
+		if (showKeywordSheet && autoHideDefsWithSheet) {
+			this.kwToggle.hideAll(this.allWarbandKeywords().map(kw => kw.exportId));
+		} else {
+			this.kwToggle.showAll();
+		}
 	}
 
 	print():void {
@@ -273,7 +290,26 @@ export class PrintSheetComponent {
 	}
 
 	toggleKeywordSheet(event:Event):void {
-		this.printSettings.update({showKeywordSheet: (event.target as HTMLInputElement).checked});
+		const checked = (event.target as HTMLInputElement).checked;
+		this.printSettings.update({showKeywordSheet: checked});
+		if (!checked) {
+			// Sheet hidden — restore all inline definitions
+			this.kwToggle.showAll();
+		} else if (this.printSettings.settings().autoHideDefsWithSheet) {
+			// Sheet shown + auto-hide on — suppress inline definitions
+			this.kwToggle.hideAll(this.allWarbandKeywords().map(kw => kw.exportId));
+		}
+	}
+
+	toggleAutoHideDefs(event:Event):void {
+		const checked = (event.target as HTMLInputElement).checked;
+		this.printSettings.update({autoHideDefsWithSheet: checked});
+		const {showKeywordSheet} = this.printSettings.settings();
+		if (checked && showKeywordSheet) {
+			this.kwToggle.hideAll(this.allWarbandKeywords().map(kw => kw.exportId));
+		} else {
+			this.kwToggle.showAll();
+		}
 	}
 
 	// ---------------------------------------------------------------------------

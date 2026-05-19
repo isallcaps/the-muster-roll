@@ -83,6 +83,7 @@
 							<button
 									class="kw-chip"
 									[class.kw-chip--active]="isDefVisible(kw.exportId)"
+									[class.kw-chip--injury]="isInjuryKw(kw.exportId)"
 									(click)="toggleDef(kw.exportId)"
 									[attr.aria-pressed]="isDefVisible(kw.exportId)"
 									[attr.aria-label]="'Toggle definition for ' + kw.exportName"

@@ -232,6 +232,16 @@
 				>
 				Show Keyword Cheat Sheet
 			</label>
+			<label class="toolbar__toggle-label" [class.toolbar__toggle-label--muted]="!printSettings.settings().showKeywordSheet">
+				<input
+						type="checkbox"
+						class="toolbar__toggle-checkbox"
+						(change)="toggleAutoHideDefs($event)"
+						[checked]="printSettings.settings().autoHideDefsWithSheet"
+						[disabled]="!printSettings.settings().showKeywordSheet"
+				>
+				Auto-hide inline definitions when cheat sheet is visible
+			</label>
 		</div>
 	}
 
@@ -288,17 +298,19 @@
 			</div>
 		}
 
-		<!-- ── One landscape page per model ─────────────────────────────── -->
-		@for (model of wb.models; track model.export['model-id']) {
-			<div class="card-page card-page--landscape">
+		<!-- ── Model cards: landscape (with cheat sheet) or portrait-duo ── -->
+		@if (printSettings.settings().showKeywordSheet) {
 
-				<!-- Left panel: model card -->
-				<div class="card card--left">
-					<tc-model-card [model]="model" [warbandName]="wb.name"/>
-				</div>
+			<!-- Landscape: one model per page with keyword cheat sheet on right -->
+			@for (model of wb.models; track model.export['model-id']) {
+				<div class="card-page card-page--landscape">
 
-				<!-- Right panel: keyword cheat sheet -->
-				@if (printSettings.settings().showKeywordSheet) {
+					<!-- Left panel: model card -->
+					<div class="card card--left">
+						<tc-model-card [model]="model" [warbandName]="wb.name"/>
+					</div>
+
+					<!-- Right panel: keyword cheat sheet -->
 					<div class="card card--right">
 						<div class="kw-sheet">
 							<h2 class="kw-sheet__header">
@@ -328,9 +340,27 @@
 							}
 						</div>
 					</div>
-				}
 
-			</div>
+				</div>
+			}
+
+		} @else {
+
+			<!-- Portrait-duo: two models per portrait page, full width, no cheat sheet -->
+			@for (pair of modelPairs(); track $index) {
+				<div class="card-page card-page--portrait-duo">
+					<div class="card card--duo-slot">
+						<tc-model-card [model]="pair[0]" [warbandName]="wb.name"/>
+					</div>
+					@if (pair[1]) {
+						<hr class="duo-divider" aria-hidden="true"/>
+						<div class="card card--duo-slot">
+							<tc-model-card [model]="pair[1]" [warbandName]="wb.name"/>
+						</div>
+					}
+				</div>
+			}
+
 		}
 
 	</main>
