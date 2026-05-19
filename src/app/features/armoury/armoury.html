@@ -27,13 +27,13 @@
 			<input
 					class="arm-search"
 					type="search"
-					placeholder="Search by name or ID…"
+					placeholder="Search by name…"
 					[value]="searchQuery()"
 					(input)="onSearch($event)"
 					aria-label="Search entries"
 			/>
 
-			@if (availableSources().length > 1) {
+			@if (devMode() && availableSources().length > 1) {
 				<select
 						class="arm-filter"
 						[value]="sourceFilter()"
@@ -46,6 +46,14 @@
 					}
 				</select>
 			}
+
+			<button
+					class="arm-dev-toggle"
+					[class.arm-dev-toggle--on]="devMode()"
+					(click)="toggleDevMode()"
+					[attr.aria-pressed]="devMode()"
+					title="Toggle Developer Mode"
+			>Dev Mode {{ devMode() ? 'ON' : 'OFF' }}</button>
 		</div>
 
 		<!-- Card list -->
@@ -62,7 +70,7 @@
 
 						<div class="arm-card__name-row">
 							<span class="arm-card__name">{{ entry.name }}</span>
-							@if (isOverride(entry)) {
+							@if (devMode() && isOverride(entry)) {
 								<span class="arm-card__override-badge" title="Added from the PDF rulebook — patches a gap in the submodule data">Rulebook</span>
 							}
 							@if (hasUnresolved(entry)) {
@@ -70,16 +78,20 @@
 							}
 						</div>
 
-						<code class="arm-card__id">{{ entry.id }}</code>
+						@if (devMode()) {
+							<code class="arm-card__id">{{ entry.id }}</code>
+						}
 
-						<div class="arm-card__pills">
-							<span class="arm-card__source-pill">{{ entrySource(entry) }}</span>
-							@for (tag of entryTags(entry); track tag) {
-								<span class="arm-card__tag-pill">{{ tag }}</span>
-							}
-						</div>
+						@if (devMode()) {
+							<div class="arm-card__pills">
+								<span class="arm-card__source-pill">{{ entrySource(entry) }}</span>
+								@for (tag of entryTags(entry); track tag) {
+									<span class="arm-card__tag-pill">{{ tag }}</span>
+								}
+							</div>
+						}
 
-						<!-- Equipment quick-stats -->
+						<!-- Equipment quick-stats (always visible — useful content) -->
 						@if (asEquipment(entry); as eq) {
 							<div class="arm-card__quick">
 								@if (eq.range) {
@@ -91,7 +103,7 @@
 								@if (eq.modifiers?.length) {
 									<span class="arm-card__mono">{{ eq.modifiers!.join(', ') }}</span>
 								}
-								@if (eq.category) {
+								@if (devMode() && eq.category) {
 									<span class="arm-card__tag-pill">{{ eq.category }}</span>
 								}
 							</div>
@@ -126,7 +138,7 @@
 									@if (m.base.length) {
 										<span><strong>BASE</strong> {{ m.base.join('×') }}mm</span>
 									}
-									@if (m.faction_id) {
+									@if (devMode() && m.faction_id) {
 										<span><strong>Faction</strong> {{ m.faction_id }}</span>
 									}
 								</div>
@@ -180,15 +192,17 @@
 					}
 
 					<!-- ── Card footer ── -->
-					<div class="arm-card__foot">
-						<button
-								class="arm-card__copy-btn"
-								[class.arm-card__copy-btn--copied]="copiedId() === entry.id"
-								(click)="copyId(entry.id, $event)"
-								title="Copy ID to clipboard"
-						>{{ copiedId() === entry.id ? 'Copied!' : 'Copy ID' }}
-						</button>
-					</div>
+					@if (devMode()) {
+						<div class="arm-card__foot">
+							<button
+									class="arm-card__copy-btn"
+									[class.arm-card__copy-btn--copied]="copiedId() === entry.id"
+									(click)="copyId(entry.id, $event)"
+									title="Copy ID to clipboard"
+							>{{ copiedId() === entry.id ? 'Copied!' : 'Copy ID' }}
+							</button>
+						</div>
+					}
 
 				</article>
 			}

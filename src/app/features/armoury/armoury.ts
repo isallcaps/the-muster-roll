@@ -19,6 +19,8 @@ import type {
 
 type CategorySlug = 'equipment' | 'abilities' | 'glossary' | 'models' | 'variant-rules' | 'addons';
 
+const ARMOURY_DEV_MODE_KEY = 'musterroll_armoury_devmode';
+
 @Component({
 	selector: 'app-armoury',
 	imports: [RouterLink, RouterLinkActive, DescBlocksComponent],
@@ -34,6 +36,15 @@ export class ArmouryView {
 		this.route.params.pipe(map(p => (p['category'] as CategorySlug) ?? 'equipment')),
 		{initialValue: 'equipment' as CategorySlug},
 	);
+
+	/** Developer Mode — persisted to localStorage. Default off. */
+	readonly devMode = signal(localStorage.getItem(ARMOURY_DEV_MODE_KEY) === 'true');
+
+	toggleDevMode():void {
+		const next = !this.devMode();
+		this.devMode.set(next);
+		localStorage.setItem(ARMOURY_DEV_MODE_KEY, String(next));
+	}
 
 	readonly searchQuery = signal('');
 	readonly sourceFilter = signal<string>('');
@@ -82,7 +93,8 @@ export class ArmouryView {
 
 		if (src) list = list.filter(e => this.entrySource(e) === src);
 		if (q) list = list.filter(e =>
-			e.name.toLowerCase().includes(q) || e.id.toLowerCase().includes(q)
+			e.name.toLowerCase().includes(q) ||
+			(this.devMode() && e.id.toLowerCase().includes(q))
 		);
 		return list;
 	});

@@ -1,5 +1,12 @@
 [
   {
+    "id": "e-court-of-the-seven-headed",
+    "name": "E-court-of-the-seven-headed",
+    "warbandId": 312601,
+    "modelCount": 8,
+    "factionId": "fc_courtofthesevenheadedserpent"
+  },
+  {
     "id": "luce-eternal",
     "name": "Luce's Eternal Journey Of Storms",
     "warbandId": 223608,

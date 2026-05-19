@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {WarbandService} from '../../core/services/warband.service';
 import {GameDataService} from '../../core/services/game-data.service';
@@ -11,6 +11,15 @@ export interface UnresolvedDetail {
 	displayName:string;
 	type:'equipment' | 'ability' | 'keyword';
 }
+
+export interface FactionMismatch {
+	modelName:string;
+	modelId:string;
+	resolvedFactionId:string;
+	expectedFactionId:string;
+}
+
+const FI_DEV_MODE_KEY = 'musterroll_fi_devmode';
 
 @Component({
 	selector: 'app-field-intelligence',
@@ -28,6 +37,15 @@ export class FieldIntelligenceView {
 
 	/** Session-wide unresolved IDs tracked by GameDataService. */
 	readonly unresolvedIds = this.gameDataSvc.unresolvedIds;
+
+	/** Developer Mode — persisted to localStorage. Default off. */
+	readonly devMode = signal(localStorage.getItem(FI_DEV_MODE_KEY) === 'true');
+
+	toggleDevMode():void {
+		const next = !this.devMode();
+		this.devMode.set(next);
+		localStorage.setItem(FI_DEV_MODE_KEY, String(next));
+	}
 
 	/**
 	 * Count derived from the detail list so the banner and table are always in sync.
@@ -100,5 +118,47 @@ export class FieldIntelligenceView {
 		}
 
 		return items;
+	});
+
+	/**
+	 * Faction consistency check — flags any model whose resolved definition has a
+	 * faction_id that differs from the warband's plurality faction.
+	 *
+	 * Catches cases where a model resolves to the wrong faction's profile (e.g.
+	 * md_wretched resolving to the Court profile in a Heretic Legion warband).
+	 * Returns an empty array when all models agree (or only one faction is present).
+	 */
+	readonly factionMismatches = computed<FactionMismatch[]>(() => {
+		const wb = this.warband();
+		if (!wb) return [];
+
+		// Tally faction_id occurrences across all models with a resolved definition.
+		const factionCounts = new Map<string, number>();
+		for (const model of wb.models) {
+			const fid = model.definition?.faction_id;
+			if (fid) factionCounts.set(fid, (factionCounts.get(fid) ?? 0) + 1);
+		}
+		if (factionCounts.size <= 1) return [];
+
+		// Expected faction = plurality (most models agree on this faction_id).
+		let expectedFactionId = '';
+		let maxCount = 0;
+		for (const [fid, count] of factionCounts) {
+			if (count > maxCount) { maxCount = count; expectedFactionId = fid; }
+		}
+
+		const mismatches:FactionMismatch[] = [];
+		for (const model of wb.models) {
+			const fid = model.definition?.faction_id;
+			if (fid && fid !== expectedFactionId) {
+				mismatches.push({
+					modelName: model.export['name'] || model.export['model-name'],
+					modelId: model.export['model-id'],
+					resolvedFactionId: fid,
+					expectedFactionId,
+				});
+			}
+		}
+		return mismatches;
 	});
 }

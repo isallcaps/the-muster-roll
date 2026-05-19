@@ -69,6 +69,7 @@ interface TcApiModelEntry {
 }
 
 interface TcApiFaction {
+	faction_property?:{ object_id:string };
 	faction_rules:TcApiSubproperty[];
 }
 
@@ -110,6 +111,18 @@ export class WarbandService {
 		'md_gergorigula': 'md_gregorigula',
 		'md_grailthrall_hunger': 'md_ravenous',
 		'md_grailthrall_cradle_hunger': 'md_cradleravenous',
+	};
+
+	// Per-faction model ID overrides — applied on top of MODEL_ID_REMAP when the
+	// warband's faction can be detected from the TC API faction_rules field.
+	// Handles cases where the same TC exporter ID maps to different submodule IDs
+	// depending on which faction owns the model.
+	private static readonly FACTION_MODEL_REMAP:Record<string, Record<string, string>> = {
+		// Heretic Legion Wretched — TC exporter sends md_wretched (Court ID) for
+		// Heretic Wretched models; submodule uses separate md_wretchedheretic profile.
+		'fc_hereticlegion': {
+			'md_wretched': 'md_wretchedheretic',
+		},
 	};
 
 	// Maps Plague Knight rank upgrade IDs (up_plagueknightrank*) to their
@@ -329,15 +342,24 @@ export class WarbandService {
 	// ---------------------------------------------------------------------------
 
 	private translateTcInternal(data:TcApiWarbandData):WarbandExport {
-		// Filter out faction identifier subproperties (fc_* IDs) — these are property
-		// IDs encoding the faction/variant combination, not resolvable ability refs.
-		const factionRules = (data.faction?.faction_rules ?? [])
-			.filter(r => !r.object_id.startsWith('fc_'));
+		// faction_rules contains per-warband ability subproperties (e.g. rl_* variant
+		// rules). The faction/variant identity is in faction_property.object_id instead.
+		const factionRules = data.faction?.faction_rules ?? [];
 		const factionRuleIds = factionRules.map(r => r.object_id);
+
+		// Detect the base faction ID (e.g. 'fc_hereticlegion') from faction_property.
+		// The object_id may carry a _fv_ variant suffix (e.g. 'fc_hereticlegion_fv_redbrigade')
+		// — strip it to get the base faction key used by FACTION_MODEL_REMAP.
+		const baseFactionId = data.faction?.faction_property?.object_id
+			?.replace(/_fv_.+$/, '');
+		const factionModelRemap = baseFactionId
+			? (WarbandService.FACTION_MODEL_REMAP[baseFactionId] ?? {})
+			: {};
 
 		const models:WarbandModelExport[] = (data.models ?? []).map(entry => {
 			const m = entry.model;
-			const modelId = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+			const afterGlobalRemap = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+			const modelId = factionModelRemap[afterGlobalRemap] ?? afterGlobalRemap;
 			const def = this.gameData.getModel(modelId);
 
 			// Equipment: the actual equipment ID lives in equipment_id.object_id.
@@ -455,13 +477,13 @@ export class WarbandService {
 	}
 
 	// Extract the human-readable variant name from a TC API warband object.
-	// The TC exporter stores the faction/variant identity as a fc_*_fv_* subproperty
-	// in faction_rules. Parse the fv_ suffix and look it up in FACTION_VARIANT_NAMES.
+	// The faction/variant identity is encoded in faction.faction_property.object_id
+	// as 'fc_<faction>_fv_<variant>'. Parse the fv_ suffix and look it up in
+	// FACTION_VARIANT_NAMES.
 	private detectVariantName(data:TcApiWarbandData):string | undefined {
-		const fcRule = (data.faction?.faction_rules ?? [])
-			.find(r => r.object_id.startsWith('fc_'));
-		if (!fcRule) return undefined;
-		const match = fcRule.object_id.match(/_fv_(.+)$/);
+		const objectId = data.faction?.faction_property?.object_id;
+		if (!objectId) return undefined;
+		const match = objectId.match(/_fv_(.+)$/);
 		if (!match) return undefined;
 		return WarbandService.FACTION_VARIANT_NAMES[`fv_${match[1]}`];
 	}

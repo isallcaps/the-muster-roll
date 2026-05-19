@@ -3688,6 +3688,14 @@
     }
   },
   "models": {
+    "md_wretchedheretic": {
+      "id": "md_wretchedheretic",
+      "name": "Wretched",
+      "source": "rulebook",
+      "tags": [
+        { "tag_name": "heretic", "val": "gl_heretic" }
+      ]
+    },
     "md_matagothag": {
       "id": "md_matagothag",
       "type": "Model",

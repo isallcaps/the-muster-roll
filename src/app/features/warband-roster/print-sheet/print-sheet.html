@@ -302,7 +302,7 @@
 		@if (printSettings.settings().showKeywordSheet) {
 
 			<!-- Landscape: one model per page with keyword cheat sheet on right -->
-			@for (model of wb.models; track model.export['model-id']) {
+			@for (model of wb.models; track model.export.name + '|' + model.export['model-id']) {
 				<div class="card-page card-page--landscape">
 
 					<!-- Left panel: model card -->
@@ -321,7 +321,7 @@
 							</h2>
 							@if (keywordsForModel(model).length) {
 								<ul class="kw-sheet__list">
-									@for (kw of keywordsForModel(model); track kw.exportId; let last = $last) {
+									@for (kw of keywordsForModel(model); track kw.exportId + '|' + $index; let last = $last) {
 										<li class="kw-sheet__entry">
 											<p class="kw-sheet__name">{{ kw.exportName }}</p>
 											@if (isUnresolvedFallback(kw.glossaryEntry) || !kw.glossaryEntry.description[0]?.content) {

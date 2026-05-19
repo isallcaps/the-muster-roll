@@ -77,6 +77,10 @@ const MODIFIER_TO_GLOSSARY_ID:Record<string, string> = {
 	'+2 INJURY MODIFIER': 'gl_injurymodifier2',
 	'-1 DICE': 'gl_minusdice1',
 	'+1 DICE': 'gl_plusdice',
+	// Hit-dice modifier strings used by equipment that has no gl_* tags array.
+	'+1D TO HIT': 'gl_plusdice',
+	'-1D TO HIT': 'gl_minusdice1',
+	'-1D TO HIT/INJURIES': 'gl_minusdice1',
 };
 
 // ---------------------------------------------------------------------------
@@ -128,7 +132,7 @@ interface RulebookOverride {
 	equipment:Record<string, Equipment>;
 	abilities:Record<string, Addon>;
 	variantRules:Record<string, VariantRule>;
-	models?:Record<string, Model>;
+	models?:Record<string, Partial<Model>>;
 }
 
 @Injectable({providedIn: 'root'})
@@ -184,42 +188,42 @@ export class GameDataService {
 					try {
 						this.equipmentMap.set(e.id, e);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping equipment entry ${e?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping equipment entry ${e?.id}:`, err);
 					}
 				});
 				models.forEach(m => {
 					try {
 						this.modelMap.set(m.id, m);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping model entry ${m?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping model entry ${m?.id}:`, err);
 					}
 				});
 				addons.forEach(a => {
 					try {
 						this.addonMap.set(a.id, a);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping addon entry ${a?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping addon entry ${a?.id}:`, err);
 					}
 				});
 				skills.forEach(s => {
 					try {
 						this.skillMap.set(s.id, s);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping skill entry ${s?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping skill entry ${s?.id}:`, err);
 					}
 				});
 				glossary.forEach(g => {
 					try {
 						this.glossaryMap.set(g.id, g);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping glossary entry ${g?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping glossary entry ${g?.id}:`, err);
 					}
 				});
 				variants.forEach(v => {
 					try {
 						this.indexVariantRules(v);
 					} catch (err) {
-						console.warn(`[GameDataService] skipping variant ${v?.id}:`, err);
+						if (isDevMode()) console.warn(`[GameDataService] skipping variant ${v?.id}:`, err);
 					}
 				});
 
@@ -247,7 +251,10 @@ export class GameDataService {
 				}
 				let ovModels = 0;
 				for (const [id, entry] of Object.entries(override?.models ?? {})) {
-					this.modelMap.set(id, {...entry, id, source: 'rulebook-override'} as Model);
+					// Merge with the existing base model so partial patches (e.g. tags-only)
+					// don't wipe stats that the override doesn't supply.
+					const base = this.modelMap.get(id) ?? {};
+					this.modelMap.set(id, {...base, ...entry, id, source: 'rulebook-override'} as Model);
 					this.overrideIds.add(id);
 					ovModels++;
 				}
@@ -281,17 +288,17 @@ export class GameDataService {
 				}
 
 				this.loadState = true;
-				console.log(
-					`[GameDataService] loaded — equipment:${this.equipmentMap.size}` +
-					` models:${this.modelMap.size}` +
-					` addons:${this.addonMap.size}` +
-					` glossary:${this.glossaryMap.size}`,
-				);
-				console.log(
-					`[MusterRoll] Rulebook overrides applied: ${ovGlossary} glossary,` +
-					` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules, ${ovModels} models`,
-				);
 				if (isDevMode()) {
+					console.log(
+						`[GameDataService] loaded — equipment:${this.equipmentMap.size}` +
+						` models:${this.modelMap.size}` +
+						` addons:${this.addonMap.size}` +
+						` glossary:${this.glossaryMap.size}`,
+					);
+					console.log(
+						`[MusterRoll] Rulebook overrides applied: ${ovGlossary} glossary,` +
+						` ${ovAbilities} abilities, ${ovEquipment} equipment, ${ovVariantRules} variant rules, ${ovModels} models`,
+					);
 					this.auditEquipmentTags();
 				}
 			}),

@@ -1,4 +1,4 @@
-import {Component, isDevMode} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
@@ -7,6 +7,4 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 	templateUrl: './nav.html',
 	styleUrl: './nav.scss',
 })
-export class NavComponent {
-	readonly devMode = isDevMode();
-}
+export class NavComponent {}
