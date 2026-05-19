@@ -8851,5 +8851,289 @@
         ]
       }
     ]
+  },
+  {
+    "blurb": "",
+    "modifiers": null,
+    "eventtags": {},
+    "category": "melee",
+    "equip_type": "1-handed",
+    "range": "Melee",
+    "id": "eq_atonementbell",
+    "type": "Equipment",
+    "name": "Atonement Bell",
+    "source": "core",
+    "tags": [
+      {
+        "tag_name": "Held",
+        "val": "gl_held"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Channelled Sorrow: An Atonement Bell can only be used to make an off-hand attack, and moves the target model D3\" instead of making an Injury Roll. The move must be in a straight line but can be in any direction, and can be used to make the model Retreat, Climb, Jump across a gap, or Jump Down. An Atonement Bell cannot be used to attack a Retreating model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": null,
+    "eventtags": {},
+    "category": "equipment",
+    "equip_type": null,
+    "range": null,
+    "id": "eq_holysmoke",
+    "type": "Equipment",
+    "name": "Holy Smoke",
+    "source": "core",
+    "tags": [
+      {
+        "tag_name": "Consumable",
+        "val": "gl_consumable"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Chemical Incense: When deployed, you can declare the model will consume it. If so, until the end of the game the model has NEGATE FEAR and -1 INJURY DICE is added to Injury Rolls for attacks that hit it.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": null,
+    "eventtags": {},
+    "category": "ranged",
+    "equip_type": "special",
+    "range": "8\"",
+    "id": "eq_vomitus",
+    "type": "Equipment",
+    "name": "Vomitus",
+    "source": "core",
+    "tags": [
+      {
+        "tag_name": "+1 Injury Modifier",
+        "val": "gl_injurymodifier1"
+      },
+      {
+        "tag_name": "Assault",
+        "val": "gl_assault"
+      },
+      {
+        "tag_name": "Infection Markers",
+        "val": "gl_infectionmarkers"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Torrent of Bile: When Vomitus is used to make a Ranged Attack, do not make a Success Roll. Instead, measure a straight line 1mm wide and up to 8\" long from the attacking model. The line stops if it reaches a terrain piece taller than the attacking model. Make an Injury Roll for every model (friend or foe) touched by the line, apart from the attacking model.",
+        "subcontent": [],
+        "glossary": []
+      },
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Vile Ferment: Before making Injury Rolls, you may remove 2 INFECTION MARKERS from the Gregori Gula. If you do, add +1 INJURY MODIFIER to Injury Rolls for each model hit.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": null,
+    "eventtags": {},
+    "category": "grenade",
+    "equip_type": "grenade",
+    "range": null,
+    "id": "eq_parasitegrenades",
+    "type": "Equipment",
+    "name": "Parasite Grenades",
+    "source": "core",
+    "tags": [
+      {
+        "tag_name": "Grenade",
+        "val": "gl_grenade"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Great Hunger faction grenade. 15 Ducats. Refer to the Great Hunger supplement for full rule text.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": null,
+    "eventtags": {},
+    "category": "melee",
+    "equip_type": "2-handed",
+    "range": "Melee",
+    "id": "eq_sineatertenderizermaul",
+    "type": "Equipment",
+    "name": "Tenderiser Maul",
+    "source": "core",
+    "tags": [
+      {
+        "tag_name": "+1 Injury Modifier",
+        "val": "gl_injurymodifier1"
+      },
+      {
+        "tag_name": "Heavy",
+        "val": "gl_heavy"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Swinging Blow: When a model armed with a Tenderiser Maul takes a Fight ACTION, you can make 1 Melee Attack against each enemy model within 1\" of the attacking model. Resolve each Melee Attack one at a time in the order of your choice.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": [],
+    "eventtags": {},
+    "category": "equipment",
+    "equip_type": null,
+    "range": null,
+    "id": "eq_incendiaryammunition",
+    "name": "Incendiary Ammunition",
+    "source": "core",
+    "type": "Equipment",
+    "tags": [
+      {
+        "tag_name": "Consumable",
+        "val": "gl_consumable"
+      }
+    ],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Developed by Aym, the great duke of Hell, this unholy ammunition burns with supernatural fire. Keywords: AMMUNITION (FIRE), CONSUMABLE. Limit: 1.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": [],
+    "eventtags": {},
+    "category": "melee",
+    "equip_type": "2-Handed",
+    "range": "Melee",
+    "id": "eq_greathammer",
+    "name": "Great Hammer/Maul",
+    "source": "core",
+    "type": "Equipment",
+    "tags": [
+      {
+        "tag_name": "+1 Injury Modifier",
+        "val": "gl_injurymodifier1"
+      },
+      {
+        "tag_name": "Heavy",
+        "val": "gl_heavy"
+      }
+    ],
+    "description": []
+  },
+  {
+    "blurb": "",
+    "modifiers": [],
+    "eventtags": {},
+    "category": "armour",
+    "equip_type": null,
+    "range": null,
+    "id": "eq_foetidpalanquin",
+    "name": "Foetid Palanquin",
+    "type": "Equipment",
+    "source": "core",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Great Hunger only. The Matagot Hag is carried on a rotting palanquin borne by her servants. Refer to the Cult of the Black Grail supplement for full rule text.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "blurb": "",
+    "modifiers": [],
+    "eventtags": {},
+    "category": "ranged",
+    "equip_type": "2-Handed",
+    "range": "24\"",
+    "id": "eq_blackspotrifle",
+    "name": "Black Spot Rifle",
+    "type": "Equipment",
+    "source": "core",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Great Hunger only. Range: 24\". Keywords: DEADLY, RELOAD. A weapon that marks its target — if the target is not taken Out of Action, they gain a Black Spot Marker. Models with a Black Spot Marker that are later taken Out of Action cannot make a Will to Live roll.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
   }
 ]

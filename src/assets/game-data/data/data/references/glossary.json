@@ -2023,5 +2023,139 @@
         "glossary": []
       }
     ]
+  },
+  {
+    "name": "Deployable",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [],
+        "content": "Battlekit that is represented by a model or terrain piece that can be set up during the game.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "name": "-3 Injury Modifier",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [],
+        "content": "Subtract 3 from the final result of the Injury Roll for attacks against a model with this. A lower result means a less severe injury outcome on the Injury Table.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "name": "Negate Mined",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [],
+        "content": "This model is not affected by the MINED Keyword — it does not detonate mines when moving into contact with them.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "name": "Infection Markers",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [],
+        "content": "INFECTION MARKERS work similarly to BLOOD MARKERS but grow over time. A model may have up to six INFECTION MARKERS at once. They can be spent to modify Success Rolls and Injury Rolls, and combined with BLOOD MARKERS. When a model with INFECTION MARKERS is Activated, place 1 more INFECTION MARKER next to the model before it carries out any Actions. Rules that remove BLOOD MARKERS cannot remove INFECTION MARKERS unless specifically stated.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "name": "Negate Difficult Terrain",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "kw_ignoremodifieroff-hand_weapon",
+    "name": "Ignore Off-Hand Weapon",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model ignores the -1 DICE modifier that normally applies when making an attack with an Off-Hand Weapon. The Off-Hand Weapon penalty applies when a model makes a second Melee Attack using Multiple Melee Weapons.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "gl_ignoremodifieroffhand",
+    "name": "Ignore Off-Hand Weapon",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model ignores the -1 DICE modifier that normally applies when making an attack with an Off-Hand Weapon. The Off-Hand Weapon penalty applies when a model makes a second Melee Attack using Multiple Melee Weapons.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "name": "Negate Difficult Terrain",
+    "source": "core",
+    "type": "Glossary",
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model is not affected by the DIFFICULT TERRAIN Keyword — movement across Difficult Terrain does not count as double for this model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
   }
 ]

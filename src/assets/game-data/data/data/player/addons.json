@@ -5463,5 +5463,1323 @@
         "glossary": []
       }
     ]
+  },
+  {
+    "id": "ab_assaultbeast",
+    "name": "Assault Beast",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_hereticlegion",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A War Wolf is armed with two Melee Weapons (Chainsaw Mouth and Shredding Claws). When it makes a Melee Attack it can attack once using either weapon, or twice — first with the Chainsaw Mouth and second with the Shredding Claws (the Off-Hand Weapon modifier applies to the Shredding Claws attack). Both Weapons have the RISKY Keyword so the War Wolf's Activation ends immediately if the Success Roll for either attack is a Failure.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_athleticism",
+    "name": "Athleticism",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {},
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "The Stosstruppen or Hauptmann in a Stosstruppen of the Free State of Prussia Warband can have the Rapid Assault ability at a cost of +5 Ducats each.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_rapidassault",
+    "name": "Rapid Assault",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Add +1 DICE to the Risky Success Roll when a model with this ability takes a Dash ACTION.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_aimaction",
+    "name": "Aim ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Sniper Priest can take an Aim ACTION. If they do so, take a Risky Success Roll for the model and add +2 DICE to the roll. If the roll is a Failure, nothing happens and the Sniper Priest's Activation ends. If the roll is a Success or Critical Success, for the rest of the Activation, add +2 DICE to the Success Rolls for Ranged Attacks made by the Sniper Priest.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_holdyourfire",
+    "name": "Hold Your Fire! ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "The Hauptmann orders their warband to stop shooting, forcing the enemy to move first. Pick 1 enemy model in the Hauptmann's Line of Sight that the opponent is allowed to Activate. The Hauptmann's Activation ends, and the opponent must Activate the chosen model next.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_godwithus",
+    "name": "God is With Us! ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Take a Risky Success Roll. On Failure, nothing happens and the Feldkaplan's Activation ends. On Success or Critical Success, place 1 BLESSING MARKER next to the Feldkaplan or a friendly model within 6\".",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_fortifyaction",
+    "name": "Fortify ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Take a Risky Success Roll. On Success or Critical Success, the Combat Engineer has the COVER Keyword until they move from their current position.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_thedogsofwar",
+    "name": "The Dogs of War",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Trench Dog of the Red Brigade cannot be Promoted. Trench Dogs of the Red Brigade are counted as part of the Warband for the purposes of Morale Checks.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_grenadeharness",
+    "name": "Grenade Harness",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Trench Dogs of the Red Brigade equipped with Frag Grenades or Molotov Cocktails cannot use them to take a Shoot ACTION. However any friendly non-Trench Dog model can use them to take a Shoot ACTION if they were within 1\" of the Trench Dog at any point during their own Activation.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_loyalhound",
+    "name": "Loyal Hound",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Up to 2 Trench Dogs of the Red Brigade and an equal number of non-Trench Dog models can have the FIRETEAM Keyword at a cost of 5 Ducats each. Each Trench Dog forms a FIRETEAM with one of the non-Trench Dog models. These two FIRETEAMS are in addition to the 2 FIRETEAMS allowed in a New Antioch Warband.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_specialtraining",
+    "name": "Special Training",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "You may give each Trench Dog of the Red Brigade one of the following Abilities at a cost of 5 Ducats: Attack Dog (add +1 DICE to Melee Characteristic); Guard Dog — Limit 1 (models cannot use INFILTRATOR to deploy within 16\" of this dog, and it can charge enemy models it cannot see); Mercy Dog — Limit 2 (has and can use a Medi-kit; can drag a friendly Down model within 1\" that is more than 1\" from any enemy models, halving its Movement Characteristic — cannot drag when retreating or charging).",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_teethandclaws",
+    "name": "Teeth and Claws",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Trench Dog of the Red Brigade can make a Melee Attack even though it does not have any Melee Weapons.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_cadreofflesh",
+    "name": "Cadre of Flesh",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "If a friendly Matagot Hag within 3\" of a friendly Ravenous model is hit by a Ranged Attack or Melee Attack, you can say that the Ravenous will take the hit. If you do so, make an Injury Roll for the Ravenous instead of the Matagot Hag. If the Ranged Attack had the BLAST Keyword, make the Injury Roll for the Matagot Hag before any other models hit by the blast.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_frenziedfollowers",
+    "name": "Frenzied Followers",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Add +1 DICE to Risky Success Rolls for friendly models that are taking a Dash ACTION and are within 8\" of the Matagot Hag.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_motherscall",
+    "name": "Mother's Call ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Matagot Hag can take a Mother's Call ACTION. If it does so, you can remove any number of INFECTION MARKERS from any models (friend or foe) within 18\" of the Matagot Hag. For each INFECTION MARKER you remove, you can carry out one of the following Commands with a Ravenous within 8\" of the Matagot Hag. A model cannot be given more than 1 Command each Turn, but carrying out a Command does not stop it from also being Activated in the same Turn. Feast Command: the model carries out a Ravenous Infection ACTION and places an additional INFECTION MARKER next to the target on success. Fight Command: the model makes a Melee Attack with +1 DICE to the Success Roll. Follow Command: the model carries out a Move (cannot Charge or Retreat).",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_pestilent",
+    "name": "Pestilent",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Matagot Hag can make a Melee Attack with the INFECTION MARKERS and CRITICAL Keywords even though she does not have a Melee Weapon. In addition, whenever a Melee Attack made by a Matagot Hag causes any INFECTION MARKERS to be placed on the target, place 1 extra INFECTION MARKER next to the target model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_gluttonoushorde",
+    "name": "Gluttonous Horde",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Ravenous can make a Melee Attack with the CRITICAL Keyword even though it does not have a Melee Weapon. In addition, add +1 DICE to the Success Roll for a Melee Attack made by a Ravenous for each other friendly model within 3\" of the attacking model (not including the attacking model itself).",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_ravenousinfection",
+    "name": "Ravenous Infection ACTION",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Ravenous can take a Ravenous Infection ACTION. If they do so, take a Risky Success Roll for the model. If the roll is a Failure, the model's Activation ends immediately. If the roll is a Success or a Critical Success, you can place 1 INFECTION MARKER next to any other model within 1\" of the model taking the Ravenous Infection ACTION. Then the model's Activation ends immediately.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_dormanthunger",
+    "name": "Dormant Hunger",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Once per Turn, when a Gregori Gula would be taken Out of Action, it instead goes dormant. Remove all INFECTION MARKERS from it and replace the model with a 60mm piece of Impassable terrain. The Marker cannot be attacked or targeted by Abilities that interact with Terrain, and does not count as a model. If a friendly Ravenous model finishes a move within 1\" of this Marker, remove both the Marker and the Ravenous, and set up the Gregori Gula where the Marker was — it is Down but can be Activated this Turn if it has not already. A dormant Gregori Gula counts as Out of Action for Morale and in the Trauma Step if still dormant at end of battle. The Ravenous that revived it is removed from the Warband Roster.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_gnashingandwailing",
+    "name": "Gnashing and Tearing",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Gregori Gula can make a Melee Attack with the +1 INJURY DICE, INFECTION MARKERS and CLEAVE 2 Keywords even though it does not have a Melee Weapon. In addition, if a Gregori Gula made a charge move earlier in the same Activation, replace the CLEAVE 2 Keyword with the CLEAVE 3 Keyword for any Melee Attacks it makes during that Activation.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_plagueriddenflesh",
+    "name": "Plague-Ridden Flesh",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Add -2 INJURY DICE to Injury Rolls for a Gregori Gula unless the attack has the FIRE Keyword.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_unholygut",
+    "name": "Unholy Gut",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Gregori Gula can have the Vomitus Ranged Weapon at a cost of 40 Ducats. This weapon cannot be lost or removed during the campaign for any reason.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_devouringjaws",
+    "name": "Devouring Jaws",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A model with Devouring Jaws can take a Devour ACTION. If it does so, it can make a Melee Attack against an enemy model within 1\". A Devour Melee Attack does not use a Melee Weapon and has the CRITICAL Keyword. If the Devour Melee Attack does not take the targeted model Out of Action, place 1 BLOOD MARKER next to the model taking the Devour ACTION.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_graspingmaw",
+    "name": "Grasping Maw",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "action": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A model with Grasping Maw can take a Grasp ACTION. Take a Risky Success Roll. On Failure the model's Activation ends immediately. On Success or Critical Success, pick 1 enemy model within 12\" and in Line of Sight. You can move the model 3\" in a straight line directly towards the model taking the Grasp ACTION. The move can be used to make the model Jump Down, move within 1\" of an enemy or retreat. The model stops if it moves into contact with another model, Difficult, Dangerous or Impassable Terrain, or terrain it cannot cross without Climbing or Jumping.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_hellflyhoststr",
+    "name": "Hellfly Host",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Ravenous only. A model with the Hellfly Host Strain replaces their Movement Characteristic with 6\"/Flying and gains the FLYING Keyword. In addition, a model with the Hellfly Host Strain loses the Undead Fortitude ability.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_lockjawbite",
+    "name": "Lockjaw Bite",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "When an enemy model takes a Retreat ACTION within 1\" of a model with the Lockjaw Bite Strain, place 1 INFECTION MARKER next to the model taking the retreat, before any melee attacks are made against the retreating model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_papillalhide",
+    "name": "Papillal Hide",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Ravenous and Hounds of the Black Grail only. A model with the Papillal Hide Strain does not need to have Line of Sight to a target when it takes a Charge ACTION. Other charge restrictions still apply.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_rottencutters",
+    "name": "Rotten Cutters",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Matagot Hag and Ravenous only. A model with the Rotten Cutters Strain adds the CLEAVE 2 Keyword to Melee Attacks it makes.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_morewormthanman",
+    "name": "More Worm Than Man",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Your opponent cannot spend a Desiccated Husk's INFECTION MARKERS, unless they are converting an Injury Roll into a Bloodbath Roll.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_unendingstarvation",
+    "name": "Unending Starvation",
+    "type": "Addon",
+    "source": "core",
+    "tags": [],
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Matagot Hag, Great Maw, Desiccated Husks and Ravenous only. A model with the Unending Starvation Strain adds +1\" to their Movement Characteristic.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_slow",
+    "name": "Slow",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_mercenary",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Treat a Scripture Guardian as having a Movement Characteristic of 3\"/Infantry when it takes a Dash ACTION.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_vengefulscripture",
+    "name": "Vengeful Scripture ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_mercenary",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Scripture Guardian can take a Vengeful Scripture ACTION. Pick 1 enemy model within 18\" and in Line of Sight. Take a Success Roll with +2 DICE if the enemy is within 9\" or +1 DICE otherwise. On Failure, nothing happens. On Success, make an Injury Roll for the enemy model with +1 INJURY MODIFIER for each BLOOD MARKER it has. On Critical Success, make an Injury Roll with IGNORE ARMOUR, +1 INJURY DICE, and +1 INJURY MODIFIER for each BLOOD MARKER the enemy model has.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_devourtheguilty",
+    "name": "Devour the Guilty ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_mercenary",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Sin Eater can take a Devour the Guilty ACTION. Pick 1 model (friend or foe) within 1\" mounted on a base 40mm or smaller. Against an enemy take a Risky Success Roll; against a friendly take a Success Roll with +1 DICE. On Failure, Activation ends if Risky or nothing happens if normal. On Success or Critical Success the model is devoured: place it aside — it cannot act except to Fight the Sin Eater with -3 DICE when Activated. Each time the Sin Eater Activates, place 1 BLOOD MARKER on the devoured model. At 6 BLOOD MARKERS it is taken Out of Action. If the Sin Eater is taken Out of Action, deploy the devoured model within 1\" placed Down, or take it Out of Action if impossible. The Sin Eater can take a Purge ACTION (Success Roll +4 DICE) to release the devoured model.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_trenchmoles",
+    "name": "Trench Moles",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Up to 2 Yeomen can be upgraded to Trench Moles with the INFILTRATOR Keyword at a cost of +10 Ducats each. You can include a 3rd Trench Mole if the total cost of all other models in the Warband adds up to 1,000 Ducats or more.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_setmine",
+    "name": "Set Mine ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Combat Engineer can take a Set Mine ACTION if they are in contact with a terrain piece that measures up to 8\" by 8\" that doesn't have the MINED Keyword. Take a Success Roll with +2 DICE. On Failure nothing happens. On Success or Critical Success the terrain piece gains the MINED Keyword.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_defusemine",
+    "name": "Defuse Mine",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_newantioch",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "When you move a Combat Engineer into contact with a Marker or terrain piece with the MINED Keyword, you can say the Combat Engineer will try to defuse the mine. Take a Risky Success Roll. On Failure the mine detonates. On Success or Critical Success the mine does not detonate and the MINED Keyword is removed. A model that set a mine defuses it automatically.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_layingonofhands",
+    "name": "Laying on of Hands ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A War Prophet can take a Laying on of Hands ACTION. Take a Success Roll. On Failure nothing happens. On Success remove 1 BLOOD MARKER from a friendly model within 6\". On Critical Success remove 3 BLOOD MARKERS instead. The War Prophet can use this ACTION on themselves.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_bodyguard",
+    "name": "Bodyguard",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "If a friendly PILGRIM model within 1\" of a Communicant is hit by a Ranged Attack or Melee Attack, you can say that the Communicant will take the hit. Make an Injury Roll for the Communicant instead of the original target. This ability cannot be used against attacks with the BLAST Keyword.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_resurrection",
+    "name": "Resurrection",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "If a Trench Pilgrim is killed after a game, they can be resurrected in the following Quartermaster Step as a Martyr Penitent with the Martyr Penitent Profile for a cost of 45 Ducats. Add -1 INJURY DICE to Injury Rolls for a Martyr Penitent. A Martyr Penitent keeps their Battlekit and Zealot Strength if purchased, but loses any Scars, Experience, and Advancements.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_feeblyflailing",
+    "name": "Feeble Flailing",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "An Ecclesiastic Prisoner can make a Melee Attack even though it doesn't have a melee weapon. If it does so, add -1 DICE to the Success Roll for the attack.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_symphonyofslaughter",
+    "name": "Symphony of Slaughter",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "An Anchorite Shrine is armed with two 1-Handed Melee Weapons (the Catherine Wheel and Bonebreaker Mace). When it makes a Melee Attack it can attack once using either weapon, or twice — first with the Catherine Wheel and second with the Bonebreaker Mace (the Off-Hand Weapon modifier applies to the Bonebreaker Mace attack).",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_janissaryveteran",
+    "name": "Janissary Veteran",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "You can make the Yüzbaşı a Janissary Veteran with the STRONG Keyword and the Counter-Charge ability at a cost of +10 Ducats.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_elementalchange",
+    "name": "Elemental Change ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Jabirean Alchemist can take an Elemental Change ACTION. Take a Risky Success Roll. On Failure nothing happens and the Activation ends. On Success or Critical Success you can change the Mastery of the Elements Keyword on all of the Alchemist's Weapons to one of the other two choices.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_lightskirmishers",
+    "name": "Light Skirmishers",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Any number of Azebs can have the SKIRMISHER Keyword at a cost of +5 Ducats each.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_pin",
+    "name": "Pin",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Enemy models that are Down and mounted on a base of 40mm or less are not allowed to stand up if a Lion of Jabir is within 1\" of them, even if the Lion of Jabir is also Down.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_trampleaction",
+    "name": "Trample ACTION",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "action": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model can take a Trample ACTION. If it does so, it can make a Melee Attack that must target an enemy model that is Down. A Trample Melee Attack does not use a Melee Weapon and has the IGNORE ARMOUR Keyword.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_pummellingblows",
+    "name": "Pummelling Blows",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_ironsultanate",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Takwin Homunculus can make a Melee Attack even though it does not have any Melee Weapons.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_crushingblows",
+    "name": "Crushing Blows",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Lord of Tumours can make a Crushing Blows Melee Attack even if it does not have any Melee Weapons, or instead of using any Melee Weapons it has. If it does so this Melee Attack has the CLEAVE 2 Keyword.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_plagueknightranks",
+    "name": "Plague Knight Ranks",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Plague Knights can be given one of the following Ranks — refer to the Cult of the Black Grail special rules in the Warbands of Trench Crusade supplement for the full list of available Ranks and their effects.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_infestedcarcasses",
+    "name": "Infested Carcasses",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Hounds of the Black Grail models can add the INFECTION MARKERS Keyword to their melee attacks at a cost of +5 Ducats each.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_maddeningbuzzing",
+    "name": "Maddening Buzzing",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "Up to 1 Herald of Beelzebub can have the Maddening Buzzing ability at a cost of +10 Ducats. Success Rolls taken for enemy models within 8\" of a model with this ability become Risky Success Rolls (there is no additional effect if they are already Risky Success Rolls).",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_sixarmedmonstrosity",
+    "name": "Six-armed Monstrosity",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_blackgrail",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "An Amalgam can take 1 Shoot ACTION per Activation with each Ranged Weapon it is equipped with, and can take 1 Fight ACTION per Activation with each Melee Weapon it is equipped with. The Off-Hand Weapon modifier does not apply to any of its Melee Attacks.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_annihilator",
+    "name": "Annihilator",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_courtofthesevenserpent",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Desecrated Saint can take 1 Fight ACTION per Activation with each Melee Weapon it is equipped with.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_poisonstingers",
+    "name": "Poison Stingers",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_courtofthesevenserpent",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "A Pit Locust can make a Melee Attack with the CLEAVE 2 and SHRAPNEL Keywords even though it does not have a Melee Weapon.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
+  },
+  {
+    "id": "ab_zealotstrength",
+    "name": "Zealot Strength",
+    "type": "Addon",
+    "source": "core",
+    "faction_id": "fc_trenchpilgrim",
+    "eventtags": {
+      "trait": true
+    },
+    "tags": [],
+    "description": [
+      {
+        "tags": [
+          {
+            "tag_name": "desc_type",
+            "val": "desc"
+          }
+        ],
+        "content": "This model has the STRONG Keyword. For Trench Pilgrims and Martyr Penitents, change the base size to 32mm. Up to 1 Trench Pilgrim or Martyr Penitent per Warband can have Zealot Strength at a cost of +5 Ducats. Castigators can also purchase Zealot Strength at a cost of +5 Ducats.",
+        "subcontent": [],
+        "glossary": []
+      }
+    ]
   }
 ]
