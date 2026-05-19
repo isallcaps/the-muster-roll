@@ -1,4 +1,4 @@
-import {Injectable, inject, signal} from '@angular/core';
+import {Injectable, inject, isDevMode, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, map} from 'rxjs';
 import {GameDataService} from './game-data.service';
@@ -93,6 +93,8 @@ export class WarbandService {
 	readonly parseError = signal<string | null>(null);
 	readonly detectedFormat = signal<WarbandFormat | null>(null);
 
+	private _remapLog: string[] = [];
+
 	private static readonly TC_API =
 		'https://synod.trench-companion.com/wp-json/synod/v1/warband';
 
@@ -143,8 +145,14 @@ export class WarbandService {
 	// Maps TC-exporter ability IDs that differ from canonical data IDs.
 	// Applied before the general resolve() call in resolveAbility().
 	private static readonly ABILITY_ID_REMAP:Record<string, string> = {
-		'ab_layingonhands':  'ab_layingonofhands',   // TC exporter drops 'of'
-		'ab_feebleflailing': 'ab_feeblyflailing',    // TC exporter missing 'ly'
+		'ab_layingonhands':              'ab_layingonofhands',          // TC exporter drops 'of'
+		'ab_feebleflailing':             'ab_feeblyflailing',           // TC exporter missing 'ly'
+		// Court of the Seven-headed Serpent — TC exporter uses 'goetics_' prefix, submodule drops it
+		'ab_goetics_praetor':            'ab_goeticpraetor',
+		'ab_goetics_sorcerer':           'ab_goeticsorcerer',
+		'ab_goetics_knight':             'ab_goetichellknight',
+		// Blessing of the Serpent Moon — TC exporter has typo 'blessings' (plural)
+		'ab_blessingsoftheserpentmoon':  'ab_blessingoftheserpentmoon',
 	};
 
 	// Maps the fv_ suffix of a TC faction property ID to the human-readable
@@ -222,6 +230,7 @@ export class WarbandService {
 
 	load(rawJson:string, _source?:WarbandFormat):void {
 		this.parseError.set(null);
+		this._remapLog = [];
 
 		let parsed:unknown;
 		try {
@@ -328,6 +337,38 @@ export class WarbandService {
 			allWarbandKeywords,
 			variantName: tcData ? this.detectVariantName(tcData) : undefined,
 		});
+
+		if (isDevMode()) {
+			const fmt = this.detectedFormat();
+			const unresolved = new Set<string>();
+			for (const em of enrichedModels) {
+				if (!em.definition) {
+					unresolved.add(`model:${em.export['model-id']}`);
+				}
+				for (const eq of em.equipment) {
+					if (isUnresolvedFallback(eq.item)) unresolved.add(`eq:${eq.ref['equipment-id']}`);
+				}
+				for (const ab of em.abilities) {
+					const target = ab.source === 'variant-rule' ? ab.variantRule : ab.addon;
+					if (target && isUnresolvedFallback(target)) unresolved.add(`ab:${ab.ref['ability-id']}`);
+				}
+			}
+			const remaps = this._remapLog;
+			console.groupCollapsed(
+				`[WarbandService] format=${fmt ?? '?'}  remaps=${remaps.length}  unresolved=${unresolved.size}`,
+			);
+			if (remaps.length > 0) {
+				console.group('Remaps applied');
+				remaps.forEach(l => console.log(l));
+				console.groupEnd();
+			}
+			if (unresolved.size > 0) {
+				console.group('Unresolved after remapping');
+				unresolved.forEach(u => console.warn(u));
+				console.groupEnd();
+			}
+			console.groupEnd();
+		}
 	}
 
 	clear():void {
@@ -359,7 +400,13 @@ export class WarbandService {
 		const models:WarbandModelExport[] = (data.models ?? []).map(entry => {
 			const m = entry.model;
 			const afterGlobalRemap = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+			if (afterGlobalRemap !== m.model) {
+				this._remapLog.push(`model: ${m.model} → ${afterGlobalRemap}`);
+			}
 			const modelId = factionModelRemap[afterGlobalRemap] ?? afterGlobalRemap;
+			if (modelId !== afterGlobalRemap) {
+				this._remapLog.push(`model (${baseFactionId}): ${afterGlobalRemap} → ${modelId}`);
+			}
 			const def = this.gameData.getModel(modelId);
 
 			// Equipment: the actual equipment ID lives in equipment_id.object_id.
@@ -587,6 +634,9 @@ export class WarbandService {
 	private resolveEquipment(ref:WarbandEquipmentRef):EnrichedEquipment {
 		const rawId = ref['equipment-id'];
 		const resolvedId = WarbandService.EQUIPMENT_ID_REMAP[rawId] ?? rawId;
+		if (resolvedId !== rawId) {
+			this._remapLog.push(`equipment: ${rawId} → ${resolvedId}`);
+		}
 		const entry = this.gameData.resolve(resolvedId, ref['equipment-name']);
 
 		if (entry.type === 'Equipment') {
@@ -730,6 +780,9 @@ export class WarbandService {
 
 		// ── Ability ID aliases: TC exporter IDs that differ from canonical IDs ──
 		const remappedAbId = WarbandService.ABILITY_ID_REMAP[id];
+		if (remappedAbId) {
+			this._remapLog.push(`ability: ${id} → ${remappedAbId}`);
+		}
 		const resolvedId = remappedAbId ?? id;
 
 		const entry = this.gameData.resolve(resolvedId, ref['ability-name']);

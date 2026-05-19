@@ -30,7 +30,7 @@ These are fixed for app users. Candidates for upstreaming to the fork once valid
 | `kw_ignoremodifieroff-hand_weapon` | Ignore Off-Hand Weapon | Export uses `kw_` prefix with hyphen in ID |
 | `gl_ignoremodifieroffhand` | Ignore Off-Hand Weapon | Canonical `gl_` form; also mapped in `MODIFIER_TO_GLOSSARY_ID` |
 
-### Equipment (7 entries)
+### Equipment (18 entries)
 
 | ID | Name | Faction / Variant | Notes |
 |----|------|-------------------|-------|
@@ -41,10 +41,27 @@ These are fixed for app users. Candidates for upstreaming to the fork once valid
 | `eq_vomitus` | Vomitus | Great Hunger | Ranged special; Assault + Infection Markers |
 | `eq_putridshotgun` | Putrid Shotgun | Great Hunger | Ranged 2-handed; Bayonet Lug + Shield Combo + Shotgun |
 | `eq_graildevotee` | Grail Devotee | Great Hunger | Equipment; stacking +1 Injury Modifier for melee |
+| `eq_parasitegrenades` | Parasite Grenades | Great Hunger | Grenade; stub entry pending full rule text |
+| `eq_foetidpalanquin` | Foetid Palanquin | Great Hunger | Matagot Hag equipment; stub entry |
+| `eq_blackspotrifle` | Black Spot Rifle | Great Hunger | 2-Handed ranged 24"; Deadly + Reload |
+| `eq_incendiaryammunition` | Incendiary Ammunition | Heretic Legion | Consumable; Fire keyword ammunition |
+| `eq_greathammer` | Great Hammer/Maul | General | Remap target for `eq_doublehandedbluntweapon`; 2-Handed melee |
+| `eq_sineatertenderizermaul` | Tenderiser Maul | Trench Pilgrims (Sin Eater) | 2-Handed melee; +1 Injury Modifier + Heavy; Swinging Blow mechanic |
+| `eq_gasfilter` | Gas Filter | Trench Pilgrims (Anchorite) | Anchorite Shrine upgrade; incense purification |
+| `eq_hallowedanchorite` | Hallowed Anchorite | Saint Methodius | Anchorite Shrine upgrade; Limit 1 |
+| `eq_sacredgeometry` | Sacred Geometry | Saint Methodius | Anchorite Shrine upgrade; Limit 1 |
+| `eq_puntgun` | Punt Gun | Saint Methodius | Anchorite Ranged Weapon; counts as 1-Handed on Anchorite |
+| `eq_antimaterialrifle` | Anti-Materiel Rifle | Saint Methodius | Anchorite Ranged Weapon; counts as 1-Handed on Anchorite |
 
-### Abilities (43 entries)
+### Abilities (96 entries)
 
 **Pre-existing (3):** `ab_assaultbeast`, `ab_lopingdash`, `ab_infernalbomb`
+
+**Heretic Legion — base (1):**
+`ab_unholyhymns`
+
+**New Antioch — base (4):**
+`ab_trenchmoles`, `ab_assaultdrill`, `ab_setmine`, `ab_defusemine`
 
 **New Antioch — Prussian Stosstruppen (13):**
 `ab_shockcharge`, `ab_forwardpositions`, `ab_athleticism`, `ab_rapidassault`,
@@ -52,31 +69,67 @@ These are fixed for app users. Candidates for upstreaming to the fork once valid
 `ab_onwardchristiansoldiers`, `ab_expertmedic`, `ab_finishthefallen`,
 `ab_battlefielddemolition`, `ab_fortifyaction`
 
-**New Antioch — War Dog handler abilities (7):**
+**New Antioch — War Dog handlers (7):**
 `ab_thedogsofwar`, `ab_fourpaws`, `ab_grenadeharness`, `ab_loyalhound`,
 `ab_specialtraining`, `ab_teethandclaws`, `ab_strengththroughpain`
+
+**Trench Pilgrims (15):**
+`ab_loudspeakers`, `ab_layingonofhands`, `ab_mementomori`, `ab_bodyguard`,
+`ab_enforcedorthodoxy`, `ab_whipofgod`, `ab_resurrection`, `ab_agile`,
+`ab_blessedstigmata`, `ab_awaited`, `ab_feeblyflailing`, `ab_maddash`,
+`ab_brokenonthewheel`, `ab_symphonyofslaughter`, `ab_zealotstrength`
+
+**Iron Sultanate (13):**
+`ab_janissaryveteran`, `ab_countercharge`, `ab_mubarizun`, `ab_masteryoftheelements`,
+`ab_elementalchange`, `ab_temporalassassin`, `ab_timeslip`, `ab_lightskirmishers`,
+`ab_artificiallife`, `ab_pin`, `ab_trampleaction`, `ab_pummellingblows`, `ab_recreation`
 
 **Black Grail — Great Hunger (20):**
 `ab_cadreofflesh`, `ab_frenziedfollowers`, `ab_motherscall`, `ab_pestilent`,
 `ab_undeadfortitude`, `ab_gluttonoushorde`, `ab_ravenousinfection`, `ab_dormanthunger`,
-`ab_gnashingandtearing`, `ab_plagueriddenflesh`, `ab_unholygut`, `ab_devouringjaws`,
+`ab_gnashingandwailing`, `ab_plagueriddenflesh`, `ab_unholygut`, `ab_devouringjaws`,
 `ab_graspingmaw`, `ab_hellflyhoststr`, `ab_lockjawbite`, `ab_papillalhide`,
 `ab_rottencutters`, `ab_unendingstarvation`, `ab_morewormthanman`, `ab_parasitictick`
 
-Note: `ab_parasitictick` ("Parasite Host") now has confirmed rule text as of 2026-05-16.
+**Black Grail — base faction (13):**
+`ab_beelzebubstouch`, `ab_crushingblows`, `ab_plagueknightranks`, `ab_overwhelminghorde`,
+`ab_diseasecarrier`, `ab_frighteningspeed`, `ab_infestedcarcasses`, `ab_infectedproboscis`,
+`ab_maddeningbuzzing`, `ab_sixarmedmonstrosity`, `ab_corpulent`, `ab_unstoppable`,
+`ab_gnashingandwailing`
 
-### Variant Rules (15 entries)
+**Court of the Seven-Headed Serpent (5):**
+`ab_annihilator`, `ab_demonicaura`, `ab_poisonstingers`, `ab_hateful`, `ab_torturer`
+
+**Mercenary (3):**
+`ab_devourtheguilty`, `ab_slow`, `ab_vengefulscripture`
+
+Notes:
+- `ab_parasitictick` ("Parasite Host") has confirmed rule text as of 2026-05-16.
+- `ab_gnashingandwailing` is the canonical ID. The deprecated duplicate `ab_gnashingandtearing`
+  was removed during pre-sync cleanup.
+- `ab_devourtheguilty`, `ab_slow`, `ab_vengefulscripture` are Sin Eater / Scripture Guardian
+  mercenary abilities tagged `fc_mercenary`.
+
+### Variant Rules (31 entries)
 
 | Variant | Count | Rule IDs |
 |---------|-------|----------|
 | Prussian Stosstruppen (`fv_prussianapplied`) | 2 | `rl_expertfireteams`, `rl_mastersofthegrenade` |
 | Red Brigade (`fv_redbrigade`) | 6 | `rl_displeasureofthechurch`, `rl_furyofsaintErnest`, `rl_gloryhounds`, `rl_noretreat`, `rl_rememberthefallen`, `rl_wearandtear` |
-| Great Hunger (`fv_greathunger`) | 7 | `rl_eternalappetence`, `rl_butcherknights`, `rl_cradleoffilth`, `rl_desiccatedhusks`, `rl_excruciatinghunger`, `rl_thegreatmaw`, `rl_spawnofgluttony` |
+| Great Hunger (`fv_greathunger`) | 12 | `rl_eternalappetence`, `rl_butcherknights`, `rl_cradleoffilth`, `rl_desiccatedhusks`, `rl_excruciatinghunger`, `rl_thegreatmaw`, `rl_spawnofgluttony`, `rl_strainofthegreathunger`, `rl_ravenousinfection`, `rl_infectionmarkers`, `rl_grailmorale`, `rl_greathunger_equipmentrestrictions` |
+| Saint Methodius (`fv_warpilgrimageofsaintmethodius`) | 8 | `rl_followersofsaintmethodius`, `rl_treasureinheaven`, `rl_mortalsin`, `rl_gunsmithmonks`, `rl_communicantheresy`, `rl_chasteorder`, `rl_anchoritecloister`, `rl_anchoritearmoury` |
+| Court of the Seven-Headed Serpent (`fv_courtofthesevenserpent`) | 3 | `rl_noblesofthecourt`, `rl_goeticabilities`, `rl_goeticspells` |
 
-### Models (5 entries)
+Note: `rl_greathunger_equipmentrestrictions` covers equipment restrictions distinct from the
+hunger mechanic in `rl_excruciatinghunger` — the `name` and `title` fields have been set to
+"Equipment Restrictions" to distinguish them.
 
-All five are Great Hunger (`fv_greathunger`) models absent from the submodule.
-Stats are sourced from the supplement PDF; abilities are handled via the export's own ability list.
+### Models (11 entries)
+
+Stats are sourced from the supplement PDFs; abilities are handled via the export's own ability list.
+Entries marked **patch** have no stats — they exist only to supply keyword tags missing from the submodule profile.
+
+**Great Hunger (`fv_greathunger`) — 6 full profiles:**
 
 | ID | Name | MOV | MEL | ARM | Base |
 |----|------|-----|-----|-----|------|
@@ -85,6 +138,27 @@ Stats are sourced from the supplement PDF; abilities are handled via the export'
 | `md_gregorigula` | Gregori Gula | 6" | 2 | 0 | 60mm |
 | `md_corpseguard_husk` | Desiccated Husk | 6" | 1 | 0 | 32mm |
 | `md_plagueknight_butcherknight` | Butcher Knight | 6" | 2 | 0 | 32mm |
+| `md_cradleravenous` | Cradle Ravenous | 6" | 0 | 0 | 25mm |
+
+**Saint Methodius (`fv_warpilgrimageofsaintmethodius`) — 3 full profiles:**
+
+| ID | Name | MOV | MEL | ARM | Base |
+|----|------|-----|-----|-----|------|
+| `md_scriptureguardian` | Scripture Guardian | 6" | — | 2 | 40mm |
+| `md_stigmaticnun_saintmethodius` | Stigmatic Nun | 8" | 1 | 0 | 25mm |
+| `md_anchoriteshrine_saintmethodius` | Anchorite Shrine | 6" | 2 | −3 | 60mm |
+
+**Trench Pilgrims mercenary — 1 full profile:**
+
+| ID | Name | MOV | MEL | ARM | Base |
+|----|------|-----|-----|-----|------|
+| `md_sineater` | Sin Eater | 6" | — | 2 | 50mm |
+
+**Heretic Legion — 1 keyword patch:**
+
+| ID | Name | Notes |
+|----|------|-------|
+| `md_wretchedheretic` | Wretched | Patch-only — no stats; adds `gl_heretic` tag missing from submodule profile. Loaded via merge so base stats from the submodule are preserved. |
 
 ---
 
@@ -149,36 +223,70 @@ remain — all are raw dice expressions with no keyword equivalent (`+1D to Hit`
 IDs in the Trench Companion export that do not match the game data. Handled in
 `WarbandService` and `GameDataService` — no data file changes needed.
 
-### Equipment ID Remap (`WarbandService.EQUIPMENT_ID_REMAP`)
-
-| Export ID | Resolved ID | Reason |
-|-----------|-------------|--------|
-| `eq_silenecedpistol` | `eq_silencedpistol` | Typo in TC exporter |
-| `eq_artillerywitchinfernalbomb` | `ab_infernalbomb` | Export uses fabricated `eq_` prefix; real entry is an Addon |
-| `eq_sacrificialknife` | `eq_sacrificialblade` | Data file renamed; exporter not updated |
-| `eq_greatswordaxe` | `eq_greataxe` | Data file renamed; exporter not updated |
-| `eq_knifedagger` | `eq_trenchknife` | Data file renamed; exporter not updated |
-| `eq_foetidpalaquin` | `eq_foetidpalanquin` | Typo in TC exporter — `eq_foetidpalanquin` target is still missing (see Section 4) |
-
 ### Model ID Remap (`WarbandService.MODEL_ID_REMAP`)
 
-| Export ID | Resolved ID | Reason |
-|-----------|-------------|--------|
+| Export ID | Canonical ID | Reason |
+|-----------|--------------|--------|
 | `md_annointedheavyinfantry` | `md_anointedheavyinfantry` | Typo in TC exporter (double 'n') |
 | `md_deathcommando` | `md_hereticdeathcommando` | TC exporter omits 'heretic' prefix |
 | `md_hauptmann` | `md_lieutenant` | Prussian Stosstruppen alias — confirmed by designer |
 | `md_feldkaplan` | `md_trenchcleric` | Prussian Stosstruppen alias — confirmed by designer |
 | `md_stosstruppen` | `md_shocktroopersstostruppenofthefreestateofprussia` | Prussian Stosstruppen alias |
 | `md_trenchdogredbrigade` | `md_trenchdog` | Red Brigade uses faction-specific ID; submodule uses generic |
+| `md_gergorigula` | `md_gregorigula` | Typo in TC exporter (missing 'o') |
+| `md_grailthrall_hunger` | `md_ravenous` | Great Hunger variant — TC uses generic thrall ID |
+| `md_grailthrall_cradle_hunger` | `md_cradleravenous` | Great Hunger variant — TC uses generic cradle ID |
+
+### Faction Model Remap (`WarbandService.FACTION_MODEL_REMAP`)
+
+Applied on top of `MODEL_ID_REMAP` when the base faction is known. Handles cases where the
+same TC export ID maps to different submodule IDs depending on which faction owns the model.
+
+| Faction | Export ID | Canonical ID | Reason |
+|---------|-----------|--------------|--------|
+| `fc_hereticlegion` | `md_wretched` | `md_wretchedheretic` | TC sends Court ID for Heretic Wretched; submodule has a separate profile |
+
+### Equipment ID Remap (`WarbandService.EQUIPMENT_ID_REMAP`)
+
+| Export ID | Canonical ID | Reason |
+|-----------|--------------|--------|
+| `eq_silenecedpistol` | `eq_silencedpistol` | Typo in TC exporter |
+| `eq_foetidpalaquin` | `eq_foetidpalanquin` | Typo in TC exporter — target still missing (see Section 4) |
+| `eq_artillerywitchinfernalbomb` | `ab_infernalbomb` | TC uses fabricated `eq_` prefix; real entry is an Addon |
+| `eq_sacrificialknife` | `eq_sacrificialblade` | Data file renamed; exporter not updated |
+| `eq_greatswordaxe` | `eq_greataxe` | Data file renamed; exporter not updated |
+| `eq_knifedagger` | `eq_trenchknife` | Data file renamed; exporter not updated |
+| `eq_pistolrevolver` | `eq_pistol` | Data file renamed; exporter not updated |
+| `eq_doublehandedbluntweapon` | `eq_greathammer` | Data file renamed; exporter not updated |
+| `eq_ironcapriote` | `eq_ironcapirote` | Typo in TC exporter (`capriote` vs `capirote`) |
+| `eq_bonebreakermace` | `ab_bonebreakermace` | Mandatory model weapon — TC sends `eq_`; submodule stores as Addon |
+| `eq_catherinewheel` | `ab_catherinewheel` | Mandatory model weapon — TC sends `eq_`; submodule stores as Addon |
+| `eq_warwolfchainmaw` | `ab_chainmaw` | Mandatory model weapon — TC sends `eq_`; submodule stores as Addon |
+| `eq_warwolfshreddingclaws` | `ab_shreddingclaws` | Mandatory model weapon — TC sends `eq_`; submodule stores as Addon |
+
+### Ability ID Remap (`WarbandService.ABILITY_ID_REMAP`)
+
+| Export ID | Canonical ID | Reason |
+|-----------|--------------|--------|
+| `ab_layingonhands` | `ab_layingonofhands` | TC exporter drops 'of' |
+| `ab_feebleflailing` | `ab_feeblyflailing` | TC exporter missing 'ly' |
+| `ab_goetics_praetor` | `ab_goeticpraetor` | TC uses `goetics_` prefix; submodule drops it |
+| `ab_goetics_sorcerer` | `ab_goeticsorcerer` | TC uses `goetics_` prefix; submodule drops it |
+| `ab_goetics_knight` | `ab_goetichellknight` | TC uses `goetics_` prefix and omits 'hell'; submodule uses full name |
+| `ab_blessingsoftheserpentmoon` | `ab_blessingoftheserpentmoon` | TC exporter has plural 'blessings'; canonical is singular |
 
 ### Upgrade ID Handling (`WarbandService.resolveAbility`)
 
 Special pipeline — these IDs are not `ab_*` or `rl_*` but appear in the abilities list.
 
-| Pattern | Resolution | Rendered as |
-|---------|------------|-------------|
-| `up_strain_*` | Strip prefix → look up `ab_{name}` in addon map | Ability with `[strain]` badge |
-| `up_plagueknightrankbutcherking` | → `rl_butcherknights` (explicit remap) | Faction rule with `[rank]` badge |
+| Pattern / Export ID | Canonical ID | Rendered as |
+|---------------------|--------------|-------------|
+| `up_strain_*` | `ab_{name}` (strip prefix) | Ability with `[strain]` badge |
+| `up_unendingstarvation` | `ab_unendingstarvation` | Ability with `[strain]` badge |
+| `up_zealotstrength` | `ab_zealotstrength` | Ability with `[strain]` badge |
+| `up_plagueknightrankbutcherking` | `rl_butcherknights` | Faction rule with `[rank]` badge |
+| `up_plagueknightrankofthefeast` | `rl_butcherknights` | Faction rule with `[rank]` badge |
+| `up_plagueknightrankofferocity` | `rl_butcherknights` | Faction rule with `[rank]` badge |
 
 ---
 
@@ -186,22 +294,19 @@ Special pipeline — these IDs are not `ab_*` or `rl_*` but appear in the abilit
 
 Known gaps not yet resolved in either the override or the submodule.
 
-### Equipment — no definition anywhere
+### Equipment — stub entries (present but incomplete)
 
-These IDs appear in Great Hunger warband exports and render with name only (no stats, no
-keywords, no description). The remap entry for `eq_foetidpalaquin` is in place; the target
-itself is missing.
+These IDs now have entries in `rulebook-override.json` so they resolve without hitting the
+unresolved fallback, but their entries are stubs — no full stats, keywords, or rule text.
 
 | ID | Display Name | Notes |
 |----|--------------|-------|
-| `eq_foetidpalanquin` | Foetid Palanquin | Great Hunger equipment; needs full entry in override |
-| `eq_blackspotrifle` | Black Spot Rifle | Great Hunger ranged weapon; needs full entry in override |
-
-### Plague Knight rank upgrades — partial coverage
-
-The `PLAGUE_KNIGHT_RANK_REMAP` table currently only covers `up_plagueknightrankbutcherking`.
-Other rank upgrade IDs (e.g. additional Butcher Knight sub-ranks) will fall through to
-unresolved if encountered in a real export.
+| `eq_foetidpalanquin` | Foetid Palanquin | Great Hunger; stub entry only — full rule text not yet extracted |
+| `eq_parasitegrenades` | Parasite Grenades | Great Hunger; stub entry — rule text deferred |
+| `eq_hallowedanchorite` | Hallowed Anchorite | Saint Methodius; stub entry pointing to supplement PDF |
+| `eq_sacredgeometry` | Sacred Geometry | Saint Methodius; stub entry pointing to supplement PDF |
+| `eq_puntgun` | Punt Gun | Saint Methodius; stub entry pointing to supplement PDF |
+| `eq_antimaterialrifle` | Anti-Materiel Rifle | Saint Methodius; stub entry pointing to supplement PDF |
 
 ### Unmapped modifier strings
 
@@ -216,20 +321,32 @@ Four modifier strings in the equipment data have no `gl_*` keyword equivalent an
 
 ---
 
-## Section 5 — Needs Full Extraction
+## Section 5 — Extraction Status
 
 The **Warbands of Trench Crusade** PDF contains ability and variant rule text for all
-supplement factions. The entries currently in `rulebook-override.json` represent a partial
-extraction covering:
+supplement factions. Current extraction status per faction:
 
-- New Antioch: Prussian Stosstruppen (full), War Dog handlers (full)
-- Black Grail: Great Hunger (full abilities + variant rules)
-- Red Brigade: full variant rules; equipment partial
+| Faction / Variant | Abilities | Variant Rules | Models | Status |
+|-------------------|-----------|---------------|--------|--------|
+| New Antioch — base | 4 | — | — | Partial — base upgrade abilities only |
+| New Antioch — Prussian Stosstruppen | 13 | 2 | — | Full |
+| New Antioch — War Dog handlers | 7 | — | — | Full |
+| New Antioch — Saint Methodius | — | 8 | 3 + equipment | Full (models + rules; abilities in submodule) |
+| Trench Pilgrims — base | 15 | — | — | Full abilities; no variant rules extracted |
+| Trench Pilgrims — Saint Methodius mercenaries | 3 (`fc_mercenary`) | — | 1 | Partial |
+| Iron Sultanate — base | 13 | — | — | Full abilities; variant rules not yet extracted |
+| Heretic Legion — base | 1 | — | 1 (patch) | Minimal — only `ab_unholyhymns` + Wretched patch |
+| Black Grail — Great Hunger | 20 | 13 | 6 | Full |
+| Black Grail — base faction | 13 | — | — | Full abilities; variant rules not yet extracted |
+| Court of the Seven-Headed Serpent | 5 | 3 | — | Partial — Goetic Powers block only |
+| Red Brigade | — | 6 | — | Full variant rules; equipment partial |
 
-**Factions with zero extraction so far:**
-Heretic Legion supplements, Iron Sultanate, Court of the Seven-Headed Serpent, Principality
-of New Antioch non-Prussian variants, and any faction-specific variant rules not yet
-encountered in a real export.
+**Still needs extraction:**
+- Heretic Legion supplement abilities and variant rules
+- Iron Sultanate variant rules
+- Black Grail base faction variant rules
+- Court of the Seven-Headed Serpent — remaining abilities (Praetor, Sorcerer, Hell Knight, etc.)
+- Any faction-specific rules encountered in real exports but not yet in the override
 
 The recommended workflow: load a real TC export for each faction, observe which IDs hit the
 unresolved fallback path (dev-mode console warnings), then extract the matching rule text
