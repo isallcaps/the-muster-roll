@@ -260,6 +260,15 @@
 	&:hover {
 		text-decoration: underline;
 	}
+
+	&--muted {
+		opacity: 0.4;
+		cursor: default;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
 }
 
 .toolbar__toggle-checkbox {
@@ -374,6 +383,29 @@
 // Landscape page (model + cheat sheet) — A4 landscape proportions on screen
 .card-page--landscape {
 	min-height: 182mm; // A4 landscape height approx
+}
+
+// Portrait-duo page (two models stacked, no cheat sheet) — A4 portrait on screen
+.card-page--portrait-duo {
+	flex-direction: column;
+	min-height: 257mm;
+	max-width: 182mm;
+}
+
+// Slot for each model inside a portrait-duo page
+.card--duo-slot {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+// Divider between the two models on a portrait-duo page
+.duo-divider {
+	border: none;
+	border-top: 1px solid #888;
+	margin: 0;
+	flex-shrink: 0;
 }
 
 // ── Individual card panels ────────────────────────────────────────────────
@@ -709,8 +741,15 @@
 // ── Print overrides ───────────────────────────────────────────────────────
 
 @media print {
+	// Default page: A4 landscape (model cards with cheat sheet)
 	@page {
 		size: A4 landscape;
+		margin: 8mm;
+	}
+
+	// Named portrait page — applied to faction overview and portrait-duo pages
+	@page portrait-page {
+		size: A4 portrait;
 		margin: 8mm;
 	}
 
@@ -733,7 +772,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		height: 100vh;
+		// No height: 100vh — content determines height so nothing is clipped
 		min-height: unset;
 		border: none;
 		page-break-after: always;
@@ -745,19 +784,25 @@
 		}
 	}
 
-	// Portrait faction page: override landscape for that one page
-	.card-page--portrait {
-		@page {
-			size: A4 portrait;
-		}
+	// Portrait pages (faction card and portrait-duo) use A4 portrait named page
+	.card-page--portrait,
+	.card-page--portrait-duo {
+		page: portrait-page;
 		max-width: 100%;
 		min-height: unset;
-		height: 100vh;
+	}
+
+	// Portrait-duo stacks vertically
+	.card-page--portrait-duo {
+		flex-direction: column;
 	}
 
 	.card {
-		overflow: hidden;
-		break-inside: avoid;
+		// Allow content to flow past one page rather than clip silently.
+		// break-inside: auto lets long cards span multiple physical pages;
+		// the card-page's break-after:page still starts each model on a new page.
+		overflow: visible;
+		break-inside: auto;
 	}
 
 	.card--left {
@@ -769,16 +814,36 @@
 		flex: 1;
 	}
 
+	// Faction portrait card — single full-width card
 	.card-page--portrait .card {
 		flex: 1;
 		width: 100%;
+	}
+
+	// Portrait-duo slots — each takes half the portrait page
+	.card--duo-slot {
+		flex: 1;
+		width: 100%;
+		// Avoid splitting a single model card slot across pages where possible,
+		// but allow it if content is longer than a full page
+		break-inside: avoid-page;
+	}
+
+	.duo-divider {
+		border-top: 0.5pt solid #888;
+		margin: 0;
+		flex-shrink: 0;
+		// Keep the divider with the second card
+		break-after: avoid;
 	}
 
 	.empty-state {
 		display: none !important;
 	}
 
+	// Cheat sheet: keep overflow hidden (it's reference material, not essential)
 	.kw-sheet {
 		height: 100%;
+		overflow: hidden;
 	}
 }

@@ -1,4 +1,4 @@
-import {Injectable, inject, signal} from '@angular/core';
+import {Injectable, inject, isDevMode, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, map} from 'rxjs';
 import {GameDataService} from './game-data.service';
@@ -69,6 +69,7 @@ interface TcApiModelEntry {
 }
 
 interface TcApiFaction {
+	faction_property?:{ object_id:string };
 	faction_rules:TcApiSubproperty[];
 }
 
@@ -92,6 +93,8 @@ export class WarbandService {
 	readonly parseError = signal<string | null>(null);
 	readonly detectedFormat = signal<WarbandFormat | null>(null);
 
+	private _remapLog: string[] = [];
+
 	private static readonly TC_API =
 		'https://synod.trench-companion.com/wp-json/synod/v1/warband';
 
@@ -112,6 +115,18 @@ export class WarbandService {
 		'md_grailthrall_cradle_hunger': 'md_cradleravenous',
 	};
 
+	// Per-faction model ID overrides — applied on top of MODEL_ID_REMAP when the
+	// warband's faction can be detected from the TC API faction_rules field.
+	// Handles cases where the same TC exporter ID maps to different submodule IDs
+	// depending on which faction owns the model.
+	private static readonly FACTION_MODEL_REMAP:Record<string, Record<string, string>> = {
+		// Heretic Legion Wretched — TC exporter sends md_wretched (Court ID) for
+		// Heretic Wretched models; submodule uses separate md_wretchedheretic profile.
+		'fc_hereticlegion': {
+			'md_wretched': 'md_wretchedheretic',
+		},
+	};
+
 	// Maps Plague Knight rank upgrade IDs (up_plagueknightrank*) to their
 	// corresponding variant rule IDs in the override file.
 	private static readonly PLAGUE_KNIGHT_RANK_REMAP:Record<string, string> = {
@@ -130,7 +145,14 @@ export class WarbandService {
 	// Maps TC-exporter ability IDs that differ from canonical data IDs.
 	// Applied before the general resolve() call in resolveAbility().
 	private static readonly ABILITY_ID_REMAP:Record<string, string> = {
-		'ab_layingonhands': 'ab_layingonofhands',   // TC exporter drops 'of'
+		'ab_layingonhands':              'ab_layingonofhands',          // TC exporter drops 'of'
+		'ab_feebleflailing':             'ab_feeblyflailing',           // TC exporter missing 'ly'
+		// Court of the Seven-headed Serpent — TC exporter uses 'goetics_' prefix, submodule drops it
+		'ab_goetics_praetor':            'ab_goeticpraetor',
+		'ab_goetics_sorcerer':           'ab_goeticsorcerer',
+		'ab_goetics_knight':             'ab_goetichellknight',
+		// Blessing of the Serpent Moon — TC exporter has typo 'blessings' (plural)
+		'ab_blessingsoftheserpentmoon':  'ab_blessingoftheserpentmoon',
 	};
 
 	// Maps the fv_ suffix of a TC faction property ID to the human-readable
@@ -164,6 +186,12 @@ export class WarbandService {
 		'eq_knifedagger': 'eq_trenchknife',
 		'eq_pistolrevolver': 'eq_pistol',
 		'eq_doublehandedbluntweapon': 'eq_greathammer',
+		'eq_ironcapriote': 'eq_ironcapirote',        // TC exporter typo (capriote vs capirote)
+		// Mandatory model weapons — TC API sends eq_ IDs; submodule stores them as ab_ Addon entries.
+		'eq_bonebreakermace':       'ab_bonebreakermace',   // Anchorite Shrine mandatory weapon
+		'eq_catherinewheel':        'ab_catherinewheel',     // Anchorite Shrine mandatory weapon
+		'eq_warwolfchainmaw':       'ab_chainmaw',           // War Wolf mandatory weapon
+		'eq_warwolfshreddingclaws': 'ab_shreddingclaws',     // War Wolf mandatory weapon
 	};
 
 	private static readonly SHORT_RANGE_KW:ResolvedKeyword = {
@@ -202,6 +230,7 @@ export class WarbandService {
 
 	load(rawJson:string, _source?:WarbandFormat):void {
 		this.parseError.set(null);
+		this._remapLog = [];
 
 		let parsed:unknown;
 		try {
@@ -308,6 +337,38 @@ export class WarbandService {
 			allWarbandKeywords,
 			variantName: tcData ? this.detectVariantName(tcData) : undefined,
 		});
+
+		if (isDevMode()) {
+			const fmt = this.detectedFormat();
+			const unresolved = new Set<string>();
+			for (const em of enrichedModels) {
+				if (!em.definition) {
+					unresolved.add(`model:${em.export['model-id']}`);
+				}
+				for (const eq of em.equipment) {
+					if (isUnresolvedFallback(eq.item)) unresolved.add(`eq:${eq.ref['equipment-id']}`);
+				}
+				for (const ab of em.abilities) {
+					const target = ab.source === 'variant-rule' ? ab.variantRule : ab.addon;
+					if (target && isUnresolvedFallback(target)) unresolved.add(`ab:${ab.ref['ability-id']}`);
+				}
+			}
+			const remaps = this._remapLog;
+			console.groupCollapsed(
+				`[WarbandService] format=${fmt ?? '?'}  remaps=${remaps.length}  unresolved=${unresolved.size}`,
+			);
+			if (remaps.length > 0) {
+				console.group('Remaps applied');
+				remaps.forEach(l => console.log(l));
+				console.groupEnd();
+			}
+			if (unresolved.size > 0) {
+				console.group('Unresolved after remapping');
+				unresolved.forEach(u => console.warn(u));
+				console.groupEnd();
+			}
+			console.groupEnd();
+		}
 	}
 
 	clear():void {
@@ -322,15 +383,30 @@ export class WarbandService {
 	// ---------------------------------------------------------------------------
 
 	private translateTcInternal(data:TcApiWarbandData):WarbandExport {
-		// Filter out faction identifier subproperties (fc_* IDs) — these are property
-		// IDs encoding the faction/variant combination, not resolvable ability refs.
-		const factionRules = (data.faction?.faction_rules ?? [])
-			.filter(r => !r.object_id.startsWith('fc_'));
+		// faction_rules contains per-warband ability subproperties (e.g. rl_* variant
+		// rules). The faction/variant identity is in faction_property.object_id instead.
+		const factionRules = data.faction?.faction_rules ?? [];
 		const factionRuleIds = factionRules.map(r => r.object_id);
+
+		// Detect the base faction ID (e.g. 'fc_hereticlegion') from faction_property.
+		// The object_id may carry a _fv_ variant suffix (e.g. 'fc_hereticlegion_fv_redbrigade')
+		// — strip it to get the base faction key used by FACTION_MODEL_REMAP.
+		const baseFactionId = data.faction?.faction_property?.object_id
+			?.replace(/_fv_.+$/, '');
+		const factionModelRemap = baseFactionId
+			? (WarbandService.FACTION_MODEL_REMAP[baseFactionId] ?? {})
+			: {};
 
 		const models:WarbandModelExport[] = (data.models ?? []).map(entry => {
 			const m = entry.model;
-			const modelId = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+			const afterGlobalRemap = WarbandService.MODEL_ID_REMAP[m.model] ?? m.model;
+			if (afterGlobalRemap !== m.model) {
+				this._remapLog.push(`model: ${m.model} → ${afterGlobalRemap}`);
+			}
+			const modelId = factionModelRemap[afterGlobalRemap] ?? afterGlobalRemap;
+			if (modelId !== afterGlobalRemap) {
+				this._remapLog.push(`model (${baseFactionId}): ${afterGlobalRemap} → ${modelId}`);
+			}
 			const def = this.gameData.getModel(modelId);
 
 			// Equipment: the actual equipment ID lives in equipment_id.object_id.
@@ -346,18 +422,24 @@ export class WarbandService {
 			const modelSubpropIds = new Set(m.subproperties.map(s => s.object_id));
 
 			const abilities:WarbandAbilityRef[] = [
-				...m.subproperties.map(s => ({
-					'ability-name': this.gameData.resolve(s.object_id).name,
-					'ability-id': s.object_id,
-					'ability-tags': s.tags,
-				})),
+				...m.subproperties.map(s => {
+					const remappedId = WarbandService.ABILITY_ID_REMAP[s.object_id] ?? s.object_id;
+					return {
+						'ability-name': this.gameData.resolve(remappedId).name,
+						'ability-id': s.object_id,
+						'ability-tags': s.tags,
+					};
+				}),
 				...factionRules
 					.filter(r => !modelSubpropIds.has(r.object_id))
-					.map(r => ({
-						'ability-name': this.gameData.resolve(r.object_id).name,
-						'ability-id': r.object_id,
-						'ability-tags': r.tags,
-					})),
+					.map(r => {
+						const remappedId = WarbandService.ABILITY_ID_REMAP[r.object_id] ?? r.object_id;
+						return {
+							'ability-name': this.gameData.resolve(remappedId).name,
+							'ability-id': r.object_id,
+							'ability-tags': r.tags,
+						};
+					}),
 			];
 
 			// Keywords: elite flag + any kw_* tags on the game-data model definition.
@@ -442,13 +524,13 @@ export class WarbandService {
 	}
 
 	// Extract the human-readable variant name from a TC API warband object.
-	// The TC exporter stores the faction/variant identity as a fc_*_fv_* subproperty
-	// in faction_rules. Parse the fv_ suffix and look it up in FACTION_VARIANT_NAMES.
+	// The faction/variant identity is encoded in faction.faction_property.object_id
+	// as 'fc_<faction>_fv_<variant>'. Parse the fv_ suffix and look it up in
+	// FACTION_VARIANT_NAMES.
 	private detectVariantName(data:TcApiWarbandData):string | undefined {
-		const fcRule = (data.faction?.faction_rules ?? [])
-			.find(r => r.object_id.startsWith('fc_'));
-		if (!fcRule) return undefined;
-		const match = fcRule.object_id.match(/_fv_(.+)$/);
+		const objectId = data.faction?.faction_property?.object_id;
+		if (!objectId) return undefined;
+		const match = objectId.match(/_fv_(.+)$/);
 		if (!match) return undefined;
 		return WarbandService.FACTION_VARIANT_NAMES[`fv_${match[1]}`];
 	}
@@ -552,6 +634,9 @@ export class WarbandService {
 	private resolveEquipment(ref:WarbandEquipmentRef):EnrichedEquipment {
 		const rawId = ref['equipment-id'];
 		const resolvedId = WarbandService.EQUIPMENT_ID_REMAP[rawId] ?? rawId;
+		if (resolvedId !== rawId) {
+			this._remapLog.push(`equipment: ${rawId} → ${resolvedId}`);
+		}
 		const entry = this.gameData.resolve(resolvedId, ref['equipment-name']);
 
 		if (entry.type === 'Equipment') {
@@ -695,6 +780,9 @@ export class WarbandService {
 
 		// ── Ability ID aliases: TC exporter IDs that differ from canonical IDs ──
 		const remappedAbId = WarbandService.ABILITY_ID_REMAP[id];
+		if (remappedAbId) {
+			this._remapLog.push(`ability: ${id} → ${remappedAbId}`);
+		}
 		const resolvedId = remappedAbId ?? id;
 
 		const entry = this.gameData.resolve(resolvedId, ref['ability-name']);

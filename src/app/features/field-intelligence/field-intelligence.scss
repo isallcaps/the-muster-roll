@@ -25,6 +25,43 @@
 	flex-shrink: 0;
 }
 
+.fi-header__title-row {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.fi-dev-toggle {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 7pt;
+	border: 1px solid var(--fi-border);
+	background: #1e1e1e;
+	color: var(--fi-subtle);
+	padding: 3px 10px;
+	cursor: pointer;
+	letter-spacing: 0.04em;
+	transition: background 0.1s, color 0.1s, border-color 0.1s;
+
+	&:hover {
+		border-color: var(--fi-muted);
+		color: var(--fi-fg);
+	}
+
+	&--on {
+		border-color: #6d28d9;
+		color: #c4b5fd;
+		background: #0e0820;
+	}
+}
+
+.fi-all-clear {
+	font-size: 7.5pt;
+	color: #6ee7b7;
+	margin: 0 24px;
+	padding: 5px 0;
+}
+
 .fi-header__title {
 	font-size: 18pt;
 	font-weight: bold;
@@ -77,15 +114,170 @@
 	font-size: 7.5pt;
 	flex-shrink: 0;
 	margin: 0 24px;
-	padding: 5px 8px;
 	border: 1px solid #d97706;
 	background: #1c1200;
 	color: #fbbf24;
+
+	&[open] .fi-unresolved-banner__hint {
+		display: none;
+	}
+}
+
+.fi-unresolved-banner__summary {
+	padding: 5px 8px;
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	user-select: none;
+
+	&::-webkit-details-marker {
+		display: none;
+	}
+
+	&::before {
+		content: '▶';
+		font-size: 6pt;
+		transition: transform 0.15s;
+	}
+
+	details[open] & {
+		border-bottom: 1px solid #d97706;
+
+		&::before {
+			transform: rotate(90deg);
+		}
+	}
+}
+
+.fi-unresolved-banner__hint {
+	font-style: italic;
+	color: #a87810;
+	font-size: 7pt;
+	margin-left: auto;
+}
+
+.fi-unresolved-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 7pt;
+	padding: 6px 8px;
+	display: table;
+
+	th, td {
+		padding: 3px 8px;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	th {
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 6pt;
+		color: #a87810;
+		padding-top: 6px;
+		padding-bottom: 4px;
+	}
+
+	tbody tr:hover {
+		background: rgba(251, 191, 36, 0.05);
+	}
+}
+
+.fi-unresolved-table__id {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 6.5pt;
+	color: #fbbf24;
+	background: rgba(251, 191, 36, 0.08);
+	padding: 1px 4px;
+	border-radius: 2px;
+}
+
+.fi-unresolved-table__type {
+	font-size: 6pt;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 1px 5px;
+	border-radius: 2px;
+
+	&--equipment {
+		background: rgba(59, 130, 246, 0.2);
+		color: #93c5fd;
+	}
+
+	&--ability {
+		background: rgba(239, 68, 68, 0.2);
+		color: #fca5a5;
+	}
+
+	&--keyword {
+		background: rgba(251, 191, 36, 0.15);
+		color: #fbbf24;
+	}
+}
+
+.fi-unresolved-table__id--bad {
+	color: #f87171;
+	background: rgba(239, 68, 68, 0.1);
+}
+
+// ── Faction mismatch banner ───────────────────────────────────────────────────
+
+.fi-faction-banner {
+	font-size: 7.5pt;
+	flex-shrink: 0;
+	margin: 6px 24px 0;
+	border: 1px solid #7c3aed;
+	background: #0e0820;
+	color: #c4b5fd;
+
+	&[open] .fi-faction-banner__hint {
+		display: none;
+	}
+}
+
+.fi-faction-banner__summary {
+	padding: 5px 8px;
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	user-select: none;
+
+	&::-webkit-details-marker {
+		display: none;
+	}
+
+	&::before {
+		content: '▶';
+		font-size: 6pt;
+		transition: transform 0.15s;
+	}
+
+	details[open] & {
+		border-bottom: 1px solid #7c3aed;
+
+		&::before {
+			transform: rotate(90deg);
+		}
+	}
+}
+
+.fi-faction-banner__hint {
+	font-style: italic;
+	color: #6d28d9;
+	font-size: 7pt;
+	margin-left: auto;
 }
 
 // ── Two-panel layout ──────────────────────────────────────────────────────────
 
 .fi-panels {
+	margin-top: 8px;
 	display: flex;
 	flex-direction: row;
 	flex: 1;

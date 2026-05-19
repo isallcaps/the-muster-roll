@@ -37,4 +37,13 @@ export class ModelCardComponent {
 	isUnresolved(entry:unknown):boolean {
 		return isUnresolvedFallback(entry);
 	}
+
+	/**
+	 * Returns true for injury-related dice/modifier keywords so the template
+	 * can apply a distinct visual style to their chips.
+	 * Covers gl_injurydice* (+/-1/2 Injury Dice) and gl_injurymodifier* (+/-N Injury Modifier).
+	 */
+	isInjuryKw(exportId:string):boolean {
+		return exportId.startsWith('gl_injurydice') || exportId.startsWith('gl_injurymodifier');
+	}
 }

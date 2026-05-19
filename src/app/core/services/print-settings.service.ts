@@ -19,12 +19,19 @@ export interface PrintSettings {
 	 * side of each model's landscape page.
 	 */
 	showKeywordSheet:boolean;
+	/**
+	 * When true (default) and showKeywordSheet is also true, all inline keyword
+	 * and ability definitions on the left-panel model card are hidden on render.
+	 * Individual 'I Know These Rules' toggles still override per-keyword.
+	 */
+	autoHideDefsWithSheet:boolean;
 }
 
 const DEFAULTS:PrintSettings = {
 	showVariantRulesOnModels: true,
 	showBlurb: true,
 	showKeywordSheet: true,
+	autoHideDefsWithSheet: true,
 };
 
 @Injectable({providedIn: 'root'})

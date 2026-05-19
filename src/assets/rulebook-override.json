@@ -1493,30 +1493,6 @@
         }
       ]
     },
-    "ab_gnashingandtearing": {
-      "id": "ab_gnashingandtearing",
-      "name": "Gnashing and Tearing",
-      "type": "Addon",
-      "source": "rulebook",
-      "tags": [],
-      "faction_id": "fc_blackgrail",
-      "eventtags": {
-        "trait": true
-      },
-      "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "A Gregori Gula can make a Melee Attack with the +1 INJURY DICE, INFECTION MARKERS and CLEAVE 2 Keywords even though it does not have a Melee Weapon. In addition, if a Gregori Gula made a charge move earlier in the same Activation, replace the CLEAVE 2 Keyword with the CLEAVE 3 Keyword for any Melee Attacks it makes during that Activation.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
-    },
     "ab_plagueriddenflesh": {
       "id": "ab_plagueriddenflesh",
       "name": "Plague-Ridden Flesh",
@@ -3055,6 +3031,80 @@
     }
   },
   "variantRules": {
+    "rl_noblesofthecourt": {
+      "id": "rl_noblesofthecourt",
+      "type": "VariantRule",
+      "name": "Nobility",
+      "title": "Nobility",
+      "variantId": "fv_courtofthesevenserpent",
+      "variantName": "Court of the Seven-headed Serpent",
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Each Court Warband must include either a Praetor or a Sorcerer when it is created, and it can include both if you wish.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_goeticabilities": {
+      "id": "rl_goeticabilities",
+      "type": "VariantRule",
+      "name": "Goetic Abilities",
+      "title": "Goetic Powers and Spells",
+      "variantId": "fv_courtofthesevenserpent",
+      "variantName": "Court of the Seven-headed Serpent",
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Many of the warriors of the Court have access to Goetic abilities - Powers and Spells which use the suffering of the mortals as spiritual energy to unleash reality-bending powers of the Demons. As God's plan for the universe is disrupted and perverted, the Infernal sorcerers and other demonic creatures can use the released primordial energy of Creation to alter the reality. Demons have to be quick, however: God's omnipotent will soon reasserts over the existence, and the opportunity for Demons to disturb the world is lost. Thus the Infernal creatures have a continuous and growing need for human sacrifices, pain and endless warfare to enable their supernatural powers.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
+    "rl_goeticspells": {
+      "id": "rl_goeticspells",
+      "type": "VariantRule",
+      "name": "Goetic Spells",
+      "title": "Goetic Spells",
+      "variantId": "fv_courtofthesevenserpent",
+      "variantName": "Court of the Seven-headed Serpent",
+      "description": [
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "Goetic Spells are marked with the Keyword GOETIC (x) where the number in brackets indicates how many BLOOD MARKERS will have to be spent to trigger the effect of the Spell. If multiple numbers or a range of numbers are listed in the brackets, any one of those numbers can be chosen. These BLOOD MARKERS can be taken from any model currently on the battlefield, be they friendly or enemy models, but they must come from models that do not have the Keyword DEMONIC or BLACK GRAIL.",
+          "subcontent": [],
+          "glossary": []
+        },
+        {
+          "tags": [
+            {
+              "tag_name": "desc_type",
+              "val": "desc"
+            }
+          ],
+          "content": "BLOOD MARKERS used this way are removed from the game and the described effect of the Goetic Spell takes effect as described – no ACTION roll is needed, unless outlined in the spell. Despite not requiring an ACTION roll, Goetic Spells are ACTIONS and, as with other ACTIONS, Spells can only be used by the model once per Activation. Goetic Powers are not marked with the Keyword GOETIC (x). Powers are typically passive abilities.",
+          "subcontent": [],
+          "glossary": []
+        }
+      ]
+    },
     "rl_expertfireteams": {
       "id": "rl_expertfireteams",
       "type": "VariantRule",
@@ -3460,8 +3510,8 @@
     },
     "rl_greathunger_equipmentrestrictions": {
       "id": "rl_greathunger_equipmentrestrictions",
-      "name": "Excruciating Hunger",
-      "title": "Excruciating Hunger",
+      "name": "Equipment Restrictions",
+      "title": "Equipment Restrictions",
       "type": "VariantRule",
       "source": "rulebook",
       "variantId": "fv_greathunger",
@@ -3475,28 +3525,6 @@
             }
           ],
           "content": "Models in a Great Hunger Warband cannot have: Beelzebub's Axe, Black Grail Shields, Bolt-Action Rifles, Blunderbusses, Compound Eyes Helmets, Corruption Belchers, Gas Grenades, Infested Rifles, Machine Guns, Musical Instruments, Muskets, Pistols, Troop Flags or Viscera Cannons.",
-          "subcontent": [],
-          "glossary": []
-        }
-      ]
-    },
-    "rl_dessicatedhusks": {
-      "id": "rl_dessicatedhusks",
-      "name": "Desiccated Husks",
-      "title": "Desiccated Husks",
-      "type": "VariantRule",
-      "source": "rulebook",
-      "variantId": "fv_greathunger",
-      "variantName": "The Great Hunger",
-      "description": [
-        {
-          "tags": [
-            {
-              "tag_name": "desc_type",
-              "val": "desc"
-            }
-          ],
-          "content": "A Great Hunger Warband can include 0-2 Desiccated Husks. They use the Corpse Guard Warband Entry but their Melee Attacks gain the CRITICAL Keyword, and they replace the Bodyguard Ability with More Worm Than Man: your opponent cannot spend a Desiccated Husk's INFECTION MARKERS unless they are converting an Injury Roll into a Bloodbath Roll.",
           "subcontent": [],
           "glossary": []
         }
@@ -3688,6 +3716,17 @@
     }
   },
   "models": {
+    "md_wretchedheretic": {
+      "id": "md_wretchedheretic",
+      "name": "Wretched",
+      "source": "rulebook",
+      "tags": [
+        {
+          "tag_name": "heretic",
+          "val": "gl_heretic"
+        }
+      ]
+    },
     "md_matagothag": {
       "id": "md_matagothag",
       "type": "Model",

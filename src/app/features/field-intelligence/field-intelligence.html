@@ -3,53 +3,135 @@
      ═══════════════════════════════════════════════════════════════════ -->
 <header class="fi-header">
 	<a routerLink="/" class="fi-back-link">← Back to print sheet</a>
-	<h1 class="fi-header__title">Field Intelligence</h1>
-	<p class="fi-header__sub">Inspect the raw export alongside the fully resolved warband object.</p>
+	<div class="fi-header__title-row">
+		<h1 class="fi-header__title">Field Intelligence</h1>
+		<button
+				class="fi-dev-toggle"
+				[class.fi-dev-toggle--on]="devMode()"
+				(click)="toggleDevMode()"
+				[attr.aria-pressed]="devMode()"
+				title="Toggle Developer Mode"
+		>Developer Mode {{ devMode() ? 'ON' : 'OFF' }}</button>
+	</div>
+	<p class="fi-header__sub">
+		@if (devMode()) {
+			Inspect the raw export alongside the fully resolved warband object.
+		} @else {
+			Warband data quality report — missing definitions and resolution warnings.
+		}
+	</p>
 </header>
 
 <!-- ═══════════════════════════════════════════════════════════════════
-     Two-panel data view
+     Warband loaded
      ═══════════════════════════════════════════════════════════════════ -->
-@if (warband()) {
+@if (warband(); as wb) {
 
+	<!-- ── Unresolved IDs ───────────────────────────────────────────────── -->
 	@if (unresolvedCount() > 0) {
-		<p class="fi-unresolved-banner" role="alert">
-			⚠ {{ unresolvedCount() }} unresolved {{ unresolvedCount() === 1 ? 'ID' : 'IDs' }} — items render with name only.
-		</p>
+		<details class="fi-unresolved-banner" role="alert">
+			<summary class="fi-unresolved-banner__summary">
+				⚠ {{ unresolvedCount() }} {{ unresolvedCount() === 1 ? 'item' : 'items' }} could not be matched to rule text — {{ unresolvedCount() === 1 ? 'it' : 'they' }} will display by name only.
+				<span class="fi-unresolved-banner__hint">Click to expand</span>
+			</summary>
+			<table class="fi-unresolved-table">
+				<thead>
+					<tr>
+						<th>Model</th>
+						<th>Type</th>
+						<th>Name</th>
+						@if (devMode()) { <th>ID</th> }
+					</tr>
+				</thead>
+				<tbody>
+					@for (item of unresolvedDetail(); track item.id + item.modelName) {
+						<tr>
+							<td>{{ item.modelName }}</td>
+							<td><span class="fi-unresolved-table__type fi-unresolved-table__type--{{ item.type }}">{{ item.type }}</span></td>
+							<td>{{ item.displayName }}</td>
+							@if (devMode()) {
+								<td><code class="fi-unresolved-table__id">{{ item.id }}</code></td>
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</details>
+	} @else {
+		<p class="fi-all-clear">✓ All items matched — no missing rule text for this warband.</p>
 	}
 
-	<div class="fi-panels">
+	<!-- ── Faction mismatches ───────────────────────────────────────────── -->
+	@if (factionMismatches().length) {
+		<details class="fi-faction-banner" role="alert">
+			<summary class="fi-faction-banner__summary">
+				⚠ {{ factionMismatches().length }} {{ factionMismatches().length === 1 ? 'model' : 'models' }} resolved to the wrong faction profile — keyword display may be incorrect.
+				<span class="fi-faction-banner__hint">Click to expand</span>
+			</summary>
+			<table class="fi-unresolved-table">
+				<thead>
+					<tr>
+						<th>Model</th>
+						<th>Problem</th>
+						@if (devMode()) {
+							<th>Model ID</th>
+							<th>Resolved Faction</th>
+							<th>Expected Faction</th>
+						}
+					</tr>
+				</thead>
+				<tbody>
+					@for (m of factionMismatches(); track m.modelId + m.modelName) {
+						<tr>
+							<td>{{ m.modelName }}</td>
+							<td>Wrong faction profile — check model ID mapping</td>
+							@if (devMode()) {
+								<td><code class="fi-unresolved-table__id">{{ m.modelId }}</code></td>
+								<td><code class="fi-unresolved-table__id fi-unresolved-table__id--bad">{{ m.resolvedFactionId }}</code></td>
+								<td><code class="fi-unresolved-table__id">{{ m.expectedFactionId }}</code></td>
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</details>
+	}
 
-		<!-- Left: Raw Export -->
-		<section class="fi-panel">
-			<h2 class="fi-panel__title">
-				Raw Export
-				<span class="fi-panel__badge">from Trench Companion</span>
-			</h2>
-			<div class="fi-panel__tree">
-				<app-json-tree
-						[data]="rawExport()"
-						[unresolvedIds]="unresolvedIds()"
-						panelId="raw"
-				/>
-			</div>
-		</section>
+	<!-- ── Raw vs Enriched panels (Developer Mode only) ─────────────────── -->
+	@if (devMode()) {
+		<div class="fi-panels">
 
-		<!-- Right: Enriched Data -->
-		<section class="fi-panel">
-			<h2 class="fi-panel__title">
-				Enriched Data
-				<span class="fi-panel__badge">resolved by WarbandService</span>
-			</h2>
-			<div class="fi-panel__tree">
-				<app-json-tree
-						[data]="warband()"
-						panelId="enriched"
-				/>
-			</div>
-		</section>
+			<!-- Left: Raw Export -->
+			<section class="fi-panel">
+				<h2 class="fi-panel__title">
+					Raw Export
+					<span class="fi-panel__badge">from Trench Companion</span>
+				</h2>
+				<div class="fi-panel__tree">
+					<app-json-tree
+							[data]="rawExport()"
+							[unresolvedIds]="unresolvedIds()"
+							panelId="raw"
+					/>
+				</div>
+			</section>
 
-	</div>
+			<!-- Right: Enriched Data -->
+			<section class="fi-panel">
+				<h2 class="fi-panel__title">
+					Enriched Data
+					<span class="fi-panel__badge">resolved by WarbandService</span>
+				</h2>
+				<div class="fi-panel__tree">
+					<app-json-tree
+							[data]="warband()"
+							panelId="enriched"
+					/>
+				</div>
+			</section>
+
+		</div>
+	}
 
 } @else {
 	<div class="fi-empty">

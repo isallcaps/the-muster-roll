@@ -154,6 +154,30 @@
 	}
 }
 
+.arm-dev-toggle {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 7.5pt;
+	border: 1px solid #444;
+	background: #1a1a1a;
+	color: #666;
+	padding: 4px 10px;
+	cursor: pointer;
+	flex-shrink: 0;
+	letter-spacing: 0.04em;
+	transition: background 0.1s, color 0.1s, border-color 0.1s;
+
+	&:hover {
+		border-color: #888;
+		color: #e8e8e8;
+	}
+
+	&--on {
+		border-color: #6d28d9;
+		color: #c4b5fd;
+		background: #0e0820;
+	}
+}
+
 // ── Card list ──────────────────────────────────────────────────────────────────
 
 .arm-list {
